@@ -36,7 +36,7 @@ const TestimonialsSection = () => {
   return (
     <section id="testimonials" className="py-16 bg-[#f4f1ea]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
             What Our Clients Say
           </h2>
@@ -47,7 +47,11 @@ const TestimonialsSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+            <div 
+              key={index} 
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 hover:-translate-y-1 animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <div className="flex items-center mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
@@ -73,8 +77,8 @@ const TestimonialsSection = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12">
-          <div className="inline-flex items-center space-x-2 bg-white rounded-full px-6 py-3 shadow-lg">
+        <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <div className="inline-flex items-center space-x-2 bg-white rounded-full px-6 py-3 shadow-lg hover:shadow-xl transition-shadow transform hover:scale-105">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
