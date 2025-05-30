@@ -1,5 +1,5 @@
 
-import { Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, TrendingUp } from 'lucide-react';
+import { Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones } from 'lucide-react';
 
 const FeaturesSection = () => {
   const features = [
@@ -20,7 +20,7 @@ const FeaturesSection = () => {
       id: 2,
       title: "Smart Automations",
       description: "Set-it-and-forget-it workflows that handle appointment reminders and follow-ups automatically.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
       benefits: [
         "Appointment reminders sent automatically (24h before & same day)",
         "Follow-up messages after the visit",
@@ -46,7 +46,7 @@ const FeaturesSection = () => {
       id: 4,
       title: "Centralized Chat",
       description: "Manage all your customer communications from Facebook, Instagram, Email & SMS in one unified inbox.",
-      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&h=400&fit=crop",
       benefits: [
         "Manage FB, IG, Email & SMS from one inbox",
         "Tag & assign conversations",
@@ -59,7 +59,7 @@ const FeaturesSection = () => {
       id: 5,
       title: "Unified Dashboard & App",
       description: "Everything your team needs in one simple, intuitive interface with custom roles and permissions.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
       benefits: [
         "Everything in one place",
         "Easy for all team members",
@@ -72,7 +72,7 @@ const FeaturesSection = () => {
       id: 6,
       title: "Online Payment Integration",
       description: "Accept secure payments at booking time to reduce no-shows and improve cash flow.",
-      image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
       benefits: [
         "Let users pre-pay at booking",
         "Reduce no-shows",
@@ -85,7 +85,7 @@ const FeaturesSection = () => {
       id: 7,
       title: "Advanced Analytics & Reporting",
       description: "Track your pharmacy's performance with detailed insights, KPIs, and monthly reports.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
       benefits: [
         "View KPIs and trends",
         "Monthly performance reports",
@@ -98,7 +98,7 @@ const FeaturesSection = () => {
       id: 8,
       title: "7-Day Human Support",
       description: "Get help when you need it with our dedicated support team, onboarding videos, and help center.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
       benefits: [
         "Chat and email support",
         "Live assistance when needed",
@@ -130,11 +130,11 @@ const FeaturesSection = () => {
             >
               {/* Image */}
               <div className={`mb-8 lg:mb-0 ${feature.imageLeft ? 'lg:order-1' : 'lg:order-2'}`}>
-                <div className="relative group">
+                <div className="relative">
                   <img
                     src={feature.image}
                     alt={feature.title}
-                    className="w-full h-80 object-cover rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105"
+                    className="w-full h-80 object-cover rounded-2xl shadow-xl"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
                   <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-lg p-3">
