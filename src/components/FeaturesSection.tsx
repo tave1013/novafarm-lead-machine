@@ -1,5 +1,15 @@
 
 import { Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones } from 'lucide-react';
+import { 
+  BookingCalendarMockup,
+  AutomationMockup,
+  ReviewSystemMockup,
+  ChatInboxMockup,
+  DashboardMockup,
+  PaymentMockup,
+  AnalyticsMockup,
+  SupportMockup
+} from './FeatureMockups';
 
 const FeaturesSection = () => {
   const features = [
@@ -7,7 +17,7 @@ const FeaturesSection = () => {
       id: 1,
       title: "Online Booking Calendar",
       description: "Let your customers book appointments 24/7 from any device, automatically syncing with your team's schedule.",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      mockup: <BookingCalendarMockup />,
       benefits: [
         "24/7 availability",
         "Works from desktop or mobile", 
@@ -20,7 +30,7 @@ const FeaturesSection = () => {
       id: 2,
       title: "Smart Automations",
       description: "Set-it-and-forget-it workflows that handle appointment reminders and follow-ups automatically.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      mockup: <AutomationMockup />,
       benefits: [
         "Appointment reminders sent automatically (24h before & same day)",
         "Follow-up messages after the visit",
@@ -33,7 +43,7 @@ const FeaturesSection = () => {
       id: 3,
       title: "Review Request System",
       description: "Automatically boost your online reputation by requesting Google reviews from satisfied customers.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      mockup: <ReviewSystemMockup />,
       benefits: [
         "Automatically ask for Google reviews",
         "Customizable templates",
@@ -46,7 +56,7 @@ const FeaturesSection = () => {
       id: 4,
       title: "Centralized Chat",
       description: "Manage all your customer communications from Facebook, Instagram, Email & SMS in one unified inbox.",
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&h=400&fit=crop",
+      mockup: <ChatInboxMockup />,
       benefits: [
         "Manage FB, IG, Email & SMS from one inbox",
         "Tag & assign conversations",
@@ -59,7 +69,7 @@ const FeaturesSection = () => {
       id: 5,
       title: "Unified Dashboard & App",
       description: "Everything your team needs in one simple, intuitive interface with custom roles and permissions.",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
+      mockup: <DashboardMockup />,
       benefits: [
         "Everything in one place",
         "Easy for all team members",
@@ -72,7 +82,7 @@ const FeaturesSection = () => {
       id: 6,
       title: "Online Payment Integration",
       description: "Accept secure payments at booking time to reduce no-shows and improve cash flow.",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+      mockup: <PaymentMockup />,
       benefits: [
         "Let users pre-pay at booking",
         "Reduce no-shows",
@@ -85,7 +95,7 @@ const FeaturesSection = () => {
       id: 7,
       title: "Advanced Analytics & Reporting",
       description: "Track your pharmacy's performance with detailed insights, KPIs, and monthly reports.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+      mockup: <AnalyticsMockup />,
       benefits: [
         "View KPIs and trends",
         "Monthly performance reports",
@@ -98,7 +108,7 @@ const FeaturesSection = () => {
       id: 8,
       title: "7-Day Human Support",
       description: "Get help when you need it with our dedicated support team, onboarding videos, and help center.",
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
+      mockup: <SupportMockup />,
       benefits: [
         "Chat and email support",
         "Live assistance when needed",
@@ -128,18 +138,10 @@ const FeaturesSection = () => {
               className={`lg:grid lg:grid-cols-2 lg:gap-12 items-center animate-fade-in`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Image */}
+              {/* Mockup */}
               <div className={`mb-8 lg:mb-0 ${feature.imageLeft ? 'lg:order-1' : 'lg:order-2'}`}>
-                <div className="relative">
-                  <img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="w-full h-80 object-cover rounded-2xl shadow-xl"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
-                  <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-lg p-3">
-                    {feature.icon}
-                  </div>
+                <div className="flex justify-center">
+                  {feature.mockup}
                 </div>
               </div>
 
