@@ -6,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Check } from 'lucide-react';
 import Header from '@/components/Header';
-import PromoBanner from '@/components/PromoBanner';
 
 interface BookDemoFormData {
   firstName: string;
@@ -27,7 +26,6 @@ const BookDemo = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <PromoBanner />
       <Header />
       
       <div className="pt-32 pb-16">
