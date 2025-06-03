@@ -2,10 +2,13 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageSelector from './LanguageSelector';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -51,29 +54,32 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             <button onClick={() => scrollToSection('home')} className="text-black hover:text-[#078147] transition-colors">
-              Home
+              {t('nav.home')}
             </button>
             <button onClick={() => scrollToSection('features')} className="text-black hover:text-[#078147] transition-colors">
-              Features
+              {t('nav.features')}
             </button>
             <button onClick={() => scrollToSection('pricing')} className="text-black hover:text-[#078147] transition-colors">
-              Pricing
+              {t('nav.pricing')}
             </button>
             <button onClick={() => scrollToSection('testimonials')} className="text-black hover:text-[#078147] transition-colors">
-              Testimonials
+              {t('nav.testimonials')}
             </button>
             <button onClick={() => scrollToSection('contact')} className="text-black hover:text-[#078147] transition-colors">
-              Contact
+              {t('nav.contact')}
             </button>
           </nav>
           
-          {/* Desktop CTA Button with Pulse Animation */}
-          <button 
-            onClick={handleBookDemo}
-            className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors animate-pulse-slow"
-          >
-            Book a Call
-          </button>
+          {/* Desktop CTA Button and Language Selector */}
+          <div className="hidden md:flex items-center space-x-4">
+            <LanguageSelector />
+            <button 
+              onClick={handleBookDemo}
+              className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors animate-pulse-slow"
+            >
+              {t('nav.bookDemo')}
+            </button>
+          </div>
           
           {/* Mobile Menu Button */}
           <button
@@ -89,26 +95,27 @@ const Header = () => {
           <div className="md:hidden py-4 border-t border-gray-200">
             <nav className="flex flex-col space-y-4">
               <button onClick={() => scrollToSection('home')} className="text-black hover:text-[#078147] transition-colors text-left">
-                Home
+                {t('nav.home')}
               </button>
               <button onClick={() => scrollToSection('features')} className="text-black hover:text-[#078147] transition-colors text-left">
-                Features
+                {t('nav.features')}
               </button>
               <button onClick={() => scrollToSection('pricing')} className="text-black hover:text-[#078147] transition-colors text-left">
-                Pricing
+                {t('nav.pricing')}
               </button>
               <button onClick={() => scrollToSection('testimonials')} className="text-black hover:text-[#078147] transition-colors text-left">
-                Testimonials
+                {t('nav.testimonials')}
               </button>
               <button onClick={() => scrollToSection('contact')} className="text-black hover:text-[#078147] transition-colors text-left">
-                Contact
+                {t('nav.contact')}
               </button>
               <button 
                 onClick={handleBookDemo}
                 className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-left animate-pulse-slow"
               >
-                Book a Call
+                {t('nav.bookDemo')}
               </button>
+              <LanguageSelector isMobile={true} />
             </nav>
           </div>
         )}
