@@ -18,7 +18,9 @@ const PricingSection = () => {
         "Automated follow-ups",
         "Review request system",
         "All-in-one app",
-        "Email support"
+        "Email support",
+        "1 basic landing page included",
+        "Hosting, maintenance & updates included"
       ]
     },
     {
@@ -35,7 +37,9 @@ const PricingSection = () => {
         "Full omnichannel messaging",
         "Accept payments before appointments",
         "Advanced analytics and reporting",
-        "7/7 premium support"
+        "7/7 premium support",
+        "Up to 3 landing pages included",
+        "Hosting, maintenance & updates included"
       ]
     }
   ];

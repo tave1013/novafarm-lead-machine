@@ -209,7 +209,7 @@ export const DashboardMockup = () => (
 );
 
 export const PaymentMockup = () => (
-  <div className="bg-white rounded-xl shadow-2xl p-8 max-w-lg mx-auto">
+  <div className="bg-white rounded-xl shadow-2xl p-8 max-w-2xl mx-auto">
     <div className="flex items-center justify-between mb-6">
       <h3 className="font-semibold text-gray-800 text-lg">Secure Payment</h3>
       <CreditCard className="w-6 h-6 text-[#078147]" />
@@ -224,7 +224,7 @@ export const PaymentMockup = () => (
         <div className="text-xs text-gray-500 mt-1">Medication consultation & health screening</div>
       </div>
       
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
             <label className="text-sm text-gray-600 font-medium">Cardholder Name</label>
