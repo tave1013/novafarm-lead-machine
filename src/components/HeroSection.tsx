@@ -17,94 +17,193 @@ const HeroSection = () => {
             </button>
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="bg-gradient-to-br from-[#078147]/10 to-[#f4f1ea] rounded-2xl p-8">
-              {/* NovaFarm Dashboard Mockup */}
-              <div className="bg-white rounded-xl shadow-2xl p-6">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-[#078147] rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">NF</span>
-                    </div>
-                    <div className="text-lg font-bold text-black">NovaFarm</div>
-                  </div>
+            <div className="bg-gradient-to-br from-[#078147]/10 to-[#f4f1ea] rounded-2xl p-6">
+              {/* NovaFarm Dashboard Mockup - GoHighLevel Style */}
+              <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
+                {/* Browser Header */}
+                <div className="bg-gray-100 px-4 py-2 flex items-center justify-between border-b">
                   <div className="flex space-x-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                   </div>
+                  <div className="text-xs text-gray-500">app.novafarm.com</div>
+                  <div className="w-16"></div>
                 </div>
 
-                {/* Stats Cards */}
-                <div className="grid grid-cols-3 gap-3 mb-6">
-                  <div className="bg-[#f4f1ea] p-3 rounded-lg">
-                    <div className="text-lg font-bold text-[#078147]">24</div>
-                    <div className="text-xs text-gray-600">Today's Bookings</div>
+                {/* Main Dashboard Layout */}
+                <div className="flex h-96">
+                  {/* Left Sidebar */}
+                  <div className="w-16 bg-black flex flex-col items-center py-4 space-y-4">
+                    {/* NovaFarm Logo */}
+                    <div className="w-8 h-8 bg-[#078147] rounded-lg flex items-center justify-center mb-2">
+                      <span className="text-white font-bold text-xs">NF</span>
+                    </div>
+                    
+                    {/* Navigation Icons */}
+                    <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                      <span className="text-xs">📊</span>
+                    </div>
+                    <div className="w-8 h-8 bg-[#078147] rounded-lg flex items-center justify-center">
+                      <span className="text-xs">💬</span>
+                    </div>
+                    <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                      <span className="text-xs">📅</span>
+                    </div>
+                    <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                      <span className="text-xs">👥</span>
+                    </div>
+                    <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                      <span className="text-xs">⭐</span>
+                    </div>
+                    <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                      <span className="text-xs">⚙️</span>
+                    </div>
                   </div>
-                  <div className="bg-[#f4f1ea] p-3 rounded-lg">
-                    <div className="text-lg font-bold text-[#078147]">156</div>
-                    <div className="text-xs text-gray-600">This Month</div>
-                  </div>
-                  <div className="bg-[#f4f1ea] p-3 rounded-lg">
-                    <div className="text-lg font-bold text-[#078147]">4.8★</div>
-                    <div className="text-xs text-gray-600">Avg Rating</div>
-                  </div>
-                </div>
 
-                {/* Main Content Grid */}
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Calendar Widget */}
-                  <div className="bg-gray-50 p-3 rounded-lg">
-                    <div className="text-sm font-medium text-black mb-2">Today's Schedule</div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-600">09:00 - Maria R.</span>
-                        <span className="text-[#078147] bg-[#078147]/10 px-2 py-1 rounded">Confirmed</span>
+                  {/* Secondary Sidebar - Conversations */}
+                  <div className="w-48 bg-[#f4f1ea] border-r border-gray-200">
+                    <div className="p-3 border-b border-gray-200">
+                      <div className="text-sm font-semibold text-black mb-2">Messages</div>
+                      <div className="relative">
+                        <input 
+                          type="text" 
+                          placeholder="Search..." 
+                          className="w-full text-xs px-2 py-1 border border-gray-300 rounded bg-white"
+                        />
                       </div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-600">14:30 - Luca B.</span>
-                        <span className="text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Pending</span>
+                    </div>
+                    
+                    <div className="space-y-1 p-2">
+                      {/* Conversation Items */}
+                      <div className="bg-white p-2 rounded border border-gray-200">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs">MC</span>
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-xs font-medium text-black">Maria Colombo</div>
+                            <div className="text-xs text-gray-600">9:15 AM</div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-700">Buongiorno, vorrei prenotare...</div>
                       </div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-600">16:00 - Anna S.</span>
-                        <span className="text-[#078147] bg-[#078147]/10 px-2 py-1 rounded">Confirmed</span>
+
+                      <div className="bg-[#078147]/10 p-2 rounded border border-[#078147]/20">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs">LB</span>
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-xs font-medium text-black">Luca Bianchi</div>
+                            <div className="text-xs text-gray-600">8:42 AM</div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-700">Perfetto, grazie per la disponibilità</div>
+                      </div>
+
+                      <div className="bg-white p-2 rounded border border-gray-200">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs">AS</span>
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-xs font-medium text-black">Anna Santoro</div>
+                            <div className="text-xs text-gray-600">Yesterday</div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-700">Informazioni sui vaccini antinfluenzali</div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Messages Widget */}
-                  <div className="bg-gray-50 p-3 rounded-lg">
-                    <div className="text-sm font-medium text-black mb-2">Messages</div>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs">FB</span>
+                  {/* Main Content Area - Chat/Email Interface */}
+                  <div className="flex-1 bg-white flex flex-col">
+                    {/* Chat Header */}
+                    <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                          <span className="text-white text-sm">LB</span>
                         </div>
-                        <div className="flex-1">
-                          <div className="text-xs text-gray-600">New message from Marco</div>
-                          <div className="text-xs text-gray-500">2m ago</div>
+                        <div>
+                          <div className="text-sm font-medium text-black">Luca Bianchi</div>
+                          <div className="text-xs text-gray-600">+39 346 123 4567</div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <div className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs">IG</span>
+                      <div className="flex space-x-2">
+                        <button className="text-xs bg-[#078147] text-white px-2 py-1 rounded">📞</button>
+                        <button className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded">📧</button>
+                      </div>
+                    </div>
+
+                    {/* Chat Messages */}
+                    <div className="flex-1 p-4 space-y-3 overflow-y-auto">
+                      <div className="flex justify-start">
+                        <div className="bg-gray-100 p-2 rounded-lg max-w-xs">
+                          <div className="text-xs text-gray-800">Ciao! Volevo prenotare una consulenza farmaceutica per domani mattina. Avete disponibilità?</div>
+                          <div className="text-xs text-gray-500 mt-1">9:15 AM</div>
                         </div>
-                        <div className="flex-1">
-                          <div className="text-xs text-gray-600">Question about hours</div>
-                          <div className="text-xs text-gray-500">5m ago</div>
+                      </div>
+
+                      <div className="flex justify-end">
+                        <div className="bg-[#078147] p-2 rounded-lg max-w-xs">
+                          <div className="text-xs text-white">Ciao Luca! Sì, abbiamo disponibilità domani alle 10:30. Ti va bene?</div>
+                          <div className="text-xs text-green-100 mt-1">9:17 AM</div>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-start">
+                        <div className="bg-gray-100 p-2 rounded-lg max-w-xs">
+                          <div className="text-xs text-gray-800">Perfetto! Posso confermare l'appuntamento?</div>
+                          <div className="text-xs text-gray-500 mt-1">9:18 AM</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Message Input */}
+                    <div className="p-3 border-t border-gray-200">
+                      <div className="flex space-x-2">
+                        <input 
+                          type="text" 
+                          placeholder="Scrivi un messaggio..." 
+                          className="flex-1 text-xs px-3 py-2 border border-gray-300 rounded-lg"
+                        />
+                        <button className="bg-[#078147] text-white px-3 py-2 rounded-lg text-xs">📤</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Panel - Contact Info */}
+                  <div className="w-48 bg-[#f4f1ea] border-l border-gray-200 p-3">
+                    <div className="text-center mb-4">
+                      <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <span className="text-white text-lg">LB</span>
+                      </div>
+                      <div className="text-sm font-medium text-black">Luca Bianchi</div>
+                      <div className="text-xs text-gray-600">Cliente</div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="bg-white p-2 rounded border border-gray-200">
+                        <div className="text-xs font-medium text-black mb-1">Prossimo Appuntamento</div>
+                        <div className="text-xs text-gray-600">Dom 15 Dic, 10:30</div>
+                        <div className="text-xs text-[#078147]">Consulenza farmaceutica</div>
+                      </div>
+
+                      <div className="bg-white p-2 rounded border border-gray-200">
+                        <div className="text-xs font-medium text-black mb-1">Contatto</div>
+                        <div className="text-xs text-gray-600">+39 346 123 4567</div>
+                        <div className="text-xs text-gray-600">luca.b@email.com</div>
+                      </div>
+
+                      <div className="bg-white p-2 rounded border border-gray-200">
+                        <div className="text-xs font-medium text-black mb-1">Tags</div>
+                        <div className="flex flex-wrap gap-1">
+                          <span className="text-xs bg-[#078147]/10 text-[#078147] px-2 py-1 rounded">Cliente fidato</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Automation Preview */}
-                <div className="mt-4 bg-[#078147]/5 p-3 rounded-lg border border-[#078147]/20">
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm font-medium text-black">Automation Active</div>
-                    <div className="w-2 h-2 bg-[#078147] rounded-full animate-pulse"></div>
-                  </div>
-                  <div className="text-xs text-gray-600 mt-1">Sending 24h reminders automatically</div>
                 </div>
               </div>
             </div>
