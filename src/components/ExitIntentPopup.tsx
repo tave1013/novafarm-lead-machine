@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
-import { useCountdownTimer } from '@/hooks/useCountdownTimer';
 
 interface ExitIntentFormData {
   firstName: string;
@@ -25,7 +24,6 @@ interface ExitIntentPopupProps {
 
 const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) => {
   const form = useForm<ExitIntentFormData>();
-  const { formattedTime, isExpired } = useCountdownTimer(30);
 
   const onSubmit = (data: ExitIntentFormData) => {
     console.log('Exit intent form submitted:', data);
@@ -38,7 +36,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogOverlay className="bg-black/60" />
-      <DialogContent className="max-w-5xl w-full max-h-[90vh] overflow-y-auto p-0 bg-white">
+      <DialogContent className="max-w-4xl w-[95%] max-h-[90vh] overflow-y-auto p-0 bg-white">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -49,50 +47,46 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
-          {/* Left Side - Headline, Text, and Timer */}
-          <div className="bg-[#f4f1ea] p-8 lg:p-12 flex flex-col justify-center">
+          {/* Left Side - Headline, Text, and Benefits */}
+          <div className="bg-[#f4f1ea] p-6 lg:p-12 flex flex-col justify-center">
             <div className="space-y-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-black leading-tight">
+              <h2 className="text-2xl lg:text-4xl font-bold text-black leading-tight">
                 Wait! Don't miss your <span className="text-[#078147]">free demo!</span>
               </h2>
               
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Discover how NovaFarm can save you hours every week, automate your pharmacy, and increase bookings — and right now, you can try it free during our limited-time promotion!
+              <p className="text-base lg:text-lg text-gray-700 leading-relaxed">
+                Discover how NovaFarm can save you hours, increase your bookings, and automate your operations — and it's free to try!
               </p>
 
-              {/* Countdown Timer */}
+              {/* Benefits List */}
               <div className="bg-white rounded-lg p-6 shadow-lg border-l-4 border-[#078147]">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600 mb-2">
-                    {isExpired ? 'Offer has expired' : 'Offer expires in:'}
-                  </p>
-                  <div className="text-3xl font-bold text-[#078147] font-mono">
-                    {formattedTime}
-                  </div>
-                  {!isExpired && (
-                    <div className="mt-3">
-                      <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
-                        <div 
-                          className="bg-[#078147] h-full transition-all duration-1000 ease-linear"
-                          style={{ width: `${((30 * 60 - (30 * 60 - (parseInt(formattedTime.split(':')[0]) * 60 + parseInt(formattedTime.split(':')[1])))) / (30 * 60)) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-[#078147] rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-gray-800 font-medium">Smart appointment management</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-[#078147] rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-gray-800 font-medium">Instant client follow-ups</span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-[#078147] rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-gray-800 font-medium">Automated workflows to save you time</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
           {/* Right Side - Contact Form */}
-          <div className="p-8 lg:p-12 bg-white">
-            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm h-full">
-              <h3 className="text-xl font-bold text-black mb-6">Book Your Free Demo Now</h3>
+          <div className="p-6 lg:p-12 bg-white">
+            <div className="bg-white rounded-lg border border-gray-200 p-4 lg:p-6 shadow-sm h-full">
+              <h3 className="text-lg lg:text-xl font-bold text-black mb-6">Book Your Free Demo Now</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                   {/* First Name and Last Name - Side by Side */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <FormField
                       control={form.control}
                       name="firstName"
@@ -101,7 +95,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                         <FormItem>
                           <FormLabel className="text-sm">First Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Mario" {...field} className="text-sm" />
+                            <Input placeholder="Mario" {...field} className="text-sm h-10" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -115,7 +109,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                         <FormItem>
                           <FormLabel className="text-sm">Last Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Rossi" {...field} className="text-sm" />
+                            <Input placeholder="Rossi" {...field} className="text-sm h-10" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -138,7 +132,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                       <FormItem>
                         <FormLabel className="text-sm">Email Address</FormLabel>
                         <FormControl>
-                          <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} className="text-sm" />
+                          <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} className="text-sm h-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -154,7 +148,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                       <FormItem>
                         <FormLabel className="text-sm">Company VAT Number</FormLabel>
                         <FormControl>
-                          <Input placeholder="IT12345678901" {...field} className="text-sm" />
+                          <Input placeholder="IT12345678901" {...field} className="text-sm h-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -171,7 +165,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                         <FormLabel className="text-sm">How do you plan to use NovaFarm?</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="text-sm">
+                            <SelectTrigger className="text-sm h-10">
                               <SelectValue placeholder="Select an option" />
                             </SelectTrigger>
                           </FormControl>
@@ -197,7 +191,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                         <FormLabel className="text-sm">What do you hope NovaFarm will help you solve?</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="text-sm">
+                            <SelectTrigger className="text-sm h-10">
                               <SelectValue placeholder="Select an option" />
                             </SelectTrigger>
                           </FormControl>
@@ -217,10 +211,9 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                   {/* Submit Button */}
                   <Button 
                     type="submit" 
-                    className="w-full bg-[#078147] hover:bg-[#066139] text-white py-3 text-base font-semibold mt-6"
-                    disabled={isExpired}
+                    className="w-full bg-[#078147] hover:bg-[#066139] text-white py-3 text-base font-semibold mt-6 h-12"
                   >
-                    {isExpired ? 'Offer Expired' : 'Book My Free Demo'}
+                    Book My Free Demo
                   </Button>
                 </form>
               </Form>
