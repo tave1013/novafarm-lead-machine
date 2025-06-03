@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
+    <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -70,7 +70,7 @@ const Header = () => {
           {/* Desktop CTA Button with Enhanced Pulse Animation */}
           <button 
             onClick={handleBookDemo}
-            className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors animate-pulse-glow"
+            className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-all duration-300 animate-pulse-glow"
           >
             Book a Call
           </button>
@@ -105,7 +105,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleBookDemo}
-                className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-left animate-pulse-glow"
+                className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-all duration-300 text-left animate-pulse-glow"
               >
                 Book a Call
               </button>

@@ -30,39 +30,35 @@ const BookDemo = () => {
     {
       name: "Marco R.",
       role: "Pharmacy Owner",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
       content: "NovaFarm transformed our appointment system. No more calls, just results.",
       rating: 5
     },
     {
       name: "Silvia T.",
       role: "Pharmacist",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
       content: "The review follow-ups helped us get over 50 new Google reviews in 2 months.",
       rating: 5
     },
     {
       name: "Giuseppe M.",
       role: "Para-pharmacy Manager",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
       content: "Finally, a system that actually works for our team. Simple and effective.",
       rating: 5
     },
     {
       name: "Francesca L.",
       role: "Pharmacy Director",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
       content: "Customer satisfaction increased by 40% since we started using NovaFarm.",
       rating: 5
     }
   ];
 
   const benefits = [
-    "Book appointments with one click",
-    "Automate follow-ups and reminders", 
-    "Collect more reviews effortlessly",
-    "Manage everything from one dashboard",
-    "Designed specifically for pharmacies"
+    "Save hours with full automation",
+    "Gain total control over appointments", 
+    "Reduce no-shows and missed bookings",
+    "Centralize all communication in one place",
+    "Boost your pharmacy's professionalism"
   ];
 
   return (
@@ -72,10 +68,10 @@ const BookDemo = () => {
       
       <div className="pt-48 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
-            {/* Left Side - Form */}
-            <div className="mb-8 lg:mb-0 animate-fade-in-up">
-              <div className="max-w-md mx-auto lg:mx-0 bg-white rounded-lg shadow-lg border border-gray-100 p-8">
+          <div className="lg:grid lg:grid-cols-5 lg:gap-12 items-start">
+            {/* Left Side - Form (3 columns) */}
+            <div className="lg:col-span-3 mb-8 lg:mb-0 animate-fade-in-up">
+              <div className="bg-white rounded-lg shadow-lg border border-gray-100 p-8">
                 <h1 className="text-3xl md:text-4xl font-bold text-black mb-4 animate-fade-in-up">
                   Book Your Free <span className="text-[#078147]">NovaFarm Demo</span>
                 </h1>
@@ -226,9 +222,9 @@ const BookDemo = () => {
               </div>
             </div>
 
-            {/* Right Side - Content */}
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="bg-[#f4f1ea] rounded-lg p-8 h-full min-h-[600px] flex flex-col justify-center">
+            {/* Right Side - Content (2 columns) */}
+            <div className="lg:col-span-2 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <div className="bg-white rounded-lg p-8 h-full min-h-[600px] flex flex-col justify-center">
                 <h2 className="text-3xl font-bold text-black mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                   Discover the Power of NovaFarm
                 </h2>
@@ -285,16 +281,9 @@ const BookDemo = () => {
                   "{testimonial.content}"
                 </p>
                 
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4 object-cover"
-                  />
-                  <div>
-                    <div className="font-semibold text-black">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
-                  </div>
+                <div>
+                  <div className="font-semibold text-black">{testimonial.name}</div>
+                  <div className="text-sm text-gray-600">{testimonial.role}</div>
                 </div>
               </div>
             ))}

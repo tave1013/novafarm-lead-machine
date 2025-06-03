@@ -6,28 +6,24 @@ const TestimonialsSection = () => {
     {
       name: "Marco R.",
       role: "Pharmacy Owner",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
       content: "NovaFarm transformed our appointment system. No more calls, just results.",
       rating: 5
     },
     {
       name: "Silvia T.",
       role: "Pharmacist",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
       content: "The review follow-ups helped us get over 50 new Google reviews in 2 months.",
       rating: 5
     },
     {
       name: "Giuseppe M.",
       role: "Para-pharmacy Manager",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
       content: "Finally, a system that actually works for our team. Simple and effective.",
       rating: 5
     },
     {
       name: "Francesca L.",
       role: "Pharmacy Director",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
       content: "Customer satisfaction increased by 40% since we started using NovaFarm.",
       rating: 5
     }
@@ -62,16 +58,9 @@ const TestimonialsSection = () => {
                 "{testimonial.content}"
               </p>
               
-              <div className="flex items-center">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full mr-4 object-cover"
-                />
-                <div>
-                  <div className="font-semibold text-black">{testimonial.name}</div>
-                  <div className="text-sm text-gray-600">{testimonial.role}</div>
-                </div>
+              <div>
+                <div className="font-semibold text-black">{testimonial.name}</div>
+                <div className="text-sm text-gray-600">{testimonial.role}</div>
               </div>
             </div>
           ))}
