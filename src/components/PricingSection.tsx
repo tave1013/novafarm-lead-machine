@@ -11,7 +11,7 @@ const PricingSection = () => {
       originalPrice: "€147",
       monthlyPrice: "€97",
       annualMonthlyPrice: "€80",
-      period: isAnnual ? "/month (billed annually)" : "/month + VAT",
+      period: isAnnual ? "+ VAT / month" : "/month + VAT",
       setupFee: "€500",
       yearlyDiscount: "Save 17%",
       features: [
@@ -29,7 +29,7 @@ const PricingSection = () => {
       originalPrice: "€297",
       monthlyPrice: "€197",
       annualMonthlyPrice: "€164",
-      period: isAnnual ? "/month (billed annually)" : "/month + VAT",
+      period: isAnnual ? "+ VAT / month" : "/month + VAT",
       setupFee: "€1,000",
       yearlyDiscount: "Save 17%",
       badge: "Best Value",
