@@ -1,12 +1,18 @@
 
 import { Check } from 'lucide-react';
+import { useState } from 'react';
 
 const PricingSection = () => {
+  const [isAnnual, setIsAnnual] = useState(false);
+
   const plans = [
     {
       name: "Starter",
-      price: "€97",
-      period: "/month + VAT",
+      originalPrice: "€147",
+      price: isAnnual ? "€970" : "€97",
+      period: isAnnual ? "/year" : "/month + VAT",
+      setupFee: "€500",
+      yearlyDiscount: "Save 17%",
       features: [
         "Smart appointment calendar",
         "Automated follow-ups",
@@ -17,8 +23,11 @@ const PricingSection = () => {
     },
     {
       name: "Pro",
-      price: "€197",
-      period: "/month + VAT",
+      originalPrice: "€297",
+      price: isAnnual ? "€1,970" : "€197",
+      period: isAnnual ? "/year" : "/month + VAT",
+      setupFee: "€1,000",
+      yearlyDiscount: "Save 17%",
       badge: "Best Value",
       popular: true,
       features: [
@@ -38,9 +47,32 @@ const PricingSection = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
             Simple Plans. Powerful Results.
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
             Choose the plan that fits your pharmacy's needs and start growing today.
           </p>
+          
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center space-x-4 mb-2">
+            <span className={`text-sm ${!isAnnual ? 'text-black font-medium' : 'text-gray-500'}`}>
+              Monthly
+            </span>
+            <button
+              onClick={() => setIsAnnual(!isAnnual)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#078147] focus:ring-offset-2 ${
+                isAnnual ? 'bg-[#078147]' : 'bg-gray-200'
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  isAnnual ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <span className={`text-sm ${isAnnual ? 'text-black font-medium' : 'text-gray-500'}`}>
+              Annual
+            </span>
+          </div>
+          <p className="text-sm text-gray-500">💡 Save 17% with annual billing</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -54,11 +86,34 @@ const PricingSection = () => {
                 </div>
               )}
               
+              {isAnnual && (
+                <div className="absolute -top-4 right-4">
+                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    {plan.yearlyDiscount}
+                  </span>
+                </div>
+              )}
+              
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                <div className="flex items-baseline justify-center">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className={`ml-1 ${plan.popular ? 'text-gray-200' : 'text-gray-600'}`}>{plan.period}</span>
+                <div className="mb-3">
+                  <div className="flex items-center justify-center space-x-2 mb-1">
+                    {!isAnnual && (
+                      <span className={`text-lg line-through ${plan.popular ? 'text-gray-300' : 'text-gray-400'}`}>
+                        {plan.originalPrice}
+                      </span>
+                    )}
+                    <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                      PROMO
+                    </span>
+                  </div>
+                  <div className="flex items-baseline justify-center">
+                    <span className="text-4xl font-bold">{plan.price}</span>
+                    <span className={`ml-1 ${plan.popular ? 'text-gray-200' : 'text-gray-600'}`}>{plan.period}</span>
+                  </div>
+                </div>
+                <div className={`text-sm ${plan.popular ? 'text-gray-200' : 'text-gray-500'}`}>
+                  Setup fee: {plan.setupFee} (one-time)
                 </div>
               </div>
               
