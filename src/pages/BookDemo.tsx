@@ -1,10 +1,10 @@
-import { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Check } from 'lucide-react';
 import Header from '@/components/Header';
 import PromoBanner from '@/components/PromoBanner';
 
@@ -32,10 +32,10 @@ const BookDemo = () => {
       
       <div className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
-            {/* Left Side - Form */}
-            <div className="mb-8 lg:mb-0">
-              <div className="max-w-md mx-auto lg:mx-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left 50% - Contact Form */}
+            <div className="w-full">
+              <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
                 <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
                   Book Your Free <span className="text-[#078147]">NovaFarm Demo</span>
                 </h1>
@@ -185,27 +185,50 @@ const BookDemo = () => {
               </div>
             </div>
 
-            {/* Right Side - Clean Background Illustration */}
-            <div className="hidden lg:block">
-              <div className="bg-gradient-to-br from-[#078147]/5 to-[#f4f1ea] rounded-2xl p-8 h-full min-h-[600px] flex items-center justify-center">
-                <div className="text-center space-y-6">
-                  <div className="w-24 h-24 bg-[#078147] rounded-full flex items-center justify-center mx-auto mb-8">
-                    <span className="text-white text-3xl font-bold">NF</span>
+            {/* Right 50% - Textual Content */}
+            <div className="w-full bg-white p-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
+                Why book a demo with NovaFarm?
+              </h2>
+              
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                See firsthand how NovaFarm can streamline your pharmacy operations, boost customer engagement, and save you hours every week. Our personalized demo will show you exactly how our platform fits your specific needs.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                    <Check className="w-4 h-4 text-white" />
                   </div>
-                  <div className="space-y-4">
-                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-medium text-[#078147] mb-1">📅 Smart Scheduling</div>
-                      <div className="text-xs text-gray-600">Automated appointment booking</div>
-                    </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-medium text-[#078147] mb-1">💬 Customer Communication</div>
-                      <div className="text-xs text-gray-600">SMS, email & WhatsApp integration</div>
-                    </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-medium text-[#078147] mb-1">⭐ Review Management</div>
-                      <div className="text-xs text-gray-600">Automated review requests</div>
-                    </div>
+                  <span className="text-gray-800 font-medium">Save hours with smart automations</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                    <Check className="w-4 h-4 text-white" />
                   </div>
+                  <span className="text-gray-800 font-medium">Boost appointment requests and client engagement</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                    <Check className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-gray-800 font-medium">Eliminate no-shows with automatic reminders</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                    <Check className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-gray-800 font-medium">Centralize messaging across SMS, email, and social</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                    <Check className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-gray-800 font-medium">Monitor everything from one intuitive dashboard</span>
                 </div>
               </div>
             </div>
