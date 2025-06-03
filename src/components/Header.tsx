@@ -10,9 +10,22 @@ const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // If not on homepage, navigate to homepage first
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Already on homepage, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMenuOpen(false);
   };
@@ -27,7 +40,12 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <div className="text-2xl font-bold text-black">NovaFarm</div>
+            <button 
+              onClick={() => navigate('/')}
+              className="text-2xl font-bold text-black hover:text-[#078147] transition-colors"
+            >
+              NovaFarm
+            </button>
           </div>
           
           {/* Desktop Navigation */}
@@ -49,10 +67,10 @@ const Header = () => {
             </button>
           </nav>
           
-          {/* Desktop CTA Button */}
+          {/* Desktop CTA Button with Pulse Animation */}
           <button 
             onClick={handleBookDemo}
-            className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors"
+            className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors animate-pulse-slow"
           >
             Book a Call
           </button>
@@ -87,7 +105,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleBookDemo}
-                className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-left"
+                className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-left animate-pulse-slow"
               >
                 Book a Call
               </button>

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import Header from '@/components/Header';
+import PromoBanner from '@/components/PromoBanner';
 
 interface BookDemoFormData {
   firstName: string;
@@ -27,9 +27,10 @@ const BookDemo = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <PromoBanner />
       <Header />
       
-      <div className="pt-20 pb-16">
+      <div className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
             {/* Left Side - Form */}

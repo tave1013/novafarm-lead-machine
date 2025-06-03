@@ -9,8 +9,9 @@ const PricingSection = () => {
     {
       name: "Starter",
       originalPrice: "€147",
-      price: isAnnual ? "€970" : "€97",
-      period: isAnnual ? "/year" : "/month + VAT",
+      monthlyPrice: "€97",
+      annualMonthlyPrice: "€80",
+      period: isAnnual ? "/month (billed annually)" : "/month + VAT",
       setupFee: "€500",
       yearlyDiscount: "Save 17%",
       features: [
@@ -26,8 +27,9 @@ const PricingSection = () => {
     {
       name: "Pro",
       originalPrice: "€297",
-      price: isAnnual ? "€1,970" : "€197",
-      period: isAnnual ? "/year" : "/month + VAT",
+      monthlyPrice: "€197",
+      annualMonthlyPrice: "€164",
+      period: isAnnual ? "/month (billed annually)" : "/month + VAT",
       setupFee: "€1,000",
       yearlyDiscount: "Save 17%",
       badge: "Best Value",
@@ -112,7 +114,9 @@ const PricingSection = () => {
                     </span>
                   </div>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold">{plan.price}</span>
+                    <span className="text-4xl font-bold">
+                      {isAnnual ? plan.annualMonthlyPrice : plan.monthlyPrice}
+                    </span>
                     <span className={`ml-1 ${plan.popular ? 'text-gray-200' : 'text-gray-600'}`}>{plan.period}</span>
                   </div>
                 </div>

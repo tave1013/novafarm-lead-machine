@@ -1,5 +1,6 @@
 
 import Header from '../components/Header';
+import PromoBanner from '../components/PromoBanner';
 import HeroSection from '../components/HeroSection';
 import FeaturesSection from '../components/FeaturesSection';
 import WebsiteServicesSection from '../components/WebsiteServicesSection';
@@ -14,6 +15,7 @@ import Footer from '../components/Footer';
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <PromoBanner />
       <Header />
       <HeroSection />
       <FeaturesSection />
