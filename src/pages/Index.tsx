@@ -18,15 +18,33 @@ const Index = () => {
       <PromoBanner />
       <Header />
       <div className="pt-32">
-        <HeroSection />
-        <FeaturesSection />
-        <WebsiteServicesSection />
-        <OmnichannelSection />
-        <ReliabilitySection />
-        <PricingSection />
-        <GuaranteeSection />
-        <TestimonialsSection />
-        <FinalCTASection />
+        <div className="animate-fade-in-up">
+          <HeroSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <FeaturesSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <WebsiteServicesSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <OmnichannelSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <ReliabilitySection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <PricingSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+          <GuaranteeSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+          <TestimonialsSection />
+        </div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+          <FinalCTASection />
+        </div>
         <Footer />
       </div>
     </div>
