@@ -1,10 +1,11 @@
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Check, Star } from 'lucide-react';
 import Header from '@/components/Header';
 import PromoBanner from '@/components/PromoBanner';
 
@@ -25,28 +26,67 @@ const BookDemo = () => {
     // Handle form submission here
   };
 
+  const testimonials = [
+    {
+      name: "Marco R.",
+      role: "Pharmacy Owner",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      content: "NovaFarm transformed our appointment system. No more calls, just results.",
+      rating: 5
+    },
+    {
+      name: "Silvia T.",
+      role: "Pharmacist",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      content: "The review follow-ups helped us get over 50 new Google reviews in 2 months.",
+      rating: 5
+    },
+    {
+      name: "Giuseppe M.",
+      role: "Para-pharmacy Manager",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      content: "Finally, a system that actually works for our team. Simple and effective.",
+      rating: 5
+    },
+    {
+      name: "Francesca L.",
+      role: "Pharmacy Director",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      content: "Customer satisfaction increased by 40% since we started using NovaFarm.",
+      rating: 5
+    }
+  ];
+
+  const benefits = [
+    "Book appointments with one click",
+    "Automate follow-ups and reminders", 
+    "Collect more reviews effortlessly",
+    "Manage everything from one dashboard",
+    "Designed specifically for pharmacies"
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <PromoBanner />
       <Header />
       
-      <div className="pt-32 pb-16">
+      <div className="pt-48 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
             {/* Left Side - Form */}
-            <div className="mb-8 lg:mb-0">
-              <div className="max-w-md mx-auto lg:mx-0">
-                <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <div className="mb-8 lg:mb-0 animate-fade-in-up">
+              <div className="max-w-md mx-auto lg:mx-0 bg-white rounded-lg shadow-lg border border-gray-100 p-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-black mb-4 animate-fade-in-up">
                   Book Your Free <span className="text-[#078147]">NovaFarm Demo</span>
                 </h1>
-                <p className="text-lg text-gray-600 mb-8">
+                <p className="text-lg text-gray-600 mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                   Discover how NovaFarm can transform your pharmacy operations in just 30 minutes.
                 </p>
 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     {/* First Name and Last Name - Side by Side */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                       <FormField
                         control={form.control}
                         name="firstName"
@@ -89,7 +129,7 @@ const BookDemo = () => {
                         }
                       }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                           <FormLabel>Email Address</FormLabel>
                           <FormControl>
                             <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} />
@@ -105,7 +145,7 @@ const BookDemo = () => {
                       name="vatNumber"
                       rules={{ required: "VAT Number is required" }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                           <FormLabel>Company VAT Number</FormLabel>
                           <FormControl>
                             <Input placeholder="IT12345678901" {...field} />
@@ -121,7 +161,7 @@ const BookDemo = () => {
                       name="usagePlan"
                       rules={{ required: "Please select how you plan to use NovaFarm" }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
                           <FormLabel>How do you plan to use NovaFarm?</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -147,7 +187,7 @@ const BookDemo = () => {
                       name="problemToSolve"
                       rules={{ required: "Please select what problem you're hoping to solve" }}
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                           <FormLabel>What problem are you hoping NovaFarm will solve?</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -171,7 +211,8 @@ const BookDemo = () => {
                     {/* Submit Button */}
                     <Button 
                       type="submit" 
-                      className="w-full bg-[#078147] hover:bg-[#066139] text-white py-3 text-lg font-semibold"
+                      className="w-full bg-[#078147] hover:bg-[#066139] text-white py-3 text-lg font-semibold animate-fade-in-up"
+                      style={{ animationDelay: '0.7s' }}
                     >
                       Book My Free Demo
                     </Button>
@@ -179,39 +220,87 @@ const BookDemo = () => {
                 </Form>
 
                 {/* Reassuring Note */}
-                <p className="text-sm text-gray-500 text-center mt-4">
+                <p className="text-sm text-gray-500 text-center mt-4 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
                   We'll get back to you within 24 hours to schedule your personalized demo. No obligation – just clarity.
                 </p>
               </div>
             </div>
 
-            {/* Right Side - Clean Background Illustration */}
-            <div className="hidden lg:block">
-              <div className="bg-gradient-to-br from-[#078147]/5 to-[#f4f1ea] rounded-2xl p-8 h-full min-h-[600px] flex items-center justify-center">
-                <div className="text-center space-y-6">
-                  <div className="w-24 h-24 bg-[#078147] rounded-full flex items-center justify-center mx-auto mb-8">
-                    <span className="text-white text-3xl font-bold">NF</span>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-medium text-[#078147] mb-1">📅 Smart Scheduling</div>
-                      <div className="text-xs text-gray-600">Automated appointment booking</div>
+            {/* Right Side - Content */}
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <div className="bg-[#f4f1ea] rounded-lg p-8 h-full min-h-[600px] flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-black mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                  Discover the Power of NovaFarm
+                </h2>
+                <p className="text-lg text-gray-700 mb-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                  See how NovaFarm can revolutionize your pharmacy operations with our comprehensive platform designed specifically for modern pharmacies.
+                </p>
+                
+                <div className="space-y-4">
+                  {benefits.map((benefit, index) => (
+                    <div 
+                      key={index} 
+                      className="flex items-center space-x-3 animate-fade-in-up"
+                      style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+                    >
+                      <div className="w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center flex-shrink-0">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-gray-800 font-medium">{benefit}</span>
                     </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-medium text-[#078147] mb-1">💬 Customer Communication</div>
-                      <div className="text-xs text-gray-600">SMS, email & WhatsApp integration</div>
-                    </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-medium text-[#078147] mb-1">⭐ Review Management</div>
-                      <div className="text-xs text-gray-600">Automated review requests</div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-[#f4f1ea]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 animate-fade-in-up">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              What Our Clients Say
+            </h2>
+            <p className="text-lg text-gray-600">
+              Join hundreds of satisfied pharmacy owners who trust NovaFarm
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <div 
+                key={index} 
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 hover:-translate-y-1 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex items-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                
+                <p className="text-gray-600 mb-6 italic">
+                  "{testimonial.content}"
+                </p>
+                
+                <div className="flex items-center">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full mr-4 object-cover"
+                  />
+                  <div>
+                    <div className="font-semibold text-black">{testimonial.name}</div>
+                    <div className="text-sm text-gray-600">{testimonial.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

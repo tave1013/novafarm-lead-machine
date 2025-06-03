@@ -17,16 +17,18 @@ const Index = () => {
     <div className="min-h-screen">
       <PromoBanner />
       <Header />
-      <HeroSection />
-      <FeaturesSection />
-      <WebsiteServicesSection />
-      <OmnichannelSection />
-      <ReliabilitySection />
-      <PricingSection />
-      <GuaranteeSection />
-      <TestimonialsSection />
-      <FinalCTASection />
-      <Footer />
+      <div className="pt-16">
+        <HeroSection />
+        <FeaturesSection />
+        <WebsiteServicesSection />
+        <OmnichannelSection />
+        <ReliabilitySection />
+        <PricingSection />
+        <GuaranteeSection />
+        <TestimonialsSection />
+        <FinalCTASection />
+        <Footer />
+      </div>
     </div>
   );
 };
