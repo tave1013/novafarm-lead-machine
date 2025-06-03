@@ -1,47 +1,49 @@
 
 import { Check } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const { t } = useLanguage();
 
   const plans = [
     {
-      name: "Starter",
+      name: t('pricing.starter'),
       originalPrice: "€147",
       monthlyPrice: "€97",
       annualMonthlyPrice: "€80",
-      period: isAnnual ? "+ VAT / month" : "/month + VAT",
+      period: isAnnual ? t('pricing.monthAnnual') : t('pricing.month'),
       setupFee: "€500",
-      yearlyDiscount: "Save 17%",
+      yearlyDiscount: t('pricing.savePercent'),
       features: [
-        "Smart appointment calendar",
-        "Automated follow-ups",
-        "Review request system",
-        "All-in-one app",
-        "Email support",
-        "1 basic landing page included",
-        "Hosting, maintenance & updates included"
+        t('pricing.feature1'),
+        t('pricing.feature2'),
+        t('pricing.feature3'),
+        t('pricing.feature4'),
+        t('pricing.feature5'),
+        t('pricing.feature6'),
+        t('pricing.feature7')
       ]
     },
     {
-      name: "Pro",
+      name: t('pricing.pro'),
       originalPrice: "€297",
       monthlyPrice: "€197",
       annualMonthlyPrice: "€164",
-      period: isAnnual ? "+ VAT / month" : "/month + VAT",
+      period: isAnnual ? t('pricing.monthAnnual') : t('pricing.month'),
       setupFee: "€1,000",
-      yearlyDiscount: "Save 17%",
-      badge: "Best Value",
+      yearlyDiscount: t('pricing.savePercent'),
+      badge: t('pricing.bestValue'),
       popular: true,
       features: [
-        "Everything in Starter",
-        "Full omnichannel messaging",
-        "Accept payments before appointments",
-        "Advanced analytics and reporting",
-        "7/7 premium support",
-        "Up to 3 landing pages included",
-        "Hosting, maintenance & updates included"
+        t('pricing.feature8'),
+        t('pricing.feature9'),
+        t('pricing.feature10'),
+        t('pricing.feature11'),
+        t('pricing.feature12'),
+        t('pricing.feature13'),
+        t('pricing.feature7')
       ]
     }
   ];
@@ -51,16 +53,16 @@ const PricingSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-            Simple Plans. Powerful Results.
+            {t('pricing.title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            Choose the plan that fits your pharmacy's needs and start growing today.
+            {t('pricing.subtitle')}
           </p>
           
           {/* Billing Toggle */}
           <div className="flex items-center justify-center space-x-4 mb-2">
             <span className={`text-sm ${!isAnnual ? 'text-black font-medium' : 'text-gray-500'}`}>
-              Monthly
+              {t('pricing.monthly')}
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
@@ -75,10 +77,10 @@ const PricingSection = () => {
               />
             </button>
             <span className={`text-sm ${isAnnual ? 'text-black font-medium' : 'text-gray-500'}`}>
-              Annual
+              {t('pricing.annual')}
             </span>
           </div>
-          <p className="text-sm text-gray-500">💡 Save 17% with annual billing</p>
+          <p className="text-sm text-gray-500">{t('pricing.save')}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -110,7 +112,7 @@ const PricingSection = () => {
                       </span>
                     )}
                     <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                      PROMO
+                      {t('pricing.promo')}
                     </span>
                   </div>
                   <div className="flex items-baseline justify-center">
@@ -121,7 +123,7 @@ const PricingSection = () => {
                   </div>
                 </div>
                 <div className={`text-sm ${plan.popular ? 'text-gray-200' : 'text-gray-500'}`}>
-                  Setup fee: {plan.setupFee} (one-time)
+                  {t('pricing.setup')} {plan.setupFee} {t('pricing.oneTime')}
                 </div>
               </div>
               
@@ -139,16 +141,16 @@ const PricingSection = () => {
                   ? 'bg-white text-[#078147] hover:bg-gray-100' 
                   : 'bg-[#078147] text-white hover:bg-[#066139]'
               }`}>
-                Book a Call
+                {t('pricing.cta')}
               </button>
             </div>
           ))}
         </div>
         
         <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Need a custom solution for your pharmacy network?</p>
+          <p className="text-gray-600 mb-4">{t('pricing.custom')}</p>
           <button className="text-[#078147] font-semibold hover:underline">
-            Contact us for enterprise pricing
+            {t('pricing.enterprise')}
           </button>
         </div>
       </div>

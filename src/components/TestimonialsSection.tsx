@@ -1,30 +1,33 @@
 
 import { Star } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const TestimonialsSection = () => {
+  const { t } = useLanguage();
+
   const testimonials = [
     {
-      name: "Marco R.",
-      role: "Pharmacy Owner",
-      content: "NovaFarm transformed our appointment system. No more calls, just results.",
+      name: t('testimonials.1.name'),
+      role: t('testimonials.1.role'),
+      content: t('testimonials.1.content'),
       rating: 5
     },
     {
-      name: "Silvia T.",
-      role: "Pharmacist",
-      content: "The review follow-ups helped us get over 50 new Google reviews in 2 months.",
+      name: t('testimonials.2.name'),
+      role: t('testimonials.2.role'),
+      content: t('testimonials.2.content'),
       rating: 5
     },
     {
-      name: "Giuseppe M.",
-      role: "Para-pharmacy Manager",
-      content: "Finally, a system that actually works for our team. Simple and effective.",
+      name: t('testimonials.3.name'),
+      role: t('testimonials.3.role'),
+      content: t('testimonials.3.content'),
       rating: 5
     },
     {
-      name: "Francesca L.",
-      role: "Pharmacy Director",
-      content: "Customer satisfaction increased by 40% since we started using NovaFarm.",
+      name: t('testimonials.4.name'),
+      role: t('testimonials.4.role'),
+      content: t('testimonials.4.content'),
       rating: 5
     }
   ];
@@ -34,10 +37,10 @@ const TestimonialsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fade-up">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-            What Our Clients Say
+            {t('testimonials.title')}
           </h2>
           <p className="text-lg text-gray-600">
-            Join hundreds of satisfied pharmacy owners who trust NovaFarm
+            {t('testimonials.subtitle')}
           </p>
         </div>
         
@@ -74,7 +77,7 @@ const TestimonialsSection = () => {
               ))}
             </div>
             <span className="text-black font-semibold">4.9/5</span>
-            <span className="text-gray-600">from 200+ reviews</span>
+            <span className="text-gray-600">{t('testimonials.rating')}</span>
           </div>
         </div>
       </div>

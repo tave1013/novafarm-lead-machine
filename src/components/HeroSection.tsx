@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const handleBookDemo = () => {
     navigate('/book-demo');
@@ -13,17 +15,17 @@ const HeroSection = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
           <div className="mb-8 lg:mb-0 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight mb-6">
-              The Smart Appointment System for
-              <span className="text-[#078147]"> Modern Pharmacies</span>
+              {t('hero.title.part1')}
+              <span className="text-[#078147]"> {t('hero.title.part2')}</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-              NovaFarm helps you automate bookings, improve customer service, and grow your pharmacy with ease.
+              {t('hero.subtitle')}
             </p>
             <button 
               onClick={handleBookDemo}
               className="bg-[#078147] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl"
             >
-              Book a Free Demo Call
+              {t('hero.cta')}
             </button>
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>
