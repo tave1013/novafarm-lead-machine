@@ -1,16 +1,14 @@
+
 import { MessageCircle, Mail, Instagram } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
 
 const OmnichannelSection = () => {
-  const { t } = useLanguage();
-
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-              {t('omnichannel.title')}
+              Talk to Your Clients Where They Are
             </h2>
             <div className="space-y-6 mb-8">
               <div className="flex items-start space-x-4">
@@ -18,8 +16,8 @@ const OmnichannelSection = () => {
                   <MessageCircle className="w-6 h-6 text-[#078147]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-black mb-2">{t('omnichannel.messaging')}</h3>
-                  <p className="text-gray-600">{t('omnichannel.messagingDesc')}</p>
+                  <h3 className="font-semibold text-black mb-2">Integrated Messaging</h3>
+                  <p className="text-gray-600">Connect across Facebook, Instagram, Email, and SMS</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -27,8 +25,8 @@ const OmnichannelSection = () => {
                   <Mail className="w-6 h-6 text-[#078147]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-black mb-2">{t('omnichannel.inbox')}</h3>
-                  <p className="text-gray-600">{t('omnichannel.inboxDesc')}</p>
+                  <h3 className="font-semibold text-black mb-2">Centralized Chat Inbox</h3>
+                  <p className="text-gray-600">All conversations in one simple app</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -36,16 +34,16 @@ const OmnichannelSection = () => {
                   <Instagram className="w-6 h-6 text-[#078147]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-black mb-2">{t('omnichannel.notifications')}</h3>
-                  <p className="text-gray-600">{t('omnichannel.notificationsDesc')}</p>
+                  <h3 className="font-semibold text-black mb-2">Real-time Notifications</h3>
+                  <p className="text-gray-600">Never miss a customer message again</p>
                 </div>
               </div>
               <div className="p-4 bg-[#078147]/5 rounded-lg border-l-4 border-[#078147]">
-                <p className="text-black font-medium">{t('omnichannel.improve')}</p>
+                <p className="text-black font-medium">Improve your customer support and retention with seamless communication.</p>
               </div>
             </div>
             <button className="bg-[#078147] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors">
-              {t('omnichannel.cta')}
+              Book a Call
             </button>
           </div>
           

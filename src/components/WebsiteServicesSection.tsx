@@ -1,17 +1,14 @@
 
 import { Globe, MessageCircle, Server, Wrench } from 'lucide-react';
 import { ServicesPageMockup } from './WebsiteMockups';
-import { useLanguage } from '../contexts/LanguageContext';
 
 const WebsiteServicesSection = () => {
-  const { t } = useLanguage();
-
   const features = [
-    t('website.feature1'),
-    t('website.feature2'),
-    t('website.feature3'),
-    t('website.feature4'),
-    t('website.feature5')
+    "Up to 3 custom-built landing pages",
+    "Contact form for lead acquisition", 
+    "Integrated live chat",
+    "Hosting, maintenance, and updates included",
+    "Can be linked to your existing website"
   ];
 
   return (
@@ -19,10 +16,11 @@ const WebsiteServicesSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-            {t('website.title')}
+            Professional Web Pages to Showcase Your Pharmacy's Services
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            {t('website.subtitle')}
+            We design up to 3 tailor-made web pages for your pharmacy, built to highlight your services, 
+            consultations, and contact options – all optimized to generate more leads and simplify online bookings.
           </p>
         </div>
 
@@ -38,15 +36,16 @@ const WebsiteServicesSection = () => {
               <div className="w-12 h-12 bg-[#078147]/10 rounded-lg flex items-center justify-center">
                 <Globe className="w-6 h-6 text-[#078147]" />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-black">{t('website.heading')}</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-black">Custom Web Pages</h3>
             </div>
             
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              {t('website.description')}
+              Professional, conversion-optimized pages that work seamlessly with your existing website 
+              or as standalone landing pages for your pharmacy services.
             </p>
 
             <div className="space-y-4 mb-8">
-              <h4 className="text-lg font-semibold text-black mb-4">{t('website.includes')}</h4>
+              <h4 className="text-lg font-semibold text-black mb-4">Each package includes:</h4>
               {features.map((feature, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-[#078147] rounded-full mt-2 flex-shrink-0"></div>
@@ -59,8 +58,8 @@ const WebsiteServicesSection = () => {
               <div className="flex items-center space-x-3">
                 <Wrench className="w-5 h-5 text-[#078147]" />
                 <div>
-                  <div className="font-semibold text-black">{t('website.existing')}</div>
-                  <div className="text-sm text-gray-600">{t('website.existingDesc')}</div>
+                  <div className="font-semibold text-black">Already have a website?</div>
+                  <div className="text-sm text-gray-600">No problem – these pages can be linked directly to it</div>
                 </div>
               </div>
             </div>
