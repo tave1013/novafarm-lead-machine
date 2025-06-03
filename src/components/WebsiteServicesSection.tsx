@@ -1,6 +1,6 @@
 
 import { Globe, MessageCircle, Server, Wrench } from 'lucide-react';
-import { ServicesPageMockup, ContactPageMockup } from './WebsiteMockups';
+import { ServicesPageMockup } from './WebsiteMockups';
 
 const WebsiteServicesSection = () => {
   const features = [
@@ -25,16 +25,9 @@ const WebsiteServicesSection = () => {
         </div>
 
         <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center mb-16">
-          {/* Mockups */}
-          <div className="mb-8 lg:mb-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex justify-center">
-                <ServicesPageMockup />
-              </div>
-              <div className="flex justify-center">
-                <ContactPageMockup />
-              </div>
-            </div>
+          {/* Mockup */}
+          <div className="mb-8 lg:mb-0 flex justify-center">
+            <ServicesPageMockup />
           </div>
 
           {/* Content */}
@@ -61,7 +54,7 @@ const WebsiteServicesSection = () => {
               ))}
             </div>
 
-            <div className="bg-[#078147]/5 p-4 rounded-lg mb-6">
+            <div className="bg-[#078147]/5 p-4 rounded-lg">
               <div className="flex items-center space-x-3">
                 <Wrench className="w-5 h-5 text-[#078147]" />
                 <div>
@@ -70,10 +63,6 @@ const WebsiteServicesSection = () => {
                 </div>
               </div>
             </div>
-
-            <button className="bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl">
-              See Web Page Examples
-            </button>
           </div>
         </div>
       </div>

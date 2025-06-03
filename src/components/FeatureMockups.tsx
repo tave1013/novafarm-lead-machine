@@ -1,4 +1,3 @@
-
 import { Calendar, MessageCircle, Star, BarChart3, Users, CreditCard, Zap, Headphones } from 'lucide-react';
 
 export const BookingCalendarMockup = () => (
@@ -210,44 +209,59 @@ export const DashboardMockup = () => (
 );
 
 export const PaymentMockup = () => (
-  <div className="bg-white rounded-xl shadow-2xl p-6 max-w-md mx-auto">
-    <div className="flex items-center justify-between mb-4">
-      <h3 className="font-semibold text-gray-800">Secure Payment</h3>
-      <CreditCard className="w-5 h-5 text-[#078147]" />
+  <div className="bg-white rounded-xl shadow-2xl p-8 max-w-lg mx-auto">
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="font-semibold text-gray-800 text-lg">Secure Payment</h3>
+      <CreditCard className="w-6 h-6 text-[#078147]" />
     </div>
-    <div className="space-y-4">
-      <div className="bg-[#078147]/5 p-4 rounded-lg">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium">Consultation Fee</span>
-          <span className="text-lg font-bold text-[#078147]">€45.00</span>
+    <div className="space-y-6">
+      <div className="bg-[#078147]/5 p-6 rounded-lg">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-base font-medium">Consultation Fee</span>
+          <span className="text-2xl font-bold text-[#078147]">€45.00</span>
         </div>
-        <div className="text-xs text-gray-600">Dr. Rossi - Nov 15, 2024 at 14:30</div>
+        <div className="text-sm text-gray-600">Dr. Rossi - Nov 15, 2024 at 14:30</div>
+        <div className="text-xs text-gray-500 mt-1">Medication consultation & health screening</div>
       </div>
+      
+      <div className="grid grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <div>
+            <label className="text-sm text-gray-600 font-medium">Cardholder Name</label>
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg text-sm border">Marco Bianchi</div>
+          </div>
+          <div>
+            <label className="text-sm text-gray-600 font-medium">Card Number</label>
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg text-sm border">•••• •••• •••• 4242</div>
+          </div>
+        </div>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="text-sm text-gray-600 font-medium">Expiry Date</label>
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg text-sm border">12/26</div>
+          </div>
+          <div>
+            <label className="text-sm text-gray-600 font-medium">Security Code</label>
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg text-sm border">•••</div>
+          </div>
+        </div>
+      </div>
+      
       <div className="space-y-3">
-        <div>
-          <label className="text-xs text-gray-600">Cardholder Name</label>
-          <div className="mt-1 p-2 bg-gray-50 rounded text-sm">Marco Bianchi</div>
-        </div>
-        <div>
-          <label className="text-xs text-gray-600">Card Number</label>
-          <div className="mt-1 p-2 bg-gray-50 rounded text-sm">•••• •••• •••• 4242</div>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs text-gray-600">Expiry</label>
-            <div className="mt-1 p-2 bg-gray-50 rounded text-sm">12/26</div>
-          </div>
-          <div>
-            <label className="text-xs text-gray-600">CVC</label>
-            <div className="mt-1 p-2 bg-gray-50 rounded text-sm">•••</div>
-          </div>
+        <button className="w-full bg-[#078147] text-white py-4 rounded-lg font-semibold text-base hover:bg-[#066139] transition-colors">
+          Confirm Payment €45.00
+        </button>
+        <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
+          <span>🔒</span>
+          <span>Secured by Stripe • SSL Encrypted</span>
         </div>
       </div>
-      <button className="w-full bg-[#078147] text-white py-3 rounded-lg font-medium">
-        Confirm Payment €45.00
-      </button>
-      <div className="flex items-center justify-center space-x-2 text-xs text-gray-500">
-        <span>🔒 Secured by Stripe</span>
+      
+      <div className="border-t pt-4">
+        <div className="text-xs text-gray-500 text-center">
+          Your payment information is secure and encrypted
+        </div>
       </div>
     </div>
   </div>
