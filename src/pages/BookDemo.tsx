@@ -28,32 +28,32 @@ const BookDemo = () => {
     <div className="min-h-screen bg-white">
       <Header />
       
-      <div className="pt-32 pb-16">
+      <div className="pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Left 50% - Contact Form */}
-            <div className="w-full">
-              <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
-                <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <div className="w-full order-2 lg:order-1">
+              <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 lg:p-8 shadow-sm">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-3 sm:mb-4 leading-tight">
                   Book Your Free <span className="text-[#078147]">NovaFarm Demo</span>
                 </h1>
-                <p className="text-lg text-gray-600 mb-8">
+                <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                   Discover how NovaFarm can transform your pharmacy operations in just 30 minutes.
                 </p>
 
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
                     {/* First Name and Last Name - Side by Side */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <FormField
                         control={form.control}
                         name="firstName"
                         rules={{ required: "First name is required" }}
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>First Name</FormLabel>
+                            <FormLabel className="text-sm sm:text-base">First Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Mario" {...field} />
+                              <Input placeholder="Mario" {...field} className="h-10 sm:h-12" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -65,9 +65,9 @@ const BookDemo = () => {
                         rules={{ required: "Last name is required" }}
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Last Name</FormLabel>
+                            <FormLabel className="text-sm sm:text-base">Last Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Rossi" {...field} />
+                              <Input placeholder="Rossi" {...field} className="h-10 sm:h-12" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -88,9 +88,9 @@ const BookDemo = () => {
                       }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email Address</FormLabel>
+                          <FormLabel className="text-sm sm:text-base">Email Address</FormLabel>
                           <FormControl>
-                            <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} />
+                            <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} className="h-10 sm:h-12" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -104,9 +104,9 @@ const BookDemo = () => {
                       rules={{ required: "VAT Number is required" }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Company VAT Number</FormLabel>
+                          <FormLabel className="text-sm sm:text-base">Company VAT Number</FormLabel>
                           <FormControl>
-                            <Input placeholder="IT12345678901" {...field} />
+                            <Input placeholder="IT12345678901" {...field} className="h-10 sm:h-12" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -120,14 +120,14 @@ const BookDemo = () => {
                       rules={{ required: "Please select how you plan to use NovaFarm" }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>How do you plan to use NovaFarm?</FormLabel>
+                          <FormLabel className="text-sm sm:text-base">How do you plan to use NovaFarm?</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger>
+                              <SelectTrigger className="h-10 sm:h-12">
                                 <SelectValue placeholder="Select an option" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-white border border-gray-200 shadow-lg z-50">
                               <SelectItem value="appointment-booking">For appointment booking only</SelectItem>
                               <SelectItem value="marketing-reviews">For marketing and reviews</SelectItem>
                               <SelectItem value="centralize-operations">To centralize all pharmacy operations</SelectItem>
@@ -146,14 +146,14 @@ const BookDemo = () => {
                       rules={{ required: "Please select what problem you're hoping to solve" }}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>What problem are you hoping NovaFarm will solve?</FormLabel>
+                          <FormLabel className="text-sm sm:text-base">What problem are you hoping NovaFarm will solve?</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger>
+                              <SelectTrigger className="h-10 sm:h-12">
                                 <SelectValue placeholder="Select an option" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-white border border-gray-200 shadow-lg z-50">
                               <SelectItem value="reduce-phone-calls">Reduce phone calls for appointments</SelectItem>
                               <SelectItem value="more-reviews">Get more customer reviews</SelectItem>
                               <SelectItem value="automate-followups">Automate follow-ups and reminders</SelectItem>
@@ -169,7 +169,7 @@ const BookDemo = () => {
                     {/* Submit Button */}
                     <Button 
                       type="submit" 
-                      className="w-full bg-[#078147] hover:bg-[#066139] text-white py-3 text-lg font-semibold"
+                      className="w-full bg-[#078147] hover:bg-[#066139] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold h-12 sm:h-14"
                     >
                       Book My Free Demo
                     </Button>
@@ -177,56 +177,58 @@ const BookDemo = () => {
                 </Form>
 
                 {/* Reassuring Note */}
-                <p className="text-sm text-gray-500 text-center mt-4">
+                <p className="text-xs sm:text-sm text-gray-500 text-center mt-3 sm:mt-4 px-2">
                   We'll get back to you within 24 hours to schedule your personalized demo. No obligation – just clarity.
                 </p>
               </div>
             </div>
 
             {/* Right 50% - Textual Content */}
-            <div className="w-full bg-white p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-                Why book a demo with NovaFarm?
-              </h2>
-              
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                See firsthand how NovaFarm can streamline your pharmacy operations, boost customer engagement, and save you hours every week. Our personalized demo will show you exactly how our platform fits your specific needs.
-              </p>
+            <div className="w-full order-1 lg:order-2">
+              <div className="bg-white p-4 sm:p-6 lg:p-8">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-4 sm:mb-6 leading-tight">
+                  Why book a demo with NovaFarm?
+                </h2>
+                
+                <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+                  See firsthand how NovaFarm can streamline your pharmacy operations, boost customer engagement, and save you hours every week. Our personalized demo will show you exactly how our platform fits your specific needs.
+                </p>
 
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
-                    <Check className="w-4 h-4 text-white" />
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    <span className="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">Save hours with smart automations</span>
                   </div>
-                  <span className="text-gray-800 font-medium">Save hours with smart automations</span>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
-                    <Check className="w-4 h-4 text-white" />
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    <span className="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">Boost appointment requests and client engagement</span>
                   </div>
-                  <span className="text-gray-800 font-medium">Boost appointment requests and client engagement</span>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
-                    <Check className="w-4 h-4 text-white" />
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    <span className="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">Eliminate no-shows with automatic reminders</span>
                   </div>
-                  <span className="text-gray-800 font-medium">Eliminate no-shows with automatic reminders</span>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
-                    <Check className="w-4 h-4 text-white" />
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    <span className="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">Centralize messaging across SMS, email, and social</span>
                   </div>
-                  <span className="text-gray-800 font-medium">Centralize messaging across SMS, email, and social</span>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
-                    <Check className="w-4 h-4 text-white" />
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-[#078147] rounded-full flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    <span className="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">Monitor everything from one intuitive dashboard</span>
                   </div>
-                  <span className="text-gray-800 font-medium">Monitor everything from one intuitive dashboard</span>
                 </div>
               </div>
             </div>
