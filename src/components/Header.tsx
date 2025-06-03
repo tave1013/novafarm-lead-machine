@@ -35,6 +35,11 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleFeaturesPage = () => {
+    navigate('/features');
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,17 +58,17 @@ const Header = () => {
             <button onClick={() => scrollToSection('home')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Home
             </button>
-            <button onClick={() => scrollToSection('features')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
-              Features
+            <button onClick={handleFeaturesPage} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
+              Funzionalità
             </button>
             <button onClick={() => scrollToSection('pricing')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
-              Pricing
+              Prezzi
             </button>
             <button onClick={() => scrollToSection('testimonials')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
-              Testimonials
+              Recensioni
             </button>
             <button onClick={() => scrollToSection('contact')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
-              Contact
+              Contatti
             </button>
           </nav>
           
@@ -72,7 +77,7 @@ const Header = () => {
             onClick={handleBookDemo}
             className="hidden lg:block bg-[#078147] text-white px-4 xl:px-6 py-2 rounded-lg text-sm xl:text-base font-semibold hover:bg-[#066139] transition-colors animate-pulse-slow"
           >
-            Book a Call
+            Prenota Demo
           </button>
           
           {/* Mobile Menu Button */}
@@ -92,24 +97,24 @@ const Header = () => {
               <button onClick={() => scrollToSection('home')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Home
               </button>
-              <button onClick={() => scrollToSection('features')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
-                Features
+              <button onClick={handleFeaturesPage} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
+                Funzionalità
               </button>
               <button onClick={() => scrollToSection('pricing')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
-                Pricing
+                Prezzi
               </button>
               <button onClick={() => scrollToSection('testimonials')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
-                Testimonials
+                Recensioni
               </button>
               <button onClick={() => scrollToSection('contact')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
-                Contact
+                Contatti
               </button>
               <div className="pt-2">
                 <button 
                   onClick={handleBookDemo}
                   className="w-full bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-center animate-pulse-slow"
                 >
-                  Book a Call
+                  Prenota Demo
                 </button>
               </div>
             </nav>
