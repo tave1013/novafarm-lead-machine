@@ -1,9 +1,11 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -12,6 +14,11 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setIsMenuOpen(false);
+  };
+
+  const handleBookDemo = () => {
+    navigate('/book-demo');
     setIsMenuOpen(false);
   };
 
@@ -43,7 +50,10 @@ const Header = () => {
           </nav>
           
           {/* Desktop CTA Button */}
-          <button className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors">
+          <button 
+            onClick={handleBookDemo}
+            className="hidden md:block bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors"
+          >
             Book a Call
           </button>
           
@@ -75,7 +85,10 @@ const Header = () => {
               <button onClick={() => scrollToSection('contact')} className="text-black hover:text-[#078147] transition-colors text-left">
                 Contact
               </button>
-              <button className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-left">
+              <button 
+                onClick={handleBookDemo}
+                className="bg-[#078147] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-left"
+              >
                 Book a Call
               </button>
             </nav>
