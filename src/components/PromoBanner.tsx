@@ -40,7 +40,7 @@ const PromoBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-gradient-to-r from-[#078147] to-[#066139] text-white py-3 px-4 relative fixed top-0 left-0 right-0 z-50">
+    <div className="bg-gradient-to-r from-[#078147] to-[#066139] text-white py-3 px-4 relative">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex-1 text-center">
           <div className="flex items-center justify-center space-x-4 text-sm md:text-base">
