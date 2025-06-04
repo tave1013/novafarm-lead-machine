@@ -1,5 +1,6 @@
 
 import { Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { 
   BookingCalendarMockup,
   AutomationMockup,
@@ -12,9 +13,23 @@ import {
 } from './FeatureMockups';
 
 const FeaturesSection = () => {
+  const navigate = useNavigate();
+
+  const handleLearnMore = (sectionId: string) => {
+    navigate(`/features#${sectionId}`);
+    // Small delay to ensure navigation completes before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const features = [
     {
       id: 1,
+      sectionId: 'calendar',
       title: "Online Booking Calendar",
       description: "Let your customers book appointments 24/7 from any device, automatically syncing with your team's schedule.",
       mockup: <BookingCalendarMockup />,
@@ -28,6 +43,7 @@ const FeaturesSection = () => {
     },
     {
       id: 2,
+      sectionId: 'automation',
       title: "Smart Automations",
       description: "Set-it-and-forget-it workflows that handle appointment reminders and follow-ups automatically.",
       mockup: <AutomationMockup />,
@@ -41,6 +57,7 @@ const FeaturesSection = () => {
     },
     {
       id: 3,
+      sectionId: 'reviews',
       title: "Review Request System",
       description: "Automatically boost your online reputation by requesting Google reviews from satisfied customers.",
       mockup: <ReviewSystemMockup />,
@@ -54,6 +71,7 @@ const FeaturesSection = () => {
     },
     {
       id: 4,
+      sectionId: 'chat',
       title: "Centralized Chat",
       description: "Manage all your customer communications from Facebook, Instagram, Email & SMS in one unified inbox.",
       mockup: <ChatInboxMockup />,
@@ -67,6 +85,7 @@ const FeaturesSection = () => {
     },
     {
       id: 5,
+      sectionId: 'dashboard',
       title: "Unified Dashboard & App",
       description: "Everything your team needs in one simple, intuitive interface with custom roles and permissions.",
       mockup: <DashboardMockup />,
@@ -80,6 +99,7 @@ const FeaturesSection = () => {
     },
     {
       id: 6,
+      sectionId: 'payments',
       title: "Online Payment Integration",
       description: "Accept secure payments at booking time to reduce no-shows and improve cash flow.",
       mockup: <PaymentMockup />,
@@ -93,6 +113,7 @@ const FeaturesSection = () => {
     },
     {
       id: 7,
+      sectionId: 'dashboard',
       title: "Advanced Analytics & Reporting",
       description: "Track your pharmacy's performance with detailed insights, KPIs, and monthly reports.",
       mockup: <AnalyticsMockup />,
@@ -106,6 +127,7 @@ const FeaturesSection = () => {
     },
     {
       id: 8,
+      sectionId: 'support',
       title: "7-Day Human Support",
       description: "Get help when you need it with our dedicated support team, onboarding videos, and help center.",
       mockup: <SupportMockup />,
@@ -167,7 +189,10 @@ const FeaturesSection = () => {
                   ))}
                 </div>
 
-                <button className="bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                <button 
+                  onClick={() => handleLearnMore(feature.sectionId)}
+                  className="bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                >
                   Learn More
                 </button>
               </div>
@@ -176,7 +201,10 @@ const FeaturesSection = () => {
         </div>
 
         <div className="text-center mt-16 animate-fade-in">
-          <button className="bg-[#078147] text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl">
+          <button 
+            onClick={() => navigate('/book-demo')}
+            className="bg-[#078147] text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl"
+          >
             Book a Call
           </button>
         </div>

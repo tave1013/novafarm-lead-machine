@@ -30,6 +30,11 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleFeaturesClick = () => {
+    navigate('/features');
+    setIsMenuOpen(false);
+  };
+
   const handleBookDemo = () => {
     navigate('/book-demo');
     setIsMenuOpen(false);
@@ -53,7 +58,7 @@ const Header = () => {
             <button onClick={() => scrollToSection('home')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Home
             </button>
-            <button onClick={() => scrollToSection('features')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
+            <button onClick={handleFeaturesClick} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Features
             </button>
             <button onClick={() => scrollToSection('pricing')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
@@ -92,7 +97,7 @@ const Header = () => {
               <button onClick={() => scrollToSection('home')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Home
               </button>
-              <button onClick={() => scrollToSection('features')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
+              <button onClick={handleFeaturesClick} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Features
               </button>
               <button onClick={() => scrollToSection('pricing')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import Index from "./pages/Index";
+import Features from "./pages/Features";
 import BookDemo from "./pages/BookDemo";
 import NotFound from "./pages/NotFound";
 
@@ -19,6 +20,7 @@ const AppContent = () => {
     <>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/features" element={<Features />} />
         <Route path="/book-demo" element={<BookDemo />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
