@@ -4,6 +4,8 @@ import HeroSection from '../components/HeroSection';
 import FeaturesSection from '../components/FeaturesSection';
 import WebsiteServicesSection from '../components/WebsiteServicesSection';
 import OmnichannelSection from '../components/OmnichannelSection';
+import WhyChooseSection from '../components/WhyChooseSection';
+import TargetAudienceSection from '../components/TargetAudienceSection';
 import ReliabilitySection from '../components/ReliabilitySection';
 import PricingSection from '../components/PricingSection';
 import GuaranteeSection from '../components/GuaranteeSection';
@@ -19,6 +21,8 @@ const Index = () => {
       <FeaturesSection />
       <WebsiteServicesSection />
       <OmnichannelSection />
+      <WhyChooseSection />
+      <TargetAudienceSection />
       <ReliabilitySection />
       <PricingSection />
       <GuaranteeSection />
