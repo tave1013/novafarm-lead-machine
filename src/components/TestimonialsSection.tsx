@@ -67,7 +67,7 @@ const TestimonialsSection = () => {
         </div>
         
         <div className="text-center mt-8 sm:mt-12 animate-fade-up" style={{ animationDelay: '0.5s' }}>
-          <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-shadow transform hover:scale-105">
+          <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-lg">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
