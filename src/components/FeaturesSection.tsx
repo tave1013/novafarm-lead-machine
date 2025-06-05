@@ -27,43 +27,45 @@ const FeaturesSection = () => {
   };
 
   const QRCodeMockup = () => (
-    <div className="relative max-w-md mx-auto">
-      {/* Container */}
-      <div className="bg-white rounded-2xl shadow-2xl p-6 overflow-hidden">
-        {/* Three staggered mockups */}
-        <div className="relative h-80">
-          {/* Poster mockup - back */}
-          <div className="absolute top-0 right-0 w-48 h-64 bg-gradient-to-br from-[#078147] to-[#066139] rounded-lg shadow-lg transform rotate-6 z-10">
-            <div className="p-4 text-white">
-              <h3 className="text-lg font-bold mb-2">Prenota Online</h3>
-              <div className="w-20 h-20 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center">
-                <QrCode className="w-12 h-12 text-[#078147]" />
-              </div>
-              <p className="text-sm text-center">Scansiona per prenotare</p>
+    <div className="relative max-w-lg mx-auto">
+      {/* Main container with better proportions */}
+      <div className="bg-white rounded-2xl shadow-2xl p-8 overflow-hidden">
+        {/* Single focused poster mockup */}
+        <div className="relative">
+          {/* Poster with QR code */}
+          <div className="w-full max-w-sm mx-auto bg-gradient-to-br from-[#078147] to-[#066139] rounded-xl shadow-lg p-6 text-white">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold mb-2">Prenota Online</h3>
+              <p className="text-sm opacity-90">Farmacia Centrale</p>
+            </div>
+            
+            {/* Large QR Code */}
+            <div className="w-32 h-32 bg-white rounded-lg mx-auto mb-4 flex items-center justify-center">
+              <QrCode className="w-24 h-24 text-[#078147]" />
+            </div>
+            
+            <div className="text-center">
+              <p className="text-sm mb-2">Scansiona per prenotare</p>
+              <p className="text-xs opacity-75">Servizi disponibili 24/7</p>
             </div>
           </div>
-
-          {/* QR Code closeup - middle */}
-          <div className="absolute top-8 left-4 w-32 h-32 bg-white rounded-lg shadow-lg transform -rotate-3 z-20 border-4 border-gray-100 flex items-center justify-center">
-            <QrCode className="w-20 h-20 text-[#078147]" />
-          </div>
-
-          {/* Stats dashboard - front */}
-          <div className="absolute bottom-0 left-8 w-40 h-32 bg-white rounded-lg shadow-lg transform rotate-2 z-30 border border-gray-200 p-3">
-            <h4 className="text-xs font-semibold text-gray-800 mb-2">QR Stats</h4>
-            <div className="grid grid-cols-2 gap-2 text-xs">
+          
+          {/* Stats overlay */}
+          <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-4 border border-gray-200">
+            <h4 className="text-sm font-semibold text-gray-800 mb-3">QR Stats</h4>
+            <div className="grid grid-cols-2 gap-3 text-xs">
               <div className="text-center">
-                <div className="font-bold text-[#078147]">247</div>
+                <div className="font-bold text-[#078147] text-lg">247</div>
                 <div className="text-gray-500">Scans</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-blue-600">89</div>
+                <div className="font-bold text-blue-600 text-lg">89</div>
                 <div className="text-gray-500">Bookings</div>
               </div>
             </div>
-            <div className="mt-2 text-center">
-              <div className="font-bold text-yellow-600 text-sm">36%</div>
-              <div className="text-gray-500 text-xs">Conversion</div>
+            <div className="mt-3 text-center">
+              <div className="font-bold text-yellow-600 text-base">36%</div>
+              <div className="text-gray-500 text-xs">Conversion Rate</div>
             </div>
           </div>
         </div>

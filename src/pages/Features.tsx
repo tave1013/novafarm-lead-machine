@@ -1,4 +1,4 @@
-import { Check, Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, Globe, Database, Shield, QrCode } from 'lucide-react';
+import { Check, Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, Globe, Database, Shield, QrCode, Building2, Stethoscope, Microscope } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
@@ -514,22 +514,22 @@ const Features = () => {
 
   const targetUsers = [
     {
-      icon: '🏪',
+      icon: <Building2 className="w-8 h-8 text-[#078147]" />,
       title: "Local Pharmacies",
       description: "Independent pharmacies looking to modernize their appointment booking and client communication systems."
     },
     {
-      icon: '💊',
+      icon: <Stethoscope className="w-8 h-8 text-[#078147]" />,
       title: "Para-pharmacies",
       description: "Health and wellness centers offering specialized services like consultations, beauty treatments, and health screenings."
     },
     {
-      icon: '🏢',
+      icon: <Users className="w-8 h-8 text-[#078147]" />,
       title: "Pharmacy Chains",
       description: "Multi-location pharmacy groups needing centralized management with individual branch customization."
     },
     {
-      icon: '👩‍⚕️',
+      icon: <Microscope className="w-8 h-8 text-[#078147]" />,
       title: "Healthcare Consultants",
       description: "Independent healthcare professionals and labs offering appointment-based services to clients."
     }
