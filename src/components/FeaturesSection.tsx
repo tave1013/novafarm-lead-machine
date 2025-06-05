@@ -1,5 +1,5 @@
 
-import { Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones } from 'lucide-react';
+import { Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, QrCode } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { 
   BookingCalendarMockup,
@@ -25,6 +25,51 @@ const FeaturesSection = () => {
       }
     }, 100);
   };
+
+  const QRCodeMockup = () => (
+    <div className="relative max-w-md mx-auto">
+      {/* Container */}
+      <div className="bg-white rounded-2xl shadow-2xl p-6 overflow-hidden">
+        {/* Three staggered mockups */}
+        <div className="relative h-80">
+          {/* Poster mockup - back */}
+          <div className="absolute top-0 right-0 w-48 h-64 bg-gradient-to-br from-[#078147] to-[#066139] rounded-lg shadow-lg transform rotate-6 z-10">
+            <div className="p-4 text-white">
+              <h3 className="text-lg font-bold mb-2">Prenota Online</h3>
+              <div className="w-20 h-20 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center">
+                <QrCode className="w-12 h-12 text-[#078147]" />
+              </div>
+              <p className="text-sm text-center">Scansiona per prenotare</p>
+            </div>
+          </div>
+
+          {/* QR Code closeup - middle */}
+          <div className="absolute top-8 left-4 w-32 h-32 bg-white rounded-lg shadow-lg transform -rotate-3 z-20 border-4 border-gray-100 flex items-center justify-center">
+            <QrCode className="w-20 h-20 text-[#078147]" />
+          </div>
+
+          {/* Stats dashboard - front */}
+          <div className="absolute bottom-0 left-8 w-40 h-32 bg-white rounded-lg shadow-lg transform rotate-2 z-30 border border-gray-200 p-3">
+            <h4 className="text-xs font-semibold text-gray-800 mb-2">QR Stats</h4>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="text-center">
+                <div className="font-bold text-[#078147]">247</div>
+                <div className="text-gray-500">Scans</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-blue-600">89</div>
+                <div className="text-gray-500">Bookings</div>
+              </div>
+            </div>
+            <div className="mt-2 text-center">
+              <div className="font-bold text-yellow-600 text-sm">36%</div>
+              <div className="text-gray-500 text-xs">Conversion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   const features = [
     {
@@ -57,6 +102,21 @@ const FeaturesSection = () => {
     },
     {
       id: 3,
+      sectionId: 'qr-codes',
+      title: "Boost Bookings with QR Code Posters",
+      description: "We create branded QR codes that pharmacies can display in-store to promote their services. Customers can easily scan and book online appointments.",
+      mockup: <QRCodeMockup />,
+      benefits: [
+        "QR codes link to dedicated landing pages",
+        "Ready-made templates, customized to your pharmacy",
+        "View scan statistics and booking conversions",
+        "Works perfectly for seasonal campaigns or events"
+      ],
+      icon: <QrCode className="w-6 h-6 text-[#078147]" />,
+      imageLeft: true
+    },
+    {
+      id: 4,
       sectionId: 'reviews',
       title: "Review Request System",
       description: "Automatically boost your online reputation by requesting Google reviews from satisfied customers.",
@@ -67,10 +127,10 @@ const FeaturesSection = () => {
         "Boost reputation effortlessly"
       ],
       icon: <Star className="w-6 h-6 text-[#078147]" />,
-      imageLeft: true
+      imageLeft: false
     },
     {
-      id: 4,
+      id: 5,
       sectionId: 'chat',
       title: "Centralized Chat",
       description: "Manage all your customer communications from Facebook, Instagram, Email & SMS in one unified inbox.",
@@ -81,10 +141,10 @@ const FeaturesSection = () => {
         "Notifications in real-time"
       ],
       icon: <MessageSquare className="w-6 h-6 text-[#078147]" />,
-      imageLeft: false
+      imageLeft: true
     },
     {
-      id: 5,
+      id: 6,
       sectionId: 'dashboard',
       title: "Unified Dashboard & App",
       description: "Everything your team needs in one simple, intuitive interface with custom roles and permissions.",
@@ -95,10 +155,10 @@ const FeaturesSection = () => {
         "Roles and permissions"
       ],
       icon: <Users className="w-6 h-6 text-[#078147]" />,
-      imageLeft: true
+      imageLeft: false
     },
     {
-      id: 6,
+      id: 7,
       sectionId: 'payments',
       title: "Online Payment Integration",
       description: "Accept secure payments at booking time to reduce no-shows and improve cash flow.",
@@ -109,10 +169,10 @@ const FeaturesSection = () => {
         "Secure Stripe integration"
       ],
       icon: <CreditCard className="w-6 h-6 text-[#078147]" />,
-      imageLeft: false
+      imageLeft: true
     },
     {
-      id: 7,
+      id: 8,
       sectionId: 'dashboard',
       title: "Advanced Analytics & Reporting",
       description: "Track your pharmacy's performance with detailed insights, KPIs, and monthly reports.",
@@ -123,10 +183,10 @@ const FeaturesSection = () => {
         "Track leads and conversions"
       ],
       icon: <BarChart3 className="w-6 h-6 text-[#078147]" />,
-      imageLeft: true
+      imageLeft: false
     },
     {
-      id: 8,
+      id: 9,
       sectionId: 'support',
       title: "7-Day Human Support",
       description: "Get help when you need it with our dedicated support team, onboarding videos, and help center.",
@@ -137,7 +197,7 @@ const FeaturesSection = () => {
         "Onboarding videos & help center"
       ],
       icon: <Headphones className="w-6 h-6 text-[#078147]" />,
-      imageLeft: false
+      imageLeft: true
     }
   ];
 
@@ -198,15 +258,6 @@ const FeaturesSection = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="text-center mt-16 animate-fade-in">
-          <button 
-            onClick={() => navigate('/book-demo')}
-            className="bg-[#078147] text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl"
-          >
-            Book a Call
-          </button>
         </div>
       </div>
     </section>

@@ -1,5 +1,4 @@
-
-import { Check, Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, Globe, Database, Shield } from 'lucide-react';
+import { Check, Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, Globe, Database, Shield, QrCode } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
@@ -95,6 +94,51 @@ const Features = () => {
       imageLeft: false
     },
     {
+      id: 'qr-codes',
+      title: 'QR Code Marketing Posters',
+      description: 'Boost your in-store bookings with branded QR code posters that customers can scan to book appointments instantly. Perfect for promoting your services and tracking campaign effectiveness.',
+      detailedDescription: 'We create custom QR code posters that link directly to your booking system. Display them in-store to promote specific services or seasonal campaigns. Each QR code is trackable, allowing you to see scan statistics and booking conversions. Posters are professionally designed to match your pharmacy\'s branding and can be updated for different promotions.',
+      benefits: [
+        'QR codes link to dedicated landing pages',
+        'Ready-made templates, customized to your pharmacy',
+        'View scan statistics and booking conversions',
+        'Works perfectly for seasonal campaigns or events',
+        'Professional poster design included',
+        'Track ROI on marketing campaigns'
+      ],
+      mockup: (
+        <div className="bg-white rounded-lg shadow-2xl p-6 max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-gray-800">QR Marketing</h3>
+            <QrCode className="w-5 h-5 text-[#078147]" />
+          </div>
+          <div className="space-y-4">
+            <div className="bg-[#078147]/10 p-4 rounded-lg">
+              <div className="w-16 h-16 bg-[#078147] rounded mx-auto mb-2 flex items-center justify-center">
+                <QrCode className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-center text-sm font-medium">Scan & Book</div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-xs">
+              <div className="bg-gray-50 p-2 rounded text-center">
+                <div className="font-bold text-[#078147]">247</div>
+                <div>Scans</div>
+              </div>
+              <div className="bg-gray-50 p-2 rounded text-center">
+                <div className="font-bold text-blue-600">89</div>
+                <div>Bookings</div>
+              </div>
+              <div className="bg-gray-50 p-2 rounded text-center">
+                <div className="font-bold text-yellow-600">36%</div>
+                <div>Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      imageLeft: true
+    },
+    {
       id: 'reviews',
       title: 'Review Request System',
       description: 'Automatically boost your online reputation by requesting Google reviews from satisfied customers. Our smart system knows the perfect timing to ask for feedback.',
@@ -129,7 +173,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: true
+      imageLeft: false
     },
     {
       id: 'chat',
@@ -178,7 +222,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: false
+      imageLeft: true
     },
     {
       id: 'dashboard',
@@ -216,7 +260,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: true
+      imageLeft: false
     },
     {
       id: 'payments',
@@ -255,7 +299,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: false
+      imageLeft: true
     },
     {
       id: 'team',
@@ -304,7 +348,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: true
+      imageLeft: false
     },
     {
       id: 'database',
@@ -350,7 +394,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: false
+      imageLeft: true
     },
     {
       id: 'landing',
@@ -390,7 +434,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: true
+      imageLeft: false
     },
     {
       id: 'support',
@@ -431,7 +475,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: false
+      imageLeft: true
     }
   ];
 
@@ -470,24 +514,24 @@ const Features = () => {
 
   const targetUsers = [
     {
-      title: 'Local Pharmacies',
-      description: 'Perfect for independent pharmacies looking to modernize their operations and improve customer service.',
-      icon: '🏪'
+      icon: '🏪',
+      title: "Local Pharmacies",
+      description: "Independent pharmacies looking to modernize their appointment booking and client communication systems."
     },
     {
-      title: 'Parapharmacies',
-      description: 'Ideal for parapharmacies offering beauty, wellness, and health consultation services.',
-      icon: '💊'
+      icon: '💊',
+      title: "Para-pharmacies",
+      description: "Health and wellness centers offering specialized services like consultations, beauty treatments, and health screenings."
     },
     {
-      title: 'Pharmacy Chains',
-      description: 'Scalable solution for multiple locations with centralized management and reporting.',
-      icon: '🏢'
+      icon: '🏢',
+      title: "Pharmacy Chains",
+      description: "Multi-location pharmacy groups needing centralized management with individual branch customization."
     },
     {
-      title: 'Health Consultants',
-      description: 'Great for independent health professionals and specialized consultation services.',
-      icon: '👩‍⚕️'
+      icon: '👩‍⚕️',
+      title: "Healthcare Consultants",
+      description: "Independent healthcare professionals and labs offering appointment-based services to clients."
     }
   ];
 
@@ -664,23 +708,44 @@ const Features = () => {
       {/* Who It's For Section */}
       <section className="py-16 bg-[#f4f1ea]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              Perfect For Every Type of Pharmacy
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
+              Perfect for Every Type of Pharmacy
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              NovaFarm adapts to your specific needs, whether you're a small local pharmacy or a large chain.
+              NovaFarm adapts to your specific needs, whether you're a single location or managing multiple branches.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {targetUsers.map((user, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow">
-                <div className="text-4xl mb-4">{user.icon}</div>
-                <h3 className="text-xl font-semibold text-black mb-3">{user.title}</h3>
-                <p className="text-gray-600 text-sm">{user.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {targetUsers.map((audience, index) => (
+              <div 
+                key={index}
+                className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="w-16 h-16 bg-[#078147]/10 rounded-lg flex items-center justify-center flex-shrink-0 text-2xl">
+                    {audience.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-black mb-3">
+                      {audience.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {audience.description}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#078147] max-w-2xl mx-auto">
+              <p className="text-gray-700 font-medium">
+                <span className="text-[#078147] font-bold">Ready to get started?</span> Our team will help you customize NovaFarm to fit your pharmacy's unique workflow and requirements.
+              </p>
+            </div>
           </div>
         </div>
       </section>
