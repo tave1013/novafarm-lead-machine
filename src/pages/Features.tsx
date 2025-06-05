@@ -1,3 +1,4 @@
+
 import { Check, Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, Globe, Database, Shield, QrCode, Building2, Stethoscope, Microscope } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -19,18 +20,18 @@ const Features = () => {
         'Custom availability rules per staff member'
       ],
       mockup: (
-        <div className="w-full max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Book Appointment</h3>
-              <Calendar className="w-6 h-6 text-[#078147]" />
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Book Appointment</h3>
+              <Calendar className="w-5 h-5 text-[#078147]" />
             </div>
-            <div className="grid grid-cols-7 gap-2 mb-6">
+            <div className="grid grid-cols-7 gap-1 mb-4">
               {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, idx) => (
-                <div key={idx} className="text-center text-sm text-gray-500 py-3 font-medium">{day}</div>
+                <div key={idx} className="text-center text-xs text-gray-500 py-2 font-medium">{day}</div>
               ))}
               {Array.from({length: 35}, (_, i) => (
-                <div key={i} className={`text-center text-base py-3 rounded-lg cursor-pointer transition-colors ${
+                <div key={i} className={`text-center text-sm py-2 rounded-lg cursor-pointer transition-colors ${
                   i === 15 ? 'bg-[#078147] text-white font-semibold' : 
                   i === 22 ? 'bg-[#078147]/20 text-[#078147] font-semibold' : 
                   'text-gray-600 hover:bg-gray-100'
@@ -39,10 +40,10 @@ const Features = () => {
                 </div>
               ))}
             </div>
-            <div className="space-y-3">
-              <div className="bg-[#078147] text-white p-4 rounded-lg text-base font-medium">9:00 AM - Available</div>
-              <div className="bg-gray-100 text-gray-500 p-4 rounded-lg text-base">10:30 AM - Booked</div>
-              <div className="bg-[#078147] text-white p-4 rounded-lg text-base font-medium">2:00 PM - Available</div>
+            <div className="space-y-2">
+              <div className="bg-[#078147] text-white p-3 rounded-lg text-sm font-medium">9:00 AM - Available</div>
+              <div className="bg-gray-100 text-gray-500 p-3 rounded-lg text-sm">10:30 AM - Booked</div>
+              <div className="bg-[#078147] text-white p-3 rounded-lg text-sm font-medium">2:00 PM - Available</div>
             </div>
           </div>
         </div>
@@ -63,32 +64,32 @@ const Features = () => {
         'Reduce no-shows by up to 80%'
       ],
       mockup: (
-        <div className="w-full max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Automation Workflow</h3>
-              <Zap className="w-6 h-6 text-[#078147]" />
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Automation Workflow</h3>
+              <Zap className="w-5 h-5 text-[#078147]" />
             </div>
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4 p-4 bg-blue-50 rounded-xl">
-                <div className="w-4 h-4 bg-blue-500 rounded-full flex-shrink-0"></div>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-xl">
+                <div className="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0"></div>
                 <div className="flex-1">
-                  <div className="text-base font-semibold text-gray-800">24h Reminder</div>
-                  <div className="text-sm text-gray-600">SMS + Email sent automatically</div>
+                  <div className="text-sm font-semibold text-gray-800">24h Reminder</div>
+                  <div className="text-xs text-gray-600">SMS + Email sent automatically</div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4 p-4 bg-yellow-50 rounded-xl">
-                <div className="w-4 h-4 bg-yellow-500 rounded-full flex-shrink-0"></div>
+              <div className="flex items-center space-x-3 p-3 bg-yellow-50 rounded-xl">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full flex-shrink-0"></div>
                 <div className="flex-1">
-                  <div className="text-base font-semibold text-gray-800">2h Reminder</div>
-                  <div className="text-sm text-gray-600">Final SMS reminder</div>
+                  <div className="text-sm font-semibold text-gray-800">2h Reminder</div>
+                  <div className="text-xs text-gray-600">Final SMS reminder</div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4 p-4 bg-green-50 rounded-xl">
-                <div className="w-4 h-4 bg-[#078147] rounded-full flex-shrink-0"></div>
+              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-xl">
+                <div className="w-3 h-3 bg-[#078147] rounded-full flex-shrink-0"></div>
                 <div className="flex-1">
-                  <div className="text-base font-semibold text-gray-800">Post-Visit Follow-up</div>
-                  <div className="text-sm text-gray-600">Thank you + review request</div>
+                  <div className="text-sm font-semibold text-gray-800">Post-Visit Follow-up</div>
+                  <div className="text-xs text-gray-600">Thank you + review request</div>
                 </div>
               </div>
             </div>
@@ -111,41 +112,41 @@ const Features = () => {
         'Track ROI on marketing campaigns'
       ],
       mockup: (
-        <div className="w-full max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">QR Marketing</h3>
-              <QrCode className="w-6 h-6 text-[#078147]" />
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">QR Marketing</h3>
+              <QrCode className="w-5 h-5 text-[#078147]" />
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-[#078147] to-[#066139] rounded-xl shadow-lg p-6 text-white">
-                <div className="text-center mb-6">
-                  <h4 className="text-lg font-bold mb-2">Prenota Online</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-[#078147] to-[#066139] rounded-xl shadow-lg p-4 text-white">
+                <div className="text-center mb-4">
+                  <h4 className="text-base font-bold mb-1">Prenota Online</h4>
                   <p className="text-sm opacity-90">Farmacia Centrale</p>
                 </div>
-                <div className="w-24 h-24 bg-white rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <QrCode className="w-16 h-16 text-[#078147]" />
+                <div className="w-16 h-16 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center">
+                  <QrCode className="w-12 h-12 text-[#078147]" />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm mb-2">Scansiona per prenotare</p>
+                  <p className="text-sm mb-1">Scansiona per prenotare</p>
                   <p className="text-xs opacity-75">Servizi disponibili 24/7</p>
                 </div>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h4 className="text-base font-semibold text-gray-800 mb-4">Campaign Stats</h4>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-white rounded-lg">
-                    <div className="text-2xl font-bold text-[#078147]">247</div>
-                    <div className="text-sm text-gray-600">Scans</div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <h4 className="text-sm font-semibold text-gray-800 mb-3">Campaign Stats</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="text-center p-2 bg-white rounded-lg">
+                    <div className="text-lg font-bold text-[#078147]">247</div>
+                    <div className="text-xs text-gray-600">Scans</div>
                   </div>
-                  <div className="text-center p-3 bg-white rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">89</div>
-                    <div className="text-sm text-gray-600">Bookings</div>
+                  <div className="text-center p-2 bg-white rounded-lg">
+                    <div className="text-lg font-bold text-blue-600">89</div>
+                    <div className="text-xs text-gray-600">Bookings</div>
                   </div>
                 </div>
-                <div className="mt-4 text-center p-3 bg-white rounded-lg">
-                  <div className="text-xl font-bold text-yellow-600">36%</div>
-                  <div className="text-sm text-gray-600">Conversion Rate</div>
+                <div className="mt-3 text-center p-2 bg-white rounded-lg">
+                  <div className="text-base font-bold text-yellow-600">36%</div>
+                  <div className="text-xs text-gray-600">Conversion Rate</div>
                 </div>
               </div>
             </div>
@@ -168,25 +169,25 @@ const Features = () => {
         'Increase positive reviews by 300%'
       ],
       mockup: (
-        <div className="w-full max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Review Request</h3>
-              <Star className="w-6 h-6 text-[#078147]" />
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Review Request</h3>
+              <Star className="w-5 h-5 text-[#078147]" />
             </div>
-            <div className="bg-gradient-to-r from-[#078147]/10 to-[#078147]/5 p-6 rounded-xl mb-6">
-              <div className="text-base text-gray-700 mb-4 font-medium">How was your experience?</div>
-              <div className="flex justify-center space-x-2 mb-6">
+            <div className="bg-gradient-to-r from-[#078147]/10 to-[#078147]/5 p-4 rounded-xl mb-4">
+              <div className="text-sm text-gray-700 mb-3 font-medium">How was your experience?</div>
+              <div className="flex justify-center space-x-1 mb-4">
                 {[1,2,3,4,5].map(star => (
-                  <Star key={star} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
+                  <Star key={star} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <button className="bg-[#078147] text-white px-6 py-3 rounded-lg text-base font-semibold w-full hover:bg-[#066139] transition-colors">
+              <button className="bg-[#078147] text-white px-4 py-2 rounded-lg text-sm font-semibold w-full hover:bg-[#066139] transition-colors">
                 Leave Google Review
               </button>
             </div>
             <div className="text-center">
-              <div className="text-sm text-gray-500 bg-gray-50 px-4 py-2 rounded-lg inline-block">
+              <div className="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-lg inline-block">
                 Sent 24h after appointment completion
               </div>
             </div>
@@ -209,34 +210,34 @@ const Features = () => {
         'Quick response templates'
       ],
       mockup: (
-        <div className="w-full max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Unified Inbox</h3>
-              <MessageSquare className="w-6 h-6 text-[#078147]" />
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Unified Inbox</h3>
+              <MessageSquare className="w-5 h-5 text-[#078147]" />
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4 p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer">
-                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">FB</div>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer">
+                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">FB</div>
                 <div className="flex-1">
-                  <div className="text-base font-semibold text-gray-800">Maria R.</div>
-                  <div className="text-sm text-gray-600">Ciao, vorrei prenotare...</div>
+                  <div className="text-sm font-semibold text-gray-800">Maria R.</div>
+                  <div className="text-xs text-gray-600">Ciao, vorrei prenotare...</div>
                 </div>
                 <div className="text-xs text-gray-500 bg-white px-2 py-1 rounded">2m</div>
               </div>
-              <div className="flex items-center space-x-4 p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors cursor-pointer">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">IG</div>
+              <div className="flex items-center space-x-3 p-3 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors cursor-pointer">
+                <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">IG</div>
                 <div className="flex-1">
-                  <div className="text-base font-semibold text-gray-800">@carlo_farm</div>
-                  <div className="text-sm text-gray-600">Orari di apertura?</div>
+                  <div className="text-sm font-semibold text-gray-800">@carlo_farm</div>
+                  <div className="text-xs text-gray-600">Orari di apertura?</div>
                 </div>
                 <div className="text-xs text-gray-500 bg-white px-2 py-1 rounded">5m</div>
               </div>
-              <div className="flex items-center space-x-4 p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors cursor-pointer">
-                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">SMS</div>
+              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-xl hover:bg-green-100 transition-colors cursor-pointer">
+                <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">SMS</div>
                 <div className="flex-1">
-                  <div className="text-base font-semibold text-gray-800">+39 123 456</div>
-                  <div className="text-sm text-gray-600">Grazie per il servizio!</div>
+                  <div className="text-sm font-semibold text-gray-800">+39 123 456</div>
+                  <div className="text-xs text-gray-600">Grazie per il servizio!</div>
                 </div>
                 <div className="text-xs text-gray-500 bg-white px-2 py-1 rounded">1h</div>
               </div>
