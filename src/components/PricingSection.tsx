@@ -49,7 +49,7 @@ const PricingSection = () => {
   return (
     <section id="pricing" className="py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12 mt-20">
+        <div className="text-center mb-8 sm:mb-12 mt-5">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-3 sm:mb-4 leading-tight">
             Simple Plans. Powerful Results.
           </h2>
