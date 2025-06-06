@@ -7,6 +7,7 @@ const Features = () => {
   const features = [
     {
       id: 'calendar',
+      icon: <Calendar className="w-8 h-8 text-[#078147]" />,
       title: 'Smart Booking Calendar',
       description: 'Transform your appointment management with our intelligent 24/7 booking system. Your customers can book appointments anytime from any device, while you maintain complete control over your schedule and availability.',
       detailedDescription: 'Our smart calendar automatically syncs with your team\'s individual schedules, prevents double bookings, and allows you to set specific services for different time slots. The system intelligently manages buffer times between appointments and can handle complex scheduling scenarios like recurring appointments or group sessions.',
@@ -49,6 +50,7 @@ const Features = () => {
     },
     {
       id: 'automation',
+      icon: <Zap className="w-8 h-8 text-[#078147]" />,
       title: 'Automated Reminders & Follow-ups',
       description: 'Never worry about no-shows or follow-up communications again. Our intelligent automation system handles all your customer communications seamlessly.',
       detailedDescription: 'Set up automated workflows that send personalized reminders via SMS and email before appointments, and follow-up messages after visits. The system can be customized to send different types of messages based on the service type, customer preferences, and appointment status.',
@@ -95,6 +97,7 @@ const Features = () => {
     },
     {
       id: 'qr-codes',
+      icon: <QrCode className="w-8 h-8 text-[#078147]" />,
       title: 'QR Code Marketing Posters',
       description: 'Boost your in-store bookings with branded QR code posters that customers can scan to book appointments instantly. Perfect for promoting your services and tracking campaign effectiveness.',
       detailedDescription: 'We create custom QR code posters that link directly to your booking system. Display them in-store to promote specific services or seasonal campaigns. Each QR code is trackable, allowing you to see scan statistics and booking conversions. Posters are professionally designed to match your pharmacy\'s branding and can be updated for different promotions.',
@@ -140,6 +143,7 @@ const Features = () => {
     },
     {
       id: 'reviews',
+      icon: <Star className="w-8 h-8 text-[#078147]" />,
       title: 'Review Request System',
       description: 'Automatically boost your online reputation by requesting Google reviews from satisfied customers. Our smart system knows the perfect timing to ask for feedback.',
       detailedDescription: 'The system automatically identifies satisfied customers based on appointment completion and sends personalized review requests at optimal times. You can customize templates, set delays, and track review acquisition rates to continuously improve your online presence.',
@@ -177,6 +181,7 @@ const Features = () => {
     },
     {
       id: 'chat',
+      icon: <MessageSquare className="w-8 h-8 text-[#078147]" />,
       title: 'Unified Messaging Inbox',
       description: 'Manage all your customer communications from Facebook, Instagram, Email, and SMS in one centralized, powerful inbox.',
       detailedDescription: 'Never miss a message again. Our unified inbox aggregates conversations from all your communication channels, allowing you to respond quickly and consistently. Tag conversations, assign them to team members, and maintain a complete history of all customer interactions.',
@@ -226,6 +231,7 @@ const Features = () => {
     },
     {
       id: 'dashboard',
+      icon: <BarChart3 className="w-8 h-8 text-[#078147]" />,
       title: 'Dashboard & Analytics',
       description: 'Get powerful insights into your pharmacy\'s performance with our comprehensive dashboard and reporting system.',
       detailedDescription: 'Track key performance indicators, monitor appointment trends, analyze customer behavior, and generate detailed reports. The dashboard provides real-time data visualization and helps you make informed decisions to grow your business.',
@@ -264,6 +270,7 @@ const Features = () => {
     },
     {
       id: 'payments',
+      icon: <CreditCard className="w-8 h-8 text-[#078147]" />,
       title: 'Online Payment Integration',
       description: 'Accept secure payments at booking time to reduce no-shows and improve your cash flow with our Stripe integration.',
       detailedDescription: 'Integrated payment processing allows customers to pay deposits or full amounts when booking appointments. This significantly reduces no-shows while improving your cash flow. The system supports various payment methods and provides detailed transaction reporting.',
@@ -303,6 +310,7 @@ const Features = () => {
     },
     {
       id: 'team',
+      icon: <Users className="w-8 h-8 text-[#078147]" />,
       title: 'Team & User Management',
       description: 'Efficiently manage your team with role-based access, individual schedules, and service assignments.',
       detailedDescription: 'Create accounts for all team members with customized permissions and roles. Assign specific services to individual staff members, manage their working hours, and track their performance. The system ensures proper access control while maintaining workflow efficiency.',
@@ -352,6 +360,7 @@ const Features = () => {
     },
     {
       id: 'database',
+      icon: <Database className="w-8 h-8 text-[#078147]" />,
       title: 'Client Database & Notes',
       description: 'Maintain comprehensive client profiles with appointment history, notes, and preferences for personalized service.',
       detailedDescription: 'Build detailed customer profiles that include contact information, appointment history, service preferences, and custom notes. This comprehensive database helps you provide personalized service and enables targeted marketing campaigns.',
@@ -398,6 +407,7 @@ const Features = () => {
     },
     {
       id: 'landing',
+      icon: <Globe className="w-8 h-8 text-[#078147]" />,
       title: 'Professional Landing Pages',
       description: 'Get up to 3 custom landing pages designed specifically for your pharmacy, complete with hosting and maintenance.',
       detailedDescription: 'Professional, mobile-responsive landing pages that showcase your services and convert visitors into customers. Each page includes contact forms, integrated chat, location maps, and is optimized for search engines. Hosting, updates, and maintenance are all included.',
@@ -438,6 +448,7 @@ const Features = () => {
     },
     {
       id: 'support',
+      icon: <Headphones className="w-8 h-8 text-[#078147]" />,
       title: '7-Day Human Support',
       description: 'Get dedicated support when you need it with our human support team, comprehensive onboarding, and help resources.',
       detailedDescription: 'Our experienced support team is available 7 days a week via chat and email to help you with any questions or issues. We also provide comprehensive onboarding videos, detailed documentation, and a searchable help center.',
@@ -651,7 +662,10 @@ const Features = () => {
 
               {/* Content */}
               <div className={feature.imageLeft ? 'lg:order-2' : 'lg:order-1 lg:col-start-2'}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6">{feature.title}</h2>
+                <div className="flex items-center space-x-4 mb-6">
+                  {feature.icon}
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">{feature.title}</h2>
+                </div>
                 
                 <p className="text-lg text-gray-600 mb-4 leading-relaxed">
                   {feature.description}
@@ -661,7 +675,7 @@ const Features = () => {
                   {feature.detailedDescription}
                 </p>
 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3">
                   {feature.benefits.map((benefit, benefitIndex) => (
                     <div key={benefitIndex} className="flex items-start space-x-3">
                       <Check className="w-5 h-5 text-[#078147] mt-0.5 flex-shrink-0" />
@@ -669,10 +683,6 @@ const Features = () => {
                     </div>
                   ))}
                 </div>
-
-                <button className="bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl">
-                  Learn More
-                </button>
               </div>
             </div>
           </div>
