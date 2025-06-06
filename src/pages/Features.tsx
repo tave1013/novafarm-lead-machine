@@ -108,7 +108,7 @@ const Features = () => {
       benefits: [
         'QR codes link to dedicated landing pages',
         'Ready-made templates, customized to your pharmacy',
-        'View scan statistics and booking conversions',
+        'View scan statistics and track engagement',
         'Works perfectly for seasonal campaigns or events',
         'Professional poster design included',
         'Track ROI on marketing campaigns'
@@ -135,20 +135,20 @@ const Features = () => {
                 </div>
               </div>
               <div className="bg-gray-50 rounded-xl p-4">
-                <h4 className="text-sm font-semibold text-gray-800 mb-3">Campaign Stats</h4>
-                <div className="grid grid-cols-2 gap-2">
+                <h4 className="text-sm font-semibold text-gray-800 mb-3">Scan Statistics</h4>
+                <div className="grid grid-cols-1 gap-2">
                   <div className="text-center p-2 bg-white rounded-lg">
                     <div className="text-lg font-bold text-[#078147]">247</div>
-                    <div className="text-xs text-gray-600">Scans</div>
+                    <div className="text-xs text-gray-600">Total Scans</div>
                   </div>
                   <div className="text-center p-2 bg-white rounded-lg">
                     <div className="text-lg font-bold text-blue-600">89</div>
-                    <div className="text-xs text-gray-600">Bookings</div>
+                    <div className="text-xs text-gray-600">This Week</div>
                   </div>
                 </div>
                 <div className="mt-3 text-center p-2 bg-white rounded-lg">
-                  <div className="text-base font-bold text-yellow-600">36%</div>
-                  <div className="text-xs text-gray-600">Conversion Rate</div>
+                  <div className="text-base font-bold text-yellow-600">+12%</div>
+                  <div className="text-xs text-gray-600">vs Last Week</div>
                 </div>
               </div>
             </div>
@@ -246,6 +246,236 @@ const Features = () => {
                 <div className="text-xs text-gray-500 bg-white px-2 py-1 rounded">1h</div>
               </div>
             </div>
+          </div>
+        </div>
+      ),
+      imageLeft: true
+    },
+    {
+      id: 'dashboard',
+      title: 'Unified Dashboard & App',
+      icon: <Users className="w-6 h-6 text-[#078147]" />,
+      description: 'Everything your team needs in one simple, intuitive interface with custom roles and permissions.',
+      detailedDescription: 'Our dashboard centralizes all your pharmacy operations in one place. From appointment management to analytics, your entire team can access what they need with role-based permissions. The interface is designed to be intuitive for all skill levels.',
+      benefits: [
+        'Everything in one place',
+        'Easy for all team members',
+        'Roles and permissions',
+        'Real-time updates',
+        'Mobile-friendly interface',
+        'Customizable workspace'
+      ],
+      mockup: (
+        <div className="w-full max-w-lg mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-[#078147] text-white p-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">NovaFarm Dashboard</h3>
+                <Users className="w-5 h-5" />
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="text-center p-3 bg-[#078147]/10 rounded-lg">
+                  <div className="text-2xl font-bold text-[#078147]">24</div>
+                  <div className="text-xs text-gray-600">Today</div>
+                </div>
+                <div className="text-center p-3 bg-blue-50 rounded-lg">
+                  <div className="text-2xl font-bold text-blue-600">€3.2k</div>
+                  <div className="text-xs text-gray-600">Revenue</div>
+                </div>
+                <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                  <div className="text-2xl font-bold text-yellow-600">4.8⭐</div>
+                  <div className="text-xs text-gray-600">Rating</div>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-gray-800">Today's Schedule</h4>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded border-l-4 border-[#078147]">
+                    <div>
+                      <div className="font-medium text-sm">Maria Rossi</div>
+                      <div className="text-xs text-gray-500">Consultation</div>
+                    </div>
+                    <div className="text-xs text-gray-500">09:00</div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded border-l-4 border-blue-500">
+                    <div>
+                      <div className="font-medium text-sm">Giuseppe Verdi</div>
+                      <div className="text-xs text-gray-500">Vaccination</div>
+                    </div>
+                    <div className="text-xs text-gray-500">11:30</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      imageLeft: false
+    },
+    {
+      id: 'payments',
+      title: 'Online Payment Integration',
+      icon: <CreditCard className="w-6 h-6 text-[#078147]" />,
+      description: 'Accept secure payments at booking time to reduce no-shows and improve cash flow.',
+      detailedDescription: 'Integrate secure payment processing directly into your booking system. Customers can pay in advance, reducing no-shows significantly. Support for multiple payment methods with full PCI compliance and instant payment confirmation.',
+      benefits: [
+        'Let users pre-pay at booking',
+        'Reduce no-shows by up to 90%',
+        'Secure Stripe integration',
+        'Multiple payment methods',
+        'Instant payment confirmation',
+        'Automatic receipt generation'
+      ],
+      mockup: (
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Secure Payment</h3>
+              <CreditCard className="w-5 h-5 text-[#078147]" />
+            </div>
+            <div className="bg-[#078147]/5 p-4 rounded-lg mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium">Consultation Fee</span>
+                <span className="text-xl font-bold text-[#078147]">€45.00</span>
+              </div>
+              <div className="text-xs text-gray-600">Dr. Rossi - Nov 15, 2024</div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs text-gray-600">Card Number</label>
+                <div className="p-3 bg-gray-50 rounded-lg text-sm border">•••• •••• •••• 4242</div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-gray-600">Expiry</label>
+                  <div className="p-3 bg-gray-50 rounded-lg text-sm border">12/26</div>
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600">CVC</label>
+                  <div className="p-3 bg-gray-50 rounded-lg text-sm border">•••</div>
+                </div>
+              </div>
+              <button className="w-full bg-[#078147] text-white py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors">
+                Pay €45.00
+              </button>
+              <div className="text-xs text-gray-500 text-center">🔒 Secured by Stripe</div>
+            </div>
+          </div>
+        </div>
+      ),
+      imageLeft: true
+    },
+    {
+      id: 'analytics',
+      title: 'Advanced Analytics & Reporting',
+      icon: <BarChart3 className="w-6 h-6 text-[#078147]" />,
+      description: 'Track your pharmacy\'s performance with detailed insights, KPIs, and monthly reports.',
+      detailedDescription: 'Get comprehensive insights into your pharmacy's performance with detailed analytics. Track booking trends, customer satisfaction, revenue metrics, and team performance. Automated monthly reports help you make data-driven decisions.',
+      benefits: [
+        'View KPIs and trends',
+        'Monthly performance reports',
+        'Track leads and conversions',
+        'Customer satisfaction metrics',
+        'Revenue analytics',
+        'Team performance insights'
+      ],
+      mockup: (
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Analytics</h3>
+              <BarChart3 className="w-5 h-5 text-[#078147]" />
+            </div>
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              <div className="text-center p-3 bg-[#078147]/10 rounded-lg">
+                <div className="text-lg font-bold text-[#078147]">234</div>
+                <div className="text-xs text-gray-600">Bookings</div>
+              </div>
+              <div className="text-center p-3 bg-blue-50 rounded-lg">
+                <div className="text-lg font-bold text-blue-600">98%</div>
+                <div className="text-xs text-gray-600">Show Rate</div>
+              </div>
+              <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                <div className="text-lg font-bold text-yellow-600">4.8</div>
+                <div className="text-xs text-gray-600">Rating</div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs text-gray-600 font-medium">Monthly Trends</div>
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <div className="flex items-end space-x-1 h-16 mb-2">
+                  {[40, 60, 45, 80, 65, 90, 85, 95].map((height, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 bg-[#078147] rounded-t"
+                      style={{ height: `${height}%` }}
+                    />
+                  ))}
+                </div>
+                <div className="text-xs text-gray-500">Bookings per week</div>
+              </div>
+              <div className="bg-[#078147]/5 p-3 rounded-lg">
+                <div className="text-sm font-medium text-[#078147]">+23% increase</div>
+                <div className="text-xs text-gray-600">vs last month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      imageLeft: false
+    },
+    {
+      id: 'support',
+      title: '7-Day Human Support',
+      icon: <Headphones className="w-6 h-6 text-[#078147]" />,
+      description: 'Get help when you need it with our dedicated support team, onboarding videos, and help center.',
+      detailedDescription: 'Our support team is available 7 days a week to help you get the most out of NovaFarm. From initial setup to ongoing optimization, we provide comprehensive support through multiple channels including live chat, email, and our extensive knowledge base.',
+      benefits: [
+        'Chat and email support',
+        'Live assistance when needed',
+        'Onboarding videos & help center',
+        '7-day availability',
+        'Setup assistance included',
+        'Ongoing optimization support'
+      ],
+      mockup: (
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Support Center</h3>
+              <Headphones className="w-5 h-5 text-[#078147]" />
+            </div>
+            <div className="bg-[#078147]/5 p-4 rounded-lg mb-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-[#078147] rounded-full flex items-center justify-center text-white font-medium text-sm">
+                  NS
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm font-medium">NovaFarm Support</div>
+                  <div className="text-xs text-gray-600">Usually responds in 5 minutes</div>
+                </div>
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              </div>
+            </div>
+            <div className="space-y-3 mb-4">
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <div className="text-sm">Hi! How can I help you today?</div>
+                <div className="text-xs text-gray-500 mt-1">Support Agent - 2m ago</div>
+              </div>
+              <div className="bg-[#078147]/10 p-3 rounded-lg ml-8">
+                <div className="text-sm">I need help setting up automated reminders</div>
+                <div className="text-xs text-gray-500 mt-1">You - 1m ago</div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              <button className="p-2 bg-gray-50 rounded text-xs text-center hover:bg-gray-100">📹 Video Tutorials</button>
+              <button className="p-2 bg-gray-50 rounded text-xs text-center hover:bg-gray-100">📚 Help Center</button>
+            </div>
+            <button className="w-full bg-[#078147] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#066139] transition-colors">
+              Start Live Chat
+            </button>
           </div>
         </div>
       ),
