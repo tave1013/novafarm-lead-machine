@@ -108,77 +108,47 @@ const Features = () => {
       benefits: [
         'QR codes link to dedicated landing pages',
         'Ready-made templates, customized to your pharmacy',
-        'Track QR code scans and visitor analytics',
+        'View scan statistics and booking conversions',
         'Works perfectly for seasonal campaigns or events',
         'Professional poster design included',
-        'Monitor campaign effectiveness with detailed stats'
+        'Track ROI on marketing campaigns'
       ],
       mockup: (
-        <div className="w-full max-w-lg mx-auto">
+        <div className="w-full max-w-md mx-auto">
           <div className="bg-white rounded-2xl shadow-2xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-800">QR Code Campaign</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">QR Marketing</h3>
               <QrCode className="w-5 h-5 text-[#078147]" />
             </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* QR Poster Preview */}
-              <div>
-                <div className="text-sm font-medium text-gray-700 mb-3">In-Store Poster</div>
-                <div className="bg-gradient-to-br from-[#078147] to-[#066139] rounded-xl shadow-lg p-6 text-white">
-                  <div className="text-center mb-4">
-                    <h4 className="text-lg font-bold mb-2">Prenota Online</h4>
-                    <p className="text-sm opacity-90">Farmacia Centrale</p>
-                  </div>
-                  
-                  <div className="w-24 h-24 bg-white rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <QrCode className="w-20 h-20 text-[#078147]" />
-                  </div>
-                  
-                  <div className="text-center">
-                    <p className="text-sm mb-2">Scansiona per prenotare</p>
-                    <p className="text-xs opacity-75">Servizi disponibili 24/7</p>
-                  </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-[#078147] to-[#066139] rounded-xl shadow-lg p-4 text-white">
+                <div className="text-center mb-4">
+                  <h4 className="text-base font-bold mb-1">Prenota Online</h4>
+                  <p className="text-sm opacity-90">Farmacia Centrale</p>
+                </div>
+                <div className="w-16 h-16 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center">
+                  <QrCode className="w-12 h-12 text-[#078147]" />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm mb-1">Scansiona per prenotare</p>
+                  <p className="text-xs opacity-75">Servizi disponibili 24/7</p>
                 </div>
               </div>
-              
-              {/* Analytics Dashboard */}
-              <div>
-                <div className="text-sm font-medium text-gray-700 mb-3">Tracking Dashboard</div>
-                <div className="bg-gray-50 rounded-xl p-4 space-y-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-[#078147] mb-1">247</div>
-                    <div className="text-sm text-gray-600">Total Scans</div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <h4 className="text-sm font-semibold text-gray-800 mb-3">Campaign Stats</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="text-center p-2 bg-white rounded-lg">
+                    <div className="text-lg font-bold text-[#078147]">247</div>
+                    <div className="text-xs text-gray-600">Scans</div>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-white rounded-lg p-3 text-center">
-                      <div className="text-lg font-bold text-blue-600">156</div>
-                      <div className="text-xs text-gray-600">This Week</div>
-                    </div>
-                    <div className="bg-white rounded-lg p-3 text-center">
-                      <div className="text-lg font-bold text-orange-600">91</div>
-                      <div className="text-xs text-gray-600">Last Week</div>
-                    </div>
+                  <div className="text-center p-2 bg-white rounded-lg">
+                    <div className="text-lg font-bold text-blue-600">89</div>
+                    <div className="text-xs text-gray-600">Bookings</div>
                   </div>
-                  
-                  <div className="bg-white rounded-lg p-3">
-                    <div className="text-xs text-gray-600 mb-2">Weekly Activity</div>
-                    <div className="flex items-end space-x-1 h-8">
-                      {[20, 35, 45, 60, 55, 70, 80].map((height, i) => (
-                        <div
-                          key={i}
-                          className="flex-1 bg-[#078147] rounded-t"
-                          style={{ height: `${height}%` }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="text-center bg-white rounded-lg p-2">
-                    <div className="text-sm font-semibold text-[#078147]">+23%</div>
-                    <div className="text-xs text-gray-600">vs last month</div>
-                  </div>
+                </div>
+                <div className="mt-3 text-center p-2 bg-white rounded-lg">
+                  <div className="text-base font-bold text-yellow-600">36%</div>
+                  <div className="text-xs text-gray-600">Conversion Rate</div>
                 </div>
               </div>
             </div>
