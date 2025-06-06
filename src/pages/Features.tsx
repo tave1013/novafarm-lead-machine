@@ -8,6 +8,7 @@ const Features = () => {
     {
       id: 'calendar',
       title: 'Smart Booking Calendar',
+      icon: <Calendar className="w-8 h-8 text-[#078147]" />,
       description: 'Transform your appointment management with our intelligent 24/7 booking system. Your customers can book appointments anytime from any device, while you maintain complete control over your schedule and availability.',
       detailedDescription: 'Our smart calendar automatically syncs with your team\'s individual schedules, prevents double bookings, and allows you to set specific services for different time slots. The system intelligently manages buffer times between appointments and can handle complex scheduling scenarios like recurring appointments or group sessions.',
       benefits: [
@@ -52,6 +53,7 @@ const Features = () => {
     {
       id: 'automation',
       title: 'Automated Reminders & Follow-ups',
+      icon: <Zap className="w-8 h-8 text-[#078147]" />,
       description: 'Never worry about no-shows or follow-up communications again. Our intelligent automation system handles all your customer communications seamlessly.',
       detailedDescription: 'Set up automated workflows that send personalized reminders via SMS and email before appointments, and follow-up messages after visits. The system can be customized to send different types of messages based on the service type, customer preferences, and appointment status.',
       benefits: [
@@ -100,6 +102,7 @@ const Features = () => {
     {
       id: 'qr-codes',
       title: 'QR Code Marketing Posters',
+      icon: <QrCode className="w-8 h-8 text-[#078147]" />,
       description: 'Boost your in-store bookings with branded QR code posters that customers can scan to book appointments instantly. Perfect for promoting your services and tracking campaign effectiveness.',
       detailedDescription: 'We create custom QR code posters that link directly to your booking system. Display them in-store to promote specific services or seasonal campaigns. Each QR code is trackable, allowing you to see scan statistics and booking conversions. Posters are professionally designed to match your pharmacy\'s branding and can be updated for different promotions.',
       benefits: [
@@ -157,6 +160,7 @@ const Features = () => {
     {
       id: 'reviews',
       title: 'Review Request System',
+      icon: <Star className="w-8 h-8 text-[#078147]" />,
       description: 'Automatically boost your online reputation by requesting Google reviews from satisfied customers. Our smart system knows the perfect timing to ask for feedback.',
       detailedDescription: 'The system automatically identifies satisfied customers based on appointment completion and sends personalized review requests at optimal times. You can customize templates, set delays, and track review acquisition rates to continuously improve your online presence.',
       benefits: [
@@ -198,6 +202,7 @@ const Features = () => {
     {
       id: 'chat',
       title: 'Unified Messaging Inbox',
+      icon: <MessageSquare className="w-8 h-8 text-[#078147]" />,
       description: 'Manage all your customer communications from Facebook, Instagram, Email, and SMS in one centralized, powerful inbox.',
       detailedDescription: 'Never miss a message again. Our unified inbox aggregates conversations from all your communication channels, allowing you to respond quickly and consistently. Tag conversations, assign them to team members, and maintain a complete history of all customer interactions.',
       benefits: [
@@ -420,7 +425,10 @@ const Features = () => {
 
               {/* Content */}
               <div className={feature.imageLeft ? 'lg:order-2' : 'lg:order-1 lg:col-start-2'}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6">{feature.title}</h2>
+                <div className="flex items-center space-x-4 mb-6">
+                  {feature.icon}
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">{feature.title}</h2>
+                </div>
                 
                 <p className="text-lg text-gray-600 mb-4 leading-relaxed">
                   {feature.description}
