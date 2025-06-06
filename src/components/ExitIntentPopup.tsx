@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { X } from 'lucide-react';
+import { X, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -25,6 +25,28 @@ interface ExitIntentPopupProps {
 const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) => {
   const form = useForm<ExitIntentFormData>();
 
+  // Calculate days left until offer expires (example: 7 days from now)
+  const calculateTimeLeft = () => {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 7); // 7 days from today
+    
+    const now = new Date().getTime();
+    const expiration = expirationDate.getTime();
+    const difference = expiration - now;
+    
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    return { days, hours, expirationDate };
+  };
+
+  const { days, hours, expirationDate } = calculateTimeLeft();
+  const formattedDate = expirationDate.toLocaleDateString('en-US', { 
+    month: 'long', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+
   const onSubmit = (data: ExitIntentFormData) => {
     console.log('Exit intent form submitted:', data);
     // Handle form submission here
@@ -36,7 +58,7 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogOverlay className="bg-black/60" />
-      <DialogContent className="max-w-2xl w-[95%] max-h-[90vh] overflow-y-auto p-0 bg-white">
+      <DialogContent className="max-w-4xl w-[95%] max-h-[95vh] overflow-y-auto p-0 bg-white">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -46,19 +68,29 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
           <span className="sr-only">Close</span>
         </button>
 
-        <div className="p-8 lg:p-12 text-center">
+        {/* Urgency Banner */}
+        <div className="bg-gradient-to-r from-[#078147] to-[#066139] text-white px-6 py-3 text-center">
+          <div className="flex items-center justify-center space-x-2">
+            <Clock className="w-4 h-4" />
+            <span className="text-sm font-medium">
+              ⏰ Hurry! This special offer expires on {formattedDate}. You have {days} days and {hours} hours left to book your free demo.
+            </span>
+          </div>
+        </div>
+
+        <div className="p-6 lg:p-8">
           {/* Header */}
-          <div className="mb-8">
+          <div className="text-center mb-8">
             <h2 className="text-2xl lg:text-3xl font-bold text-black mb-4">
               Wait! Don't leave without discovering NovaFarm!
             </h2>
-            <p className="text-lg text-gray-700 leading-relaxed max-w-xl mx-auto">
+            <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
               Book your free demo now and see how NovaFarm can save you time, automate your workflow, and boost your pharmacy's growth.
             </p>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 lg:p-8 shadow-sm">
+          <div className="bg-white rounded-lg border border-gray-200 p-6 lg:p-8 shadow-sm max-w-3xl mx-auto">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 {/* First Name and Last Name - Side by Side */}
@@ -69,9 +101,9 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                     rules={{ required: "First name is required" }}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-medium">First Name</FormLabel>
+                        <FormLabel className="text-sm font-medium text-left block">First Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Mario" {...field} className="text-sm h-12" />
+                          <Input placeholder="Mario" {...field} className="text-sm h-12 text-left" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -83,9 +115,9 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                     rules={{ required: "Last name is required" }}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-medium">Last Name</FormLabel>
+                        <FormLabel className="text-sm font-medium text-left block">Last Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Rossi" {...field} className="text-sm h-12" />
+                          <Input placeholder="Rossi" {...field} className="text-sm h-12 text-left" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -106,9 +138,9 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                   }}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">Email Address</FormLabel>
+                      <FormLabel className="text-sm font-medium text-left block">Email Address</FormLabel>
                       <FormControl>
-                        <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} className="text-sm h-12" />
+                        <Input placeholder="mario.rossi@farmacia.it" type="email" {...field} className="text-sm h-12 text-left" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -122,9 +154,9 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                   rules={{ required: "VAT Number is required" }}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">Company VAT Number</FormLabel>
+                      <FormLabel className="text-sm font-medium text-left block">Company VAT Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="IT12345678901" {...field} className="text-sm h-12" />
+                        <Input placeholder="IT12345678901" {...field} className="text-sm h-12 text-left" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -138,10 +170,10 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                   rules={{ required: "Please select how you plan to use NovaFarm" }}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">How do you plan to use NovaFarm?</FormLabel>
+                      <FormLabel className="text-sm font-medium text-left block">How do you plan to use NovaFarm?</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="text-sm h-12">
+                          <SelectTrigger className="text-sm h-12 text-left">
                             <SelectValue placeholder="Select an option" />
                           </SelectTrigger>
                         </FormControl>
@@ -164,10 +196,10 @@ const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ isOpen, onClose }) =>
                   rules={{ required: "Please select what problem you're hoping to solve" }}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium">What do you hope NovaFarm will help you solve?</FormLabel>
+                      <FormLabel className="text-sm font-medium text-left block">What do you hope NovaFarm will help you solve?</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="text-sm h-12">
+                          <SelectTrigger className="text-sm h-12 text-left">
                             <SelectValue placeholder="Select an option" />
                           </SelectTrigger>
                         </FormControl>
