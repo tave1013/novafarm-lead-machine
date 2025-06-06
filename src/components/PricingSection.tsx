@@ -1,9 +1,11 @@
 
 import { Check } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const navigate = useNavigate();
 
   const plans = [
     {
@@ -147,7 +149,10 @@ const PricingSection = () => {
         
         <div className="text-center mt-8 sm:mt-12">
           <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Need a custom solution for your pharmacy network?</p>
-          <button className="text-[#078147] font-semibold hover:underline text-sm sm:text-base">
+          <button 
+            onClick={() => navigate('/contact')}
+            className="text-[#078147] font-semibold hover:underline text-sm sm:text-base"
+          >
             Contact us for enterprise pricing
           </button>
         </div>
