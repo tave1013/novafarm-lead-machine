@@ -1,4 +1,3 @@
-
 import { Check, Calendar, MessageSquare, Star, BarChart3, Users, CreditCard, Zap, Headphones, Globe, Database, Shield, QrCode, Building2, Stethoscope, Microscope } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -440,9 +439,6 @@ const Features = () => {
                   ))}
                 </div>
 
-                <button className="bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl">
-                  Learn More
-                </button>
               </div>
             </div>
           </div>
