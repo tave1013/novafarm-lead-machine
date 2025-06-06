@@ -372,7 +372,7 @@ const Features = () => {
       title: 'Advanced Analytics & Reporting',
       icon: <BarChart3 className="w-6 h-6 text-[#078147]" />,
       description: 'Track your pharmacy\'s performance with detailed insights, KPIs, and monthly reports.',
-      detailedDescription: 'Get comprehensive insights into your pharmacy's performance with detailed analytics. Track booking trends, customer satisfaction, revenue metrics, and team performance. Automated monthly reports help you make data-driven decisions.',
+      detailedDescription: 'Get comprehensive insights into your pharmacy\'s performance with detailed analytics. Track booking trends, customer satisfaction, revenue metrics, and team performance. Automated monthly reports help you make data-driven decisions.',
       benefits: [
         'View KPIs and trends',
         'Monthly performance reports',
