@@ -51,6 +51,91 @@ const Features = () => {
       imageLeft: true
     },
     {
+      id: 'web-pages',
+      title: 'Professional Web Pages to Showcase Your Pharmacy\'s Services',
+      icon: <Globe className="w-6 h-6 text-[#078147]" />,
+      description: 'We design up to 3 tailor-made web pages for your pharmacy, built to highlight your services, consultations, and contact options – all optimized to generate more leads and simplify online bookings.',
+      detailedDescription: 'Professional, conversion-optimized pages that work seamlessly with your existing website or as standalone landing pages for your pharmacy services. Each package includes contact forms for lead acquisition, integrated live chat, hosting, maintenance, and regular updates.',
+      benefits: [
+        'Up to 3 custom-built landing pages',
+        'Contact form for lead acquisition', 
+        'Integrated live chat',
+        'Hosting, maintenance, and updates included',
+        'Can be linked to your existing website',
+        'Mobile-optimized and SEO-friendly'
+      ],
+      mockup: (
+        <div className="w-full max-w-lg mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-gray-50 px-4 py-3 border-b flex items-center space-x-3">
+              <div className="flex space-x-1">
+                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+              </div>
+              <div className="text-sm text-gray-500 bg-white px-3 py-1 rounded flex items-center">
+                <Globe className="w-3 h-3 mr-2" />
+                farmacia-centrale.it/services
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-black mb-2">Our Professional Services</h3>
+                <p className="text-gray-600 text-sm">Expert consultations and personalized care for your health needs</p>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                <div className="border border-gray-200 rounded-lg p-3 text-center">
+                  <div className="w-8 h-8 bg-[#078147]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <span className="text-sm">💊</span>
+                  </div>
+                  <div className="font-medium text-xs mb-1">Medication Review</div>
+                  <div className="text-xs text-gray-600 mb-2">Expert prescription advice</div>
+                  <button className="bg-[#078147] text-white px-2 py-1 rounded text-xs w-full">Book Now</button>
+                </div>
+                
+                <div className="border border-gray-200 rounded-lg p-3 text-center">
+                  <div className="w-8 h-8 bg-[#078147]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <span className="text-sm">🩺</span>
+                  </div>
+                  <div className="font-medium text-xs mb-1">Health Screening</div>
+                  <div className="text-xs text-gray-600 mb-2">Blood pressure monitoring</div>
+                  <button className="bg-[#078147] text-white px-2 py-1 rounded text-xs w-full">Book Now</button>
+                </div>
+                
+                <div className="border border-gray-200 rounded-lg p-3 text-center">
+                  <div className="w-8 h-8 bg-[#078147]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <span className="text-sm">💉</span>
+                  </div>
+                  <div className="font-medium text-xs mb-1">Vaccination</div>
+                  <div className="text-xs text-gray-600 mb-2">Flu shots & travel vaccines</div>
+                  <button className="bg-[#078147] text-white px-2 py-1 rounded text-xs w-full">Book Now</button>
+                </div>
+              </div>
+              
+              <div className="border border-[#078147]/20 rounded-lg p-4 bg-[#078147]/5">
+                <h4 className="text-sm font-bold text-black mb-2">Contact Us</h4>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <div className="text-gray-600">📍 Via Roma 123, Firenze</div>
+                    <div className="text-gray-600">📞 (055) 123-4567</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-600">🕒 Mon-Fri 8:30-19:30</div>
+                    <div className="text-gray-600">✉️ info@farmacia.it</div>
+                  </div>
+                </div>
+                <button className="bg-[#078147] text-white px-3 py-2 rounded-lg text-xs font-medium w-full mt-3">
+                  Get Directions
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      imageLeft: false
+    },
+    {
       id: 'automation',
       title: 'Automated Reminders & Follow-ups',
       icon: <Zap className="w-6 h-6 text-[#078147]" />,
@@ -97,7 +182,7 @@ const Features = () => {
           </div>
         </div>
       ),
-      imageLeft: false
+      imageLeft: true
     },
     {
       id: 'qr-codes',
@@ -290,7 +375,7 @@ const Features = () => {
                 </div>
               </div>
               <div className="space-y-3">
-                <h4 className="text-sm font-semibold text-gray-800">Today's Schedule</h4>
+                <h4 className="text-sm font-semibold text-gray-800">Today\'s Schedule</h4>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded border-l-4 border-[#078147]">
                     <div>
@@ -608,7 +693,7 @@ const Features = () => {
                       </div>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-6">
-                      <h3 className="text-lg font-semibold mb-4">Today's Schedule</h3>
+                      <h3 className="text-lg font-semibold mb-4">Today\'s Schedule</h3>
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-3 bg-white rounded border-l-4 border-[#078147]">
                           <div>
