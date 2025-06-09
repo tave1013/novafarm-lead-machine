@@ -31,7 +31,8 @@ const FinalCTASection = () => {
           </div>
         </div>
         
-        <button className="bg-white text-[#078147] px-12 py-4 rounded-xl text-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <button className="bg-white text-[#078147] px-12 py-4 rounded-xl text-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl animate-fade-in" style={{ animationDelay: '0.6s' }}
+          onClick={() => navigate('/contact')}>
           Book a Call
         </button>
         
