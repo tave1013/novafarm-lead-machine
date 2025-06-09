@@ -1,7 +1,14 @@
 
 import { MessageCircle, Shield, BookOpen, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ReliabilitySection = () => {
+  const navigate = useNavigate();
+
+  const handleBookDemo = () => {
+    navigate('/book-demo');
+  };
+
   return (
     <section className="py-12 sm:py-16 bg-[#f4f1ea]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,7 +93,10 @@ const ReliabilitySection = () => {
                 </div>
               </div>
             </div>
-            <button className="bg-[#078147] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-sm sm:text-base">
+            <button 
+              onClick={handleBookDemo}
+              className="bg-[#078147] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-sm sm:text-base"
+            >
               Book a Call
             </button>
           </div>

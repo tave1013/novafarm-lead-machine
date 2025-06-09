@@ -1,4 +1,3 @@
-
 import { Check } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,10 @@ import { useNavigate } from 'react-router-dom';
 const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(false);
   const navigate = useNavigate();
+
+  const handleBookDemo = () => {
+    navigate('/book-demo');
+  };
 
   const plans = [
     {
@@ -136,11 +139,14 @@ const PricingSection = () => {
                 ))}
               </ul>
               
-              <button className={`w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold transition-colors text-sm sm:text-base ${
-                plan.popular 
-                  ? 'bg-white text-[#078147] hover:bg-gray-100' 
-                  : 'bg-[#078147] text-white hover:bg-[#066139]'
-              }`}>
+              <button 
+                onClick={handleBookDemo}
+                className={`w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold transition-colors text-sm sm:text-base ${
+                  plan.popular 
+                    ? 'bg-white text-[#078147] hover:bg-gray-100' 
+                    : 'bg-[#078147] text-white hover:bg-[#066139]'
+                }`}
+              >
                 Book a Call
               </button>
             </div>
@@ -150,7 +156,7 @@ const PricingSection = () => {
         <div className="text-center mt-8 sm:mt-12">
           <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Need a custom solution for your pharmacy network?</p>
           <button 
-            onClick={() => navigate('/contact')}
+            onClick={handleBookDemo}
             className="text-[#078147] font-semibold hover:underline text-sm sm:text-base"
           >
             Contact us for enterprise pricing
