@@ -1,5 +1,13 @@
 
+import { useNavigate } from 'react-router-dom';
+
 const FinalCTASection = () => {
+  const navigate = useNavigate();
+
+  const handleBookDemo = () => {
+    navigate('/book-demo');
+  };
+
   return (
     <section className="py-20 bg-gradient-to-br from-[#078147] to-[#066139] text-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -31,7 +39,11 @@ const FinalCTASection = () => {
           </div>
         </div>
         
-        <button className="bg-white text-[#078147] px-12 py-4 rounded-xl text-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <button 
+          onClick={handleBookDemo}
+          className="bg-white text-[#078147] px-12 py-4 rounded-xl text-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl animate-fade-in" 
+          style={{ animationDelay: '0.6s' }}
+        >
           Book a Call
         </button>
         
