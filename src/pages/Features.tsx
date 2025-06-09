@@ -52,7 +52,7 @@ const Features = () => {
     },
     {
       id: 'web-pages',
-      title: 'Professional Web Pages to Showcase Your Pharmacy\'s Services',
+      title: 'Professional Web Pages for Your Pharmacy',
       icon: <Globe className="w-6 h-6 text-[#078147]" />,
       description: 'We design up to 3 tailor-made web pages for your pharmacy, built to highlight your services, consultations, and contact options – all optimized to generate more leads and simplify online bookings.',
       detailedDescription: 'Professional, conversion-optimized pages that work seamlessly with your existing website or as standalone landing pages for your pharmacy services. Each package includes contact forms for lead acquisition, integrated live chat, hosting, maintenance, and regular updates.',
@@ -375,7 +375,7 @@ const Features = () => {
                 </div>
               </div>
               <div className="space-y-3">
-                <h4 className="text-sm font-semibold text-gray-800">Today\'s Schedule</h4>
+                <h4 className="text-sm font-semibold text-gray-800">Today's Schedule</h4>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded border-l-4 border-[#078147]">
                     <div>
@@ -693,7 +693,7 @@ const Features = () => {
                       </div>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-6">
-                      <h3 className="text-lg font-semibold mb-4">Today\'s Schedule</h3>
+                      <h3 className="text-lg font-semibold mb-4">Today's Schedule</h3>
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-3 bg-white rounded border-l-4 border-[#078147]">
                           <div>
