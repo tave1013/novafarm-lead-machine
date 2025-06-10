@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import FAQ from "./pages/FAQ";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import TwoFactorVerification from "./pages/TwoFactorVerification";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const AppContent = () => {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-2fa" element={<TwoFactorVerification />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
