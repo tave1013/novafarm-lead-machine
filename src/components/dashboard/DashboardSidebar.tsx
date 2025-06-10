@@ -9,7 +9,8 @@ import {
   HelpCircle, 
   LogOut,
   Menu,
-  X
+  X,
+  ExternalLink
 } from 'lucide-react';
 import { DashboardSection } from '../../pages/Dashboard';
 
@@ -41,6 +42,12 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   const handleMenuClick = (section: DashboardSection) => {
     onSectionChange(section);
     setIsMobileMenuOpen(false);
+  };
+
+  const handleEnterPlatform = () => {
+    // This will redirect to the NovaFarm platform login
+    // Replace with actual URL when provided
+    window.open('#', '_blank');
   };
 
   return (
@@ -96,6 +103,15 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               </button>
             );
           })}
+
+          {/* Enter Platform Button */}
+          <button
+            onClick={handleEnterPlatform}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors text-gray-700 hover:bg-gray-100 border-t mt-4 pt-4"
+          >
+            <ExternalLink className="w-5 h-5" />
+            <span className="font-medium">Enter the Platform</span>
+          </button>
         </nav>
 
         <div className="absolute bottom-4 left-4 right-4">

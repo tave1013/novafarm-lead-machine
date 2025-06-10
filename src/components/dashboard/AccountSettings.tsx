@@ -1,15 +1,32 @@
 
 import React, { useState } from 'react';
-import { Save, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+import { PersonalInfoForm } from './PersonalInfoForm';
+import { CompanyInfoForm } from './CompanyInfoForm';
+import { BillingAddressForm } from './BillingAddressForm';
 
 export const AccountSettings: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [personalData, setPersonalData] = useState({
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@example.com',
     phone: '+39 123 456 7890',
     language: 'EN'
   });
+
+  const [companyData, setCompanyData] = useState({
+    companyName: 'Example Pharmacy SRL',
+    vatNumber: 'IT12345678901'
+  });
+
+  const [billingData, setBillingData] = useState({
+    streetAddress: 'Via Roma 123',
+    city: 'Milano',
+    province: 'Milano',
+    zipCode: '20121',
+    country: 'Italy'
+  });
+
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -24,13 +41,6 @@ export const AccountSettings: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordData({
       ...passwordData,
@@ -38,14 +48,41 @@ export const AccountSettings: React.FC = () => {
     });
   };
 
-  const handleSaveProfile = async () => {
+  const handleSavePersonalInfo = async (data: typeof personalData) => {
     setIsLoading(true);
     setMessage(null);
     
     // Simulate API call
     setTimeout(() => {
+      setPersonalData(data);
       setIsLoading(false);
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      setMessage({ type: 'success', text: 'Personal information updated successfully!' });
+      setTimeout(() => setMessage(null), 3000);
+    }, 1000);
+  };
+
+  const handleSaveCompanyInfo = async (data: typeof companyData) => {
+    setIsLoading(true);
+    setMessage(null);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setCompanyData(data);
+      setIsLoading(false);
+      setMessage({ type: 'success', text: 'Company information updated successfully!' });
+      setTimeout(() => setMessage(null), 3000);
+    }, 1000);
+  };
+
+  const handleSaveBillingAddress = async (data: typeof billingData) => {
+    setIsLoading(true);
+    setMessage(null);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setBillingData(data);
+      setIsLoading(false);
+      setMessage({ type: 'success', text: 'Billing address updated successfully!' });
       setTimeout(() => setMessage(null), 3000);
     }, 1000);
   };
@@ -89,89 +126,25 @@ export const AccountSettings: React.FC = () => {
       )}
 
       {/* Personal Information */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <h2 className="text-xl font-bold text-black mb-6">Personal Information</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              First Name
-            </label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
-            />
-          </div>
+      <PersonalInfoForm 
+        data={personalData} 
+        onSave={handleSavePersonalInfo} 
+        isLoading={isLoading} 
+      />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
-            />
-          </div>
+      {/* Company Information */}
+      <CompanyInfoForm 
+        data={companyData} 
+        onSave={handleSaveCompanyInfo} 
+        isLoading={isLoading} 
+      />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Language Preference
-            </label>
-            <select
-              name="language"
-              value={formData.language}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
-            >
-              <option value="EN">English</option>
-              <option value="IT">Italiano</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="mt-6 flex justify-end">
-          <button
-            onClick={handleSaveProfile}
-            disabled={isLoading}
-            className="flex items-center space-x-2 bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors disabled:opacity-50"
-          >
-            <Save className="w-5 h-5" />
-            <span>{isLoading ? 'Saving...' : 'Save Changes'}</span>
-          </button>
-        </div>
-      </div>
+      {/* Billing Address */}
+      <BillingAddressForm 
+        data={billingData} 
+        onSave={handleSaveBillingAddress} 
+        isLoading={isLoading} 
+      />
 
       {/* Password Section */}
       <div className="bg-white rounded-lg shadow-sm border p-6">
