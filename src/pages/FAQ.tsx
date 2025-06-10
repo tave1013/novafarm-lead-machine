@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { Search, Calendar, Bot, Euro, Users, Wrench, CreditCard, HelpCircle, Settings, Zap, Menu, X, ThumbsUp, ThumbsDown } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface FAQItem {
   id: string;
