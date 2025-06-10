@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Calendar, Robot, Euro, Users, Wrench, CreditCard, HelpCircle } from 'lucide-react';
+import { Search, Calendar, Bot, Euro, Users, Wrench, CreditCard, HelpCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface FAQItem {
@@ -143,7 +143,7 @@ const faqData: FAQItem[] = [
 const categories = [
   { id: 'getting-started', name: 'Getting Started', icon: HelpCircle, color: 'bg-blue-500' },
   { id: 'appointments', name: 'Appointments & Calendar', icon: Calendar, color: 'bg-[#078147]' },
-  { id: 'automations', name: 'Automations & Reminders', icon: Robot, color: 'bg-purple-500' },
+  { id: 'automations', name: 'Automations & Reminders', icon: Bot, color: 'bg-purple-500' },
   { id: 'payments', name: 'Online Payments', icon: Euro, color: 'bg-orange-500' },
   { id: 'accounts', name: 'User Accounts & Permissions', icon: Users, color: 'bg-indigo-500' },
   { id: 'technical', name: 'Technical Support', icon: Wrench, color: 'bg-red-500' },
