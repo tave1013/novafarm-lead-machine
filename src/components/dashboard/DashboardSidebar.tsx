@@ -8,11 +8,20 @@ import {
   FileText, 
   HelpCircle, 
   LogOut,
-  Menu,
-  X,
   ExternalLink
 } from 'lucide-react';
 import { DashboardSection } from '../../pages/Dashboard';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar
+} from '@/components/ui/sidebar';
 
 interface DashboardSidebarProps {
   activeSection: DashboardSection;
@@ -24,7 +33,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   onSectionChange
 }) => {
   const navigate = useNavigate();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const { state } = useSidebar();
 
   const menuItems = [
     { id: 'overview' as DashboardSection, label: 'Dashboard', icon: LayoutDashboard },
@@ -35,95 +44,102 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   ];
 
   const handleLogout = () => {
-    // Add logout logic here
     navigate('/');
   };
 
   const handleMenuClick = (section: DashboardSection) => {
     onSectionChange(section);
-    setIsMobileMenuOpen(false);
   };
 
   const handleEnterPlatform = () => {
-    // This will redirect to the NovaFarm platform login
-    // Replace with actual URL when provided
     window.open('#', '_blank');
   };
 
   return (
     <>
-      {/* Mobile menu button */}
+      {/* Mobile trigger positioned outside sidebar */}
       <div className="lg:hidden fixed top-4 left-4 z-50">
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="bg-white p-2 rounded-lg shadow-lg border"
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <SidebarTrigger className="bg-white shadow-lg border" />
       </div>
 
-      {/* Mobile overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
+      <Sidebar className="border-r" style={{ 
+        '--sidebar-background': '#FFFFFF',
+        '--sidebar-foreground': '#1B1B1F',
+        '--sidebar-accent': '#078147',
+        '--sidebar-accent-foreground': '#FFFFFF',
+        '--sidebar-border': '#E5E7EB'
+      } as React.CSSProperties}>
+        <SidebarHeader className="p-6 border-b">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[#078147] rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">N</span>
+            </div>
+            {state === 'expanded' && (
+              <div>
+                <h1 className="text-xl font-bold text-[#078147]">NovaFarm</h1>
+                <p className="text-sm text-gray-600 mt-1">Dashboard</p>
+              </div>
+            )}
+          </div>
+        </SidebarHeader>
 
-      {/* Sidebar */}
-      <div className={`
-        fixed top-0 left-0 h-full w-64 bg-white shadow-xl border-r z-40 transform transition-transform duration-300 ease-in-out
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0
-      `}>
-        <div className="p-6 border-b">
-          <h1 className="text-xl font-bold text-[#078147]">NovaFarm</h1>
-          <p className="text-sm text-gray-600 mt-1">Dashboard</p>
-        </div>
+        <SidebarContent className="p-4">
+          {/* Desktop toggle positioned at top of content */}
+          <div className="hidden lg:block mb-4">
+            <SidebarTrigger className="w-full justify-start bg-transparent hover:bg-gray-100 text-gray-700 border-0" />
+          </div>
 
-        <nav className="p-4 space-y-2">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeSection === item.id;
-            
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleMenuClick(item.id)}
-                className={`
-                  w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors
-                  ${isActive 
-                    ? 'bg-[#078147] text-white shadow-md' 
-                    : 'text-gray-700 hover:bg-gray-100'
-                  }
-                `}
+          <SidebarMenu className="space-y-2">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeSection === item.id;
+              
+              return (
+                <SidebarMenuItem key={item.id}>
+                  <SidebarMenuButton
+                    onClick={() => handleMenuClick(item.id)}
+                    isActive={isActive}
+                    tooltip={state === 'collapsed' ? item.label : undefined}
+                    className={`
+                      flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                      ${isActive 
+                        ? 'bg-[#078147] text-white shadow-md' 
+                        : 'text-gray-700 hover:bg-gray-100'
+                      }
+                    `}
+                  >
+                    <Icon className="w-5 h-5 shrink-0" />
+                    <span className="font-medium">{item.label}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+
+            {/* Enter Platform Button */}
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={handleEnterPlatform}
+                tooltip={state === 'collapsed' ? 'Enter the Platform' : undefined}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 border-t mt-4 pt-4"
               >
-                <Icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
-              </button>
-            );
-          })}
+                <ExternalLink className="w-5 h-5 shrink-0" />
+                <span className="font-medium">Enter the Platform</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarContent>
 
-          {/* Enter Platform Button */}
-          <button
-            onClick={handleEnterPlatform}
-            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors text-gray-700 hover:bg-gray-100 border-t mt-4 pt-4"
-          >
-            <ExternalLink className="w-5 h-5" />
-            <span className="font-medium">Enter the Platform</span>
-          </button>
-        </nav>
-
-        <div className="absolute bottom-4 left-4 right-4">
-          <button
+        <SidebarFooter className="p-4">
+          <SidebarMenuButton
             onClick={handleLogout}
-            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+            tooltip={state === 'collapsed' ? 'Logout' : undefined}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-5 h-5 shrink-0" />
             <span className="font-medium">Logout</span>
-          </button>
-        </div>
-      </div>
+          </SidebarMenuButton>
+        </SidebarFooter>
+      </Sidebar>
     </>
   );
 };
