@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Filter, MoreVertical, Eye, Ban, CreditCard, RefreshCw, Mail, AlertCircle } from 'lucide-react';
+import { Search, Filter, MoreVertical, Eye, Ban, CreditCard, RefreshCw, Mail, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,12 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { UserDetailView } from './UserDetailView';
+import { ChangePlanModal } from './ChangePlanModal';
+import { ResetPasswordModal } from './ResetPasswordModal';
+import { SendEmailModal } from './SendEmailModal';
+import { ConfirmActionModal } from './ConfirmActionModal';
+import { useToast } from '@/hooks/use-toast';
 
 const usersData = [
   {
@@ -18,7 +24,14 @@ const usersData = [
     plan: 'Premium',
     lastLogin: '2024-01-15 14:30',
     createdAt: '2023-06-15',
-    location: 'Milano, IT'
+    location: 'Milano, IT',
+    phone: '+39 02 1234567',
+    address: 'Via Roma 123, Milano, IT',
+    language: 'Italian',
+    vatNumber: 'IT12345678901',
+    billingEmail: 'billing@farmaciacentrale.it',
+    subscriptionStart: '2023-06-15',
+    nextBilling: '2024-02-15'
   },
   {
     id: 2,
@@ -28,7 +41,14 @@ const usersData = [
     plan: 'Standard',
     lastLogin: '2024-01-14 09:15',
     createdAt: '2023-08-22',
-    location: 'Roma, IT'
+    location: 'Roma, IT',
+    phone: '+39 06 9876543',
+    address: 'Via del Corso 456, Roma, IT',
+    language: 'Italian',
+    vatNumber: 'IT98765432109',
+    billingEmail: 'accounts@parafarmaciabenessere.it',
+    subscriptionStart: '2023-08-22',
+    nextBilling: '2024-02-22'
   },
   {
     id: 3,
@@ -38,7 +58,14 @@ const usersData = [
     plan: 'Premium',
     lastLogin: '2024-01-10 16:45',
     createdAt: '2023-03-12',
-    location: 'Venezia, IT'
+    location: 'Venezia, IT',
+    phone: '+39 041 5551234',
+    address: 'Piazza San Marco 789, Venezia, IT',
+    language: 'Italian',
+    vatNumber: 'IT11223344556',
+    billingEmail: 'billing@sanmarco.it',
+    subscriptionStart: '2023-03-12',
+    nextBilling: '2024-02-12'
   },
   {
     id: 4,
@@ -48,7 +75,14 @@ const usersData = [
     plan: 'Basic',
     lastLogin: '2024-01-15 11:20',
     createdAt: '2023-11-05',
-    location: 'London, UK'
+    location: 'London, UK',
+    phone: '+44 20 7123 4567',
+    address: '123 High Street, London, UK',
+    language: 'English',
+    vatNumber: 'GB123456789',
+    billingEmail: 'billing@pharmacyplus.com',
+    subscriptionStart: '2023-11-05',
+    nextBilling: '2024-02-05'
   }
 ];
 
@@ -56,6 +90,14 @@ export const SuperAdminUsers: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [planFilter, setPlanFilter] = useState('all');
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [showUserDetail, setShowUserDetail] = useState(false);
+  const [showChangePlan, setShowChangePlan] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [showSendEmail, setShowSendEmail] = useState(false);
+  const [showConfirmAction, setShowConfirmAction] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<{ type: string; message: string } | null>(null);
+  const { toast } = useToast();
 
   const filteredUsers = usersData.filter(user => {
     const matchesSearch = user.businessName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -92,6 +134,61 @@ export const SuperAdminUsers: React.FC = () => {
       </Badge>
     );
   };
+
+  const handleViewUser = (user: any) => {
+    setSelectedUser(user);
+    setShowUserDetail(true);
+  };
+
+  const handleChangePlan = (user: any) => {
+    setSelectedUser(user);
+    setShowChangePlan(true);
+  };
+
+  const handleResetPassword = (user: any) => {
+    setSelectedUser(user);
+    setShowResetPassword(true);
+  };
+
+  const handleSendEmail = (user: any) => {
+    setSelectedUser(user);
+    setShowSendEmail(true);
+  };
+
+  const handleSuspendActivate = (user: any) => {
+    setSelectedUser(user);
+    const action = user.status === 'active' ? 'suspend' : 'activate';
+    setConfirmAction({
+      type: action,
+      message: `Are you sure you want to ${action} ${user.businessName}?`
+    });
+    setShowConfirmAction(true);
+  };
+
+  const handleConfirmAction = () => {
+    if (selectedUser && confirmAction) {
+      const action = confirmAction.type === 'suspend' ? 'suspended' : 'activated';
+      toast({
+        title: "Account Updated",
+        description: `${selectedUser.businessName} has been ${action}.`,
+      });
+      setShowConfirmAction(false);
+      setConfirmAction(null);
+      setSelectedUser(null);
+    }
+  };
+
+  if (showUserDetail && selectedUser) {
+    return (
+      <UserDetailView 
+        user={selectedUser} 
+        onBack={() => {
+          setShowUserDetail(false);
+          setSelectedUser(null);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -195,23 +292,26 @@ export const SuperAdminUsers: React.FC = () => {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-48">
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleViewUser(user)}>
                             <Eye className="w-4 h-4 mr-2" />
-                            View Details
+                            View User Details
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleChangePlan(user)}>
                             <CreditCard className="w-4 h-4 mr-2" />
                             Change Plan
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleResetPassword(user)}>
                             <RefreshCw className="w-4 h-4 mr-2" />
                             Reset Password
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleSendEmail(user)}>
                             <Mail className="w-4 h-4 mr-2" />
                             Send Email
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="text-red-600">
+                          <DropdownMenuItem 
+                            className="text-red-600"
+                            onClick={() => handleSuspendActivate(user)}
+                          >
                             <Ban className="w-4 h-4 mr-2" />
                             {user.status === 'suspended' ? 'Activate' : 'Suspend'} Account
                           </DropdownMenuItem>
@@ -290,6 +390,56 @@ export const SuperAdminUsers: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Modals */}
+      {showChangePlan && selectedUser && (
+        <ChangePlanModal
+          user={selectedUser}
+          isOpen={showChangePlan}
+          onClose={() => {
+            setShowChangePlan(false);
+            setSelectedUser(null);
+          }}
+        />
+      )}
+
+      {showResetPassword && selectedUser && (
+        <ResetPasswordModal
+          user={selectedUser}
+          isOpen={showResetPassword}
+          onClose={() => {
+            setShowResetPassword(false);
+            setSelectedUser(null);
+          }}
+        />
+      )}
+
+      {showSendEmail && selectedUser && (
+        <SendEmailModal
+          user={selectedUser}
+          isOpen={showSendEmail}
+          onClose={() => {
+            setShowSendEmail(false);
+            setSelectedUser(null);
+          }}
+        />
+      )}
+
+      {showConfirmAction && selectedUser && confirmAction && (
+        <ConfirmActionModal
+          isOpen={showConfirmAction}
+          title={`${confirmAction.type === 'suspend' ? 'Suspend' : 'Activate'} Account`}
+          message={confirmAction.message}
+          onConfirm={handleConfirmAction}
+          onCancel={() => {
+            setShowConfirmAction(false);
+            setConfirmAction(null);
+            setSelectedUser(null);
+          }}
+          confirmButtonText={confirmAction.type === 'suspend' ? 'Suspend' : 'Activate'}
+          isDestructive={confirmAction.type === 'suspend'}
+        />
+      )}
     </div>
   );
 };
