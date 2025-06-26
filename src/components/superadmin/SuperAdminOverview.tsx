@@ -1,14 +1,14 @@
-
 import React, { useState } from 'react';
 import { Users, DollarSign, FileText, TrendingUp, TrendingDown, Calendar } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { SuperAdminSection } from '@/pages/SuperAdmin';
 
 type TimeFilter = 'last7' | 'last30' | 'last90' | 'prev30' | 'prev90' | 'custom';
 
 interface SuperAdminOverviewProps {
-  onSectionChange: (section: string) => void;
+  onSectionChange: (section: SuperAdminSection) => void;
 }
 
 const revenueData = [
