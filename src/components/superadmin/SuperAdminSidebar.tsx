@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
   Users, 
@@ -8,19 +8,11 @@ import {
   FileText, 
   Activity, 
   HeadphonesIcon, 
-  Settings
+  Settings,
+  Menu,
+  X
 } from 'lucide-react';
 import { SuperAdminSection } from '@/pages/SuperAdmin';
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarTrigger,
-  useSidebar
-} from '@/components/ui/sidebar';
 
 interface SuperAdminSidebarProps {
   activeSection: SuperAdminSection;
@@ -31,7 +23,7 @@ export const SuperAdminSidebar: React.FC<SuperAdminSidebarProps> = ({
   activeSection,
   onSectionChange
 }) => {
-  const { state } = useSidebar();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
     { id: 'dashboard' as SuperAdminSection, label: 'Dashboard', icon: LayoutDashboard },
@@ -44,68 +36,66 @@ export const SuperAdminSidebar: React.FC<SuperAdminSidebarProps> = ({
     { id: 'settings' as SuperAdminSection, label: 'Settings', icon: Settings },
   ];
 
+  const handleMenuClick = (section: SuperAdminSection) => {
+    onSectionChange(section);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
-      {/* Mobile trigger positioned outside sidebar */}
-      <div className="md:hidden fixed top-4 left-4 z-50">
-        <SidebarTrigger className="bg-white shadow-lg border" />
+      {/* Mobile menu button */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="bg-white p-2 rounded-lg shadow-lg border"
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
 
-      <Sidebar className="border-r-0" style={{ 
-        '--sidebar-background': '#1B1B1F',
-        '--sidebar-foreground': '#FFFFFF',
-        '--sidebar-accent': '#1C9B7A',
-        '--sidebar-accent-foreground': '#FFFFFF',
-        '--sidebar-border': '#374151'
-      } as React.CSSProperties}>
-        <SidebarHeader className="p-6 border-b border-gray-700">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#1C9B7A] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">N</span>
-            </div>
-            {state === 'expanded' && (
-              <div>
-                <h1 className="text-xl font-bold text-[#1C9B7A]">NovaFarm</h1>
-                <p className="text-sm text-gray-400 mt-1">Super Admin</p>
-              </div>
-            )}
-          </div>
-        </SidebarHeader>
+      {/* Mobile overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
 
-        <SidebarContent className="p-4">
-          {/* Desktop toggle positioned at top of content */}
-          <div className="hidden md:block mb-4">
-            <SidebarTrigger className="w-full justify-start bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white border-0" />
-          </div>
+      {/* Sidebar */}
+      <div className={`
+        fixed top-0 left-0 h-full w-64 bg-[#1B1B1F] shadow-xl z-40 transform transition-transform duration-300 ease-in-out
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0
+      `}>
+        <div className="p-6 border-b border-gray-700">
+          <h1 className="text-xl font-bold text-[#1C9B7A]">NovaFarm</h1>
+          <p className="text-sm text-gray-400 mt-1">Super Admin</p>
+        </div>
 
-          <SidebarMenu className="space-y-2">
-            {menuItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeSection === item.id;
-              
-              return (
-                <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton
-                    onClick={() => onSectionChange(item.id)}
-                    isActive={isActive}
-                    tooltip={state === 'collapsed' ? item.label : undefined}
-                    className={`
-                      flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                      ${isActive 
-                        ? 'bg-[#1C9B7A] text-white shadow-md' 
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                      }
-                    `}
-                  >
-                    <Icon className="w-5 h-5 shrink-0" />
-                    <span className="font-medium">{item.label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              );
-            })}
-          </SidebarMenu>
-        </SidebarContent>
-      </Sidebar>
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeSection === item.id;
+            
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleMenuClick(item.id)}
+                className={`
+                  w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors
+                  ${isActive 
+                    ? 'bg-[#1C9B7A] text-white shadow-md' 
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                  }
+                `}
+              >
+                <Icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
     </>
   );
 };

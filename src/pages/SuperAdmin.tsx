@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { SidebarProvider } from '@/components/ui/sidebar';
 import { SuperAdminSidebar } from '@/components/superadmin/SuperAdminSidebar';
 import { SuperAdminOverview } from '@/components/superadmin/SuperAdminOverview';
 import { SuperAdminUsers } from '@/components/superadmin/SuperAdminUsers';
@@ -48,19 +47,19 @@ const SuperAdmin: React.FC = () => {
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen bg-gray-50 flex w-full">
-        <SuperAdminSidebar 
-          activeSection={activeSection} 
-          onSectionChange={setActiveSection} 
-        />
-        
-        {/* Main Content */}
-        <main className="flex-1 p-4 lg:p-8 overflow-auto">
+    <div className="min-h-screen bg-gray-50 flex w-full">
+      <SuperAdminSidebar 
+        activeSection={activeSection} 
+        onSectionChange={setActiveSection} 
+      />
+      
+      {/* Main Content */}
+      <div className="flex-1 lg:ml-64">
+        <div className="p-4 lg:p-8">
           {renderContent()}
-        </main>
+        </div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 
