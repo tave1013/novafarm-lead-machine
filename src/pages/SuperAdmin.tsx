@@ -26,7 +26,7 @@ const SuperAdmin: React.FC = () => {
   const renderContent = () => {
     switch (activeSection) {
       case 'dashboard':
-        return <SuperAdminOverview />;
+        return <SuperAdminOverview onSectionChange={setActiveSection} />;
       case 'users':
         return <SuperAdminUsers />;
       case 'payments':
@@ -42,7 +42,7 @@ const SuperAdmin: React.FC = () => {
       case 'settings':
         return <SuperAdminSettings />;
       default:
-        return <SuperAdminOverview />;
+        return <SuperAdminOverview onSectionChange={setActiveSection} />;
     }
   };
 

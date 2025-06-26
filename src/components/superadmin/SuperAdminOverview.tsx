@@ -7,6 +7,10 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 type TimeFilter = 'last7' | 'last30' | 'last90' | 'prev30' | 'prev90' | 'custom';
 
+interface SuperAdminOverviewProps {
+  onSectionChange: (section: string) => void;
+}
+
 const revenueData = [
   { month: 'Jan', revenue: 8420, users: 145 },
   { month: 'Feb', revenue: 9240, users: 167 },
@@ -16,7 +20,7 @@ const revenueData = [
   { month: 'Jun', revenue: 13420, users: 267 }
 ];
 
-export const SuperAdminOverview: React.FC = () => {
+export const SuperAdminOverview: React.FC<SuperAdminOverviewProps> = ({ onSectionChange }) => {
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('last30');
 
   const kpiData = {
@@ -37,6 +41,25 @@ export const SuperAdminOverview: React.FC = () => {
       case 'prev90': return 'Previous 90 days';
       case 'custom': return 'Custom range';
       default: return 'Last 30 days';
+    }
+  };
+
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case 'create-user':
+        onSectionChange('users');
+        break;
+      case 'generate-report':
+        onSectionChange('activity');
+        break;
+      case 'payment-link':
+        onSectionChange('payments');
+        break;
+      case 'view-analytics':
+        onSectionChange('dashboard');
+        break;
+      default:
+        break;
     }
   };
 
@@ -210,23 +233,35 @@ export const SuperAdminOverview: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left">
-              <Users className="w-8 h-8 text-[#1C9B7A] mb-2" />
+            <button 
+              onClick={() => handleQuickAction('create-user')}
+              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#1C9B7A] transition-all duration-200 text-left group"
+            >
+              <Users className="w-8 h-8 text-[#1C9B7A] mb-2 group-hover:scale-110 transition-transform" />
               <h3 className="font-semibold text-gray-900">Create User</h3>
               <p className="text-sm text-gray-600">Add new user account</p>
             </button>
-            <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left">
-              <FileText className="w-8 h-8 text-[#1C9B7A] mb-2" />
+            <button 
+              onClick={() => handleQuickAction('generate-report')}
+              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#1C9B7A] transition-all duration-200 text-left group"
+            >
+              <FileText className="w-8 h-8 text-[#1C9B7A] mb-2 group-hover:scale-110 transition-transform" />
               <h3 className="font-semibold text-gray-900">Generate Report</h3>
               <p className="text-sm text-gray-600">Export platform data</p>
             </button>
-            <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left">
-              <DollarSign className="w-8 h-8 text-[#1C9B7A] mb-2" />
+            <button 
+              onClick={() => handleQuickAction('payment-link')}
+              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#1C9B7A] transition-all duration-200 text-left group"
+            >
+              <DollarSign className="w-8 h-8 text-[#1C9B7A] mb-2 group-hover:scale-110 transition-transform" />
               <h3 className="font-semibold text-gray-900">Payment Link</h3>
               <p className="text-sm text-gray-600">Create payment link</p>
             </button>
-            <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left">
-              <TrendingUp className="w-8 h-8 text-[#1C9B7A] mb-2" />
+            <button 
+              onClick={() => handleQuickAction('view-analytics')}
+              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#1C9B7A] transition-all duration-200 text-left group"
+            >
+              <TrendingUp className="w-8 h-8 text-[#1C9B7A] mb-2 group-hover:scale-110 transition-transform" />
               <h3 className="font-semibold text-gray-900">View Analytics</h3>
               <p className="text-sm text-gray-600">Detailed insights</p>
             </button>
