@@ -1,31 +1,49 @@
-
 import React, { useState } from 'react';
-import { Plus, Save, X } from 'lucide-react';
+import { Plus, Save, X, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
+import { PasswordStrength } from '@/components/ui/password-strength';
 import { useToast } from '@/hooks/use-toast';
 
 export const SuperAdminAccounts: React.FC = () => {
   const { toast } = useToast();
   const [isCreating, setIsCreating] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
+    // General Info
     businessName: '',
-    email: '',
-    language: 'it',
-    plan: 'standard',
-    customDomain: '',
     contactPerson: '',
     phone: '',
-    address: '',
+    email: '',
+    language: 'it',
+    customDomain: '',
+    notes: '',
+    
+    // Billing Information
+    legalOwnerFirstName: '',
+    legalOwnerLastName: '',
+    billingEmail: '',
     vatNumber: '',
-    notes: ''
+    street: '',
+    city: '',
+    zipCode: '',
+    province: '',
+    country: 'IT',
+    
+    // Account Access & Subscription
+    password: '',
+    plan: 'standard',
+    accountStatus: true,
+    sendOnboardingEmail: true
   });
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -35,26 +53,35 @@ export const SuperAdminAccounts: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simulate account creation
     console.log('Creating account:', formData);
     
     toast({
       title: "Account Created Successfully",
-      description: `Account for ${formData.businessName} has been created. Onboarding email sent to ${formData.email}`,
+      description: `Account for ${formData.businessName} has been created. ${formData.sendOnboardingEmail ? 'Onboarding email sent to ' + formData.email : 'No onboarding email sent.'}`,
     });
 
     // Reset form
     setFormData({
       businessName: '',
-      email: '',
-      language: 'it',
-      plan: 'standard',
-      customDomain: '',
       contactPerson: '',
       phone: '',
-      address: '',
+      email: '',
+      language: 'it',
+      customDomain: '',
+      notes: '',
+      legalOwnerFirstName: '',
+      legalOwnerLastName: '',
+      billingEmail: '',
       vatNumber: '',
-      notes: ''
+      street: '',
+      city: '',
+      zipCode: '',
+      province: '',
+      country: 'IT',
+      password: '',
+      plan: 'standard',
+      accountStatus: true,
+      sendOnboardingEmail: true
     });
     setIsCreating(false);
   };
@@ -63,15 +90,25 @@ export const SuperAdminAccounts: React.FC = () => {
     setIsCreating(false);
     setFormData({
       businessName: '',
-      email: '',
-      language: 'it',
-      plan: 'standard',
-      customDomain: '',
       contactPerson: '',
       phone: '',
-      address: '',
+      email: '',
+      language: 'it',
+      customDomain: '',
+      notes: '',
+      legalOwnerFirstName: '',
+      legalOwnerLastName: '',
+      billingEmail: '',
       vatNumber: '',
-      notes: ''
+      street: '',
+      city: '',
+      zipCode: '',
+      province: '',
+      country: 'IT',
+      password: '',
+      plan: 'standard',
+      accountStatus: true,
+      sendOnboardingEmail: true
     });
   };
 
@@ -95,20 +132,15 @@ export const SuperAdminAccounts: React.FC = () => {
       </div>
 
       {isCreating ? (
-        <Card className="bg-white border border-gray-200">
-          <CardHeader>
-            <div className="flex items-center justify-between">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* General Info Section */}
+          <Card className="bg-white border border-gray-200">
+            <CardHeader>
               <CardTitle className="text-lg font-semibold text-gray-900">
-                Create New Pharmacy Account
+                General Information
               </CardTitle>
-              <Button variant="ghost" size="sm" onClick={handleCancel}>
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Basic Information */}
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="businessName">Business Name *</Label>
@@ -118,6 +150,28 @@ export const SuperAdminAccounts: React.FC = () => {
                     onChange={(e) => handleInputChange('businessName', e.target.value)}
                     placeholder="e.g., Farmacia Centrale Milano"
                     required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="contactPerson">Contact Person</Label>
+                  <Input
+                    id="contactPerson"
+                    value={formData.contactPerson}
+                    onChange={(e) => handleInputChange('contactPerson', e.target.value)}
+                    placeholder="Dr. Mario Rossi"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    placeholder="+39 02 1234567"
                   />
                 </div>
                 
@@ -135,43 +189,6 @@ export const SuperAdminAccounts: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="contactPerson">Contact Person</Label>
-                  <Input
-                    id="contactPerson"
-                    value={formData.contactPerson}
-                    onChange={(e) => handleInputChange('contactPerson', e.target.value)}
-                    placeholder="Dr. Mario Rossi"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    placeholder="+39 02 1234567"
-                  />
-                </div>
-              </div>
-
-              {/* Plan and Settings */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="plan">Subscription Plan *</Label>
-                  <Select value={formData.plan} onValueChange={(value) => handleInputChange('plan', value)}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="basic">Basic - €49/month</SelectItem>
-                      <SelectItem value="standard">Standard - €99/month</SelectItem>
-                      <SelectItem value="premium">Premium - €199/month</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="language">Default Language</Label>
                   <Select value={formData.language} onValueChange={(value) => handleInputChange('language', value)}>
@@ -199,30 +216,6 @@ export const SuperAdminAccounts: React.FC = () => {
                 </div>
               </div>
 
-              {/* Business Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="address">Business Address</Label>
-                  <Textarea
-                    id="address"
-                    value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
-                    placeholder="Via Roma 123, 20100 Milano MI, Italy"
-                    rows={3}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="vatNumber">VAT Number / Partita IVA</Label>
-                  <Input
-                    id="vatNumber"
-                    value={formData.vatNumber}
-                    onChange={(e) => handleInputChange('vatNumber', e.target.value)}
-                    placeholder="IT12345678901"
-                  />
-                </div>
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="notes">Internal Notes</Label>
                 <Textarea
@@ -233,29 +226,225 @@ export const SuperAdminAccounts: React.FC = () => {
                   rows={3}
                 />
               </div>
+            </CardContent>
+          </Card>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button 
-                  type="submit"
-                  className="bg-[#1C9B7A] hover:bg-[#158a69] flex-1 sm:flex-none"
-                >
-                  <Save className="w-4 h-4 mr-2" />
-                  Create Account & Send Onboarding Email
-                </Button>
+          {/* Billing Information Section */}
+          <Card className="bg-white border border-gray-200">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-gray-900">
+                Billing Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="legalOwnerFirstName">Legal Owner First Name</Label>
+                  <Input
+                    id="legalOwnerFirstName"
+                    value={formData.legalOwnerFirstName}
+                    onChange={(e) => handleInputChange('legalOwnerFirstName', e.target.value)}
+                    placeholder="Mario"
+                  />
+                </div>
                 
-                <Button 
-                  type="button"
-                  variant="outline"
-                  onClick={handleCancel}
-                  className="flex-1 sm:flex-none"
-                >
-                  Cancel
-                </Button>
+                <div className="space-y-2">
+                  <Label htmlFor="legalOwnerLastName">Legal Owner Last Name</Label>
+                  <Input
+                    id="legalOwnerLastName"
+                    value={formData.legalOwnerLastName}
+                    onChange={(e) => handleInputChange('legalOwnerLastName', e.target.value)}
+                    placeholder="Rossi"
+                  />
+                </div>
               </div>
-            </form>
-          </CardContent>
-        </Card>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="billingEmail">Billing Email</Label>
+                  <Input
+                    id="billingEmail"
+                    type="email"
+                    value={formData.billingEmail}
+                    onChange={(e) => handleInputChange('billingEmail', e.target.value)}
+                    placeholder="billing@pharmacy.com"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="vatNumber">VAT Number / Tax Code</Label>
+                  <Input
+                    id="vatNumber"
+                    value={formData.vatNumber}
+                    onChange={(e) => handleInputChange('vatNumber', e.target.value)}
+                    placeholder="IT12345678901"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Legal Address</h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="street">Street and Number</Label>
+                    <Input
+                      id="street"
+                      value={formData.street}
+                      onChange={(e) => handleInputChange('street', e.target.value)}
+                      placeholder="Via Roma 123"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City</Label>
+                    <Input
+                      id="city"
+                      value={formData.city}
+                      onChange={(e) => handleInputChange('city', e.target.value)}
+                      placeholder="Milano"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="zipCode">ZIP / Postal Code</Label>
+                    <Input
+                      id="zipCode"
+                      value={formData.zipCode}
+                      onChange={(e) => handleInputChange('zipCode', e.target.value)}
+                      placeholder="20100"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="province">Province / Region</Label>
+                    <Input
+                      id="province"
+                      value={formData.province}
+                      onChange={(e) => handleInputChange('province', e.target.value)}
+                      placeholder="MI"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="country">Country</Label>
+                    <Select value={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="IT">Italy</SelectItem>
+                        <SelectItem value="FR">France</SelectItem>
+                        <SelectItem value="DE">Germany</SelectItem>
+                        <SelectItem value="ES">Spain</SelectItem>
+                        <SelectItem value="US">United States</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Account Access & Subscription Section */}
+          <Card className="bg-white border border-gray-200">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-gray-900">
+                Account Access & Subscription
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="password">Password (Optional - Auto-generated if empty)</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    placeholder="Leave empty for auto-generation"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 px-2 h-auto"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </Button>
+                </div>
+                {formData.password && (
+                  <PasswordStrength password={formData.password} className="mt-3" />
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="plan">Subscription Plan *</Label>
+                  <Select value={formData.plan} onValueChange={(value) => handleInputChange('plan', value)}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="basic">Basic - €49/month</SelectItem>
+                      <SelectItem value="standard">Standard - €99/month</SelectItem>
+                      <SelectItem value="premium">Premium - €199/month</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="accountStatus">Account Status</Label>
+                  <div className="flex items-center space-x-3 pt-2">
+                    <Switch
+                      id="accountStatus"
+                      checked={formData.accountStatus}
+                      onCheckedChange={(checked) => handleInputChange('accountStatus', checked)}
+                    />
+                    <span className={`text-sm font-medium ${formData.accountStatus ? 'text-green-600' : 'text-red-600'}`}>
+                      {formData.accountStatus ? 'Active' : 'Suspended'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="sendOnboardingEmail"
+                  checked={formData.sendOnboardingEmail}
+                  onCheckedChange={(checked) => handleInputChange('sendOnboardingEmail', checked)}
+                />
+                <Label htmlFor="sendOnboardingEmail" className="text-sm">
+                  Send Onboarding Email with login credentials
+                </Label>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <Button 
+              type="submit"
+              className="bg-[#1C9B7A] hover:bg-[#158a69] flex-1 sm:flex-none"
+            >
+              <Save className="w-4 h-4 mr-2" />
+              Create Account
+            </Button>
+            
+            <Button 
+              type="button"
+              variant="outline"
+              onClick={handleCancel}
+              className="flex-1 sm:flex-none"
+            >
+              <X className="w-4 h-4 mr-2" />
+              Cancel
+            </Button>
+          </div>
+        </form>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Quick Stats */}
