@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Search, Filter, MoreVertical, Download, RefreshCw, ExternalLink } from 'lucide-react';
+import { Search, Filter, MoreVertical, Download, RefreshCw, ExternalLink, Copy, Mail } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 
 const paymentsData = [
   {
@@ -59,6 +62,19 @@ const paymentsData = [
 export const SuperAdminPayments: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [showPaymentLinkModal, setShowPaymentLinkModal] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState('');
+  const [showGeneratedLink, setShowGeneratedLink] = useState(false);
+  const { toast } = useToast();
+
+  // Payment link form state
+  const [linkForm, setLinkForm] = useState({
+    amount: '',
+    description: '',
+    planType: '',
+    recipientEmail: '',
+    expiration: '7 days'
+  });
 
   const filteredPayments = paymentsData.filter(payment => {
     const matchesSearch = payment.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -87,6 +103,51 @@ export const SuperAdminPayments: React.FC = () => {
     .filter(p => p.status === 'paid')
     .reduce((sum, p) => sum + p.amount, 0);
 
+  const handleGeneratePaymentLink = () => {
+    // Validate required fields
+    if (!linkForm.amount || !linkForm.description) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Generate simulated payment link
+    const simulatedLink = `https://novafarm.app/payments/simulated/${Math.random().toString(36).substring(2, 15)}`;
+    setGeneratedLink(simulatedLink);
+    setShowGeneratedLink(true);
+
+    toast({
+      title: "Payment Link Generated",
+      description: "Payment link generated successfully (simulation only)",
+      className: "bg-green-50 border-green-200 text-green-800",
+    });
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Link Copied",
+      description: "Payment link copied to clipboard",
+      className: "bg-blue-50 border-blue-200 text-blue-800",
+    });
+  };
+
+  const closeModal = () => {
+    setShowPaymentLinkModal(false);
+    setShowGeneratedLink(false);
+    setGeneratedLink('');
+    setLinkForm({
+      amount: '',
+      description: '',
+      planType: '',
+      recipientEmail: '',
+      expiration: '7 days'
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -94,7 +155,10 @@ export const SuperAdminPayments: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Payments & Subscriptions</h1>
           <p className="text-gray-600 mt-1">Monitor all payment transactions and billing</p>
         </div>
-        <Button className="bg-[#1C9B7A] hover:bg-[#158a69] mt-4 sm:mt-0">
+        <Button 
+          className="bg-[#1C9B7A] hover:bg-[#158a69] mt-4 sm:mt-0"
+          onClick={() => setShowPaymentLinkModal(true)}
+        >
           Generate Payment Link
         </Button>
       </div>
@@ -252,6 +316,153 @@ export const SuperAdminPayments: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Generate Payment Link Modal */}
+      <Dialog open={showPaymentLinkModal} onOpenChange={setShowPaymentLinkModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold text-gray-900">Generate Payment Link</DialogTitle>
+            <DialogDescription className="text-gray-600">
+              Create a secure payment link for your customer
+            </DialogDescription>
+          </DialogHeader>
+
+          {!showGeneratedLink ? (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="amount" className="text-sm font-medium text-gray-700">
+                  Amount (€) *
+                </Label>
+                <Input
+                  id="amount"
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00"
+                  value={linkForm.amount}
+                  onChange={(e) => setLinkForm({ ...linkForm, amount: e.target.value })}
+                  className="border-gray-300"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description" className="text-sm font-medium text-gray-700">
+                  Payment Description *
+                </Label>
+                <Textarea
+                  id="description"
+                  placeholder="e.g., Premium subscription renewal"
+                  value={linkForm.description}
+                  onChange={(e) => setLinkForm({ ...linkForm, description: e.target.value })}
+                  className="border-gray-300 resize-none"
+                  rows={3}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="planType" className="text-sm font-medium text-gray-700">
+                  Plan Type
+                </Label>
+                <Select value={linkForm.planType} onValueChange={(value) => setLinkForm({ ...linkForm, planType: value })}>
+                  <SelectTrigger className="border-gray-300">
+                    <SelectValue placeholder="Select plan type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="base">Base Plan</SelectItem>
+                    <SelectItem value="premium">Premium Plan</SelectItem>
+                    <SelectItem value="custom">Custom</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  Recipient Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="customer@example.com"
+                  value={linkForm.recipientEmail}
+                  onChange={(e) => setLinkForm({ ...linkForm, recipientEmail: e.target.value })}
+                  className="border-gray-300"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="expiration" className="text-sm font-medium text-gray-700">
+                  Link Expiration
+                </Label>
+                <Select value={linkForm.expiration} onValueChange={(value) => setLinkForm({ ...linkForm, expiration: value })}>
+                  <SelectTrigger className="border-gray-300">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="24 hours">24 hours</SelectItem>
+                    <SelectItem value="3 days">3 days</SelectItem>
+                    <SelectItem value="7 days">7 days</SelectItem>
+                    <SelectItem value="30 days">30 days</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <h4 className="font-medium text-green-800 mb-2">Payment Link Generated</h4>
+                <p className="text-sm text-green-700 mb-3">
+                  Your payment link has been created successfully.
+                </p>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    value={generatedLink}
+                    readOnly
+                    className="text-sm bg-white border-green-300"
+                  />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyToClipboard(generatedLink)}
+                    className="border-green-300 text-green-700 hover:bg-green-50"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex space-x-2">
+                <Button
+                  variant="outline"
+                  className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  Send via Email
+                </Button>
+                <Button
+                  onClick={() => copyToClipboard(generatedLink)}
+                  className="flex-1 bg-[#1C9B7A] hover:bg-[#158a69]"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copy Link
+                </Button>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={closeModal} className="border-gray-300">
+              {showGeneratedLink ? 'Close' : 'Cancel'}
+            </Button>
+            {!showGeneratedLink && (
+              <Button 
+                onClick={handleGeneratePaymentLink}
+                className="bg-[#1C9B7A] hover:bg-[#158a69]"
+              >
+                Generate Link
+              </Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
