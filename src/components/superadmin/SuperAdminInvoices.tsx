@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Download, Filter, MoreVertical, Eye, Send } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -8,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { InvoiceGenerationModal } from './InvoiceGenerationModal';
 
 const invoicesData = [
   {
@@ -67,6 +67,7 @@ const invoicesData = [
 export const SuperAdminInvoices: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   const filteredInvoices = invoicesData.filter(invoice => {
     const matchesSearch = invoice.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -104,7 +105,10 @@ export const SuperAdminInvoices: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Invoice Management</h1>
           <p className="text-gray-600 mt-1">View and manage all EU-compliant invoices</p>
         </div>
-        <Button className="bg-[#1C9B7A] hover:bg-[#158a69] mt-4 sm:mt-0">
+        <Button 
+          className="bg-[#1C9B7A] hover:bg-[#158a69] mt-4 sm:mt-0"
+          onClick={() => setShowInvoiceModal(true)}
+        >
           Generate Invoice
         </Button>
       </div>
@@ -278,6 +282,12 @@ export const SuperAdminInvoices: React.FC = () => {
           </p>
         </CardContent>
       </Card>
+
+      {/* Invoice Generation Modal */}
+      <InvoiceGenerationModal 
+        isOpen={showInvoiceModal}
+        onClose={() => setShowInvoiceModal(false)}
+      />
     </div>
   );
 };
