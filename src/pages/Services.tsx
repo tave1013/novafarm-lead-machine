@@ -1,7 +1,7 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ServiceModal from '../components/ServiceModal';
 import { 
   Heart, 
   Activity, 
@@ -29,6 +29,78 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 
 const Services = () => {
+  const [selectedService, setSelectedService] = useState<{title: string, content: string} | null>(null);
+
+  const serviceContents = {
+    "In-Pharmacy Vaccinations": `Get your seasonal or authorized vaccines directly at the pharmacy.
+Administered by qualified professionals in a hygienic and safe environment.
+Ideal for flu, shingles, tetanus, and more.`,
+    
+    "Rapid COVID-19 Antigen Tests": `Fast and reliable SARS-CoV-2 screening.
+Perfect for travel certificates, work clearances or peace of mind.
+Results in just a few minutes, without appointment.`,
+    
+    "Skin Analysis": `Our skin analysis service helps you understand your skin's condition in-depth.
+Great for dryness, blemishes, sensitivity or aging concerns.
+Get personalized advice and product recommendations.`,
+    
+    "Ear Lobe Piercing": `Safe and hygienic ear piercing with single-use sterile systems.
+Performed by trained staff using approved equipment.
+Available for adults and children (with guardian consent).`,
+    
+    "Blood Pressure Measurement": `Quick and painless measurement with professional digital devices.
+Helps monitor hypertension and detect cardiovascular risks early.
+No appointment needed.`,
+    
+    "Medical Device Rental": `Need a medical device for a short period?
+We rent breast pumps, crutches, scales, aerosol machines, magnetic therapy devices, and more.
+Affordable and flexible rental terms.`,
+    
+    "Crutch Rental": `Ergonomic, adjustable crutches available for short- or long-term use.
+Ideal for recovery from injury or surgery.
+Comfortable, clean, and ready-to-use.`,
+    
+    "CUP Healthcare Booking": `Skip the queue and let us help you book public healthcare services (CUP).
+Exams, specialist visits, and more — all handled in pharmacy.
+A convenient way to manage your health needs.`,
+    
+    "Sample Collection for Labs": `We collect biological samples (urine, stool, etc.) for certified partner laboratories.
+Fast, discreet, and safe.
+Drop-off available in-store with no waiting times.`,
+    
+    "Online Report Retrieval": `Get your lab and exam results directly via email or in pharmacy.
+Secure, fast, and paper-free.
+We'll notify you when your report is ready.`,
+    
+    "Weight and Height Check": `Digital tools available in-store to track your height, weight and BMI.
+Useful for health monitoring, weight loss, and pediatric checks.`,
+    
+    "Early Childhood Care": `We offer advice, products, and support for parents and babies.
+From diapers and thermometers to gentle skincare and baby food.
+Your pharmacy ally for early childhood.`,
+    
+    "Supplement Consultation": `Personalized guidance to choose the right supplements for your needs.
+Energy, focus, immune support, sport and recovery — we've got you covered.`,
+    
+    "Expired Medicine Disposal": `Bring back expired or unused medication for proper eco-safe disposal.
+We follow legal regulations and ensure responsible environmental handling.`,
+    
+    "WhatsApp Support": `Need to check product availability or book a service fast?
+Text us directly on WhatsApp — we reply quickly during opening hours.
+Simple, fast, and always at your fingertips.`,
+    
+    "Loyalty Card Program": `Earn points and access exclusive discounts with our loyalty card.
+Free to activate and valid on many purchases.
+Ask in-store to start saving today.`
+  };
+
+  const handleLearnMore = (title: string) => {
+    const content = serviceContents[title as keyof typeof serviceContents];
+    if (content) {
+      setSelectedService({ title, content });
+    }
+  };
+
   const checkupServices = [
     {
       icon: <Activity className="w-8 h-8 text-[#078147]" />,
@@ -363,6 +435,7 @@ const Services = () => {
                     variant="outline" 
                     className="w-full border-[#078147] text-[#078147] hover:bg-[#078147] hover:text-white"
                     size="sm"
+                    onClick={() => handleLearnMore(service.title)}
                   >
                     Learn More
                   </Button>
@@ -401,6 +474,14 @@ const Services = () => {
       </section>
 
       <Footer />
+
+      {/* Service Modal */}
+      <ServiceModal
+        isOpen={!!selectedService}
+        onClose={() => setSelectedService(null)}
+        title={selectedService?.title || ''}
+        content={selectedService?.content || ''}
+      />
     </div>
   );
 };
