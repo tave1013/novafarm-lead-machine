@@ -53,6 +53,11 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleServicesClick = () => {
+    navigate('/services');
+    setIsMenuOpen(false);
+  };
+
   const handleBookDemo = () => {
     navigate('/book-demo');
     setIsMenuOpen(false);
@@ -78,6 +83,9 @@ const Header = () => {
             </button>
             <button onClick={handleFeaturesClick} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Features
+            </button>
+            <button onClick={handleServicesClick} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
+              Services
             </button>
             <button onClick={() => scrollToSection('pricing')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Pricing
@@ -144,6 +152,9 @@ const Header = () => {
               </button>
               <button onClick={handleFeaturesClick} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Features
+              </button>
+              <button onClick={handleServicesClick} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
+                Services
               </button>
               <button onClick={() => scrollToSection('pricing')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Pricing

@@ -8,6 +8,7 @@ import { useExitIntent } from "@/hooks/useExitIntent";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import Index from "./pages/Index";
 import Features from "./pages/Features";
+import Services from "./pages/Services";
 import BookDemo from "./pages/BookDemo";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
@@ -28,6 +29,7 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/features" element={<Features />} />
+        <Route path="/services" element={<Services />} />
         <Route path="/book-demo" element={<BookDemo />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />} />
