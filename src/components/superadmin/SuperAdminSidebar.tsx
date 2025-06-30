@@ -10,7 +10,9 @@ import {
   HeadphonesIcon, 
   Settings,
   Menu,
-  X
+  X,
+  Shield,
+  Cog
 } from 'lucide-react';
 import { SuperAdminSection } from '@/pages/SuperAdmin';
 
@@ -33,6 +35,8 @@ export const SuperAdminSidebar: React.FC<SuperAdminSidebarProps> = ({
     { id: 'invoices' as SuperAdminSection, label: 'Invoices', icon: FileText },
     { id: 'activity' as SuperAdminSection, label: 'Activity Logs', icon: Activity },
     { id: 'support' as SuperAdminSection, label: 'Support Tickets', icon: HeadphonesIcon },
+    { id: 'roles' as SuperAdminSection, label: 'User Roles', icon: Shield },
+    { id: 'system' as SuperAdminSection, label: 'System Settings', icon: Cog },
     { id: 'settings' as SuperAdminSection, label: 'Settings', icon: Settings },
   ];
 
