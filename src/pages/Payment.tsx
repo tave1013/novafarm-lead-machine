@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +26,7 @@ interface Plan {
   name: string;
   monthlyPrice: number;
   setupFee: number;
+  stripeUrl: string;
 }
 
 const plans: Plan[] = [
@@ -34,13 +34,15 @@ const plans: Plan[] = [
     id: 'standard',
     name: 'Standard Plan',
     monthlyPrice: 99,
-    setupFee: 199
+    setupFee: 199,
+    stripeUrl: 'https://buy.stripe.com/test_147standard'
   },
   {
     id: 'premium',
     name: 'Premium Plan',
     monthlyPrice: 149,
-    setupFee: 249
+    setupFee: 249,
+    stripeUrl: 'https://buy.stripe.com/test_297premium'
   }
 ];
 
@@ -61,6 +63,7 @@ const Payment = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
   
   const [billingData, setBillingData] = useState<BillingData>({
@@ -119,6 +122,26 @@ const Payment = () => {
     }
   };
 
+  const storeBillingData = async () => {
+    try {
+      // Store billing data in localStorage as a fallback
+      const purchaseData = {
+        billing: billingData,
+        selectedPlan: selectedPlan,
+        timestamp: new Date().toISOString()
+      };
+      
+      localStorage.setItem('novafarm_purchase_data', JSON.stringify(purchaseData));
+      console.log('Billing data stored:', purchaseData);
+      
+      // TODO: In the future, integrate with Supabase or backend API
+      // Example: await supabase.from('leads').insert(purchaseData);
+      
+    } catch (error) {
+      console.error('Error storing billing data:', error);
+    }
+  };
+
   const handleCompletePurchase = async () => {
     if (!selectedPlan) {
       toast({
@@ -130,24 +153,36 @@ const Payment = () => {
     }
 
     const plan = plans.find(p => p.id === selectedPlan);
-    if (!plan) return;
+    if (!plan) {
+      toast({
+        title: "Invalid Plan",
+        description: "Selected plan not found. Please try again.",
+        variant: "destructive"
+      });
+      return;
+    }
 
-    const purchaseData = {
-      billing: billingData,
-      plan: plan,
-      totalToday: plan.monthlyPrice + plan.setupFee,
-      recurringAmount: plan.monthlyPrice
-    };
+    setIsProcessing(true);
 
-    console.log('Purchase data:', purchaseData);
+    try {
+      // Store billing data before redirect
+      await storeBillingData();
 
-    // Here you would integrate with your backend
-    // Example: await createAccount(purchaseData);
-    
-    toast({
-      title: "Purchase Completed!",
-      description: "Your account has been created successfully. Welcome to NovaFarm!",
-    });
+      // Brief delay to show processing state
+      setTimeout(() => {
+        // Redirect to Stripe checkout
+        window.location.href = plan.stripeUrl;
+      }, 1000);
+
+    } catch (error) {
+      console.error('Error during purchase process:', error);
+      setIsProcessing(false);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const selectedPlanData = plans.find(p => p.id === selectedPlan);
@@ -339,7 +374,7 @@ const Payment = () => {
               <div className="flex justify-end">
                 <Button 
                   onClick={handleContinueToStep2}
-                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-2"
+                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-2 transition-colors duration-200"
                   style={{ backgroundColor: '#27AE60' }}
                 >
                   Continue to Step 2
@@ -360,9 +395,9 @@ const Payment = () => {
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
-                  <Label htmlFor="planSelect">Select Subscription Plan</Label>
+                  <Label htmlFor="planSelect">Select Subscription Plan *</Label>
                   <Select value={selectedPlan} onValueChange={setSelectedPlan}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-2">
                       <SelectValue placeholder="Choose a plan" />
                     </SelectTrigger>
                     <SelectContent>
@@ -376,7 +411,7 @@ const Payment = () => {
                 </div>
 
                 {selectedPlanData && (
-                  <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+                  <div className="bg-gray-50 rounded-lg p-6 space-y-4 transition-all duration-300">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {selectedPlanData.name}
                     </h3>
@@ -411,18 +446,19 @@ const Payment = () => {
               <Button 
                 variant="outline"
                 onClick={() => setCurrentStep(1)}
-                className="px-6 py-2"
+                className="px-6 py-2 transition-colors duration-200"
+                disabled={isProcessing}
               >
                 Back to Step 1
               </Button>
               
               <Button 
                 onClick={handleCompletePurchase}
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-2"
-                style={{ backgroundColor: '#27AE60' }}
-                disabled={!selectedPlan}
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: isProcessing ? '#666' : '#27AE60' }}
+                disabled={!selectedPlan || isProcessing}
               >
-                Complete Purchase
+                {isProcessing ? 'Processing...' : 'Complete Purchase'}
               </Button>
             </div>
           </div>
