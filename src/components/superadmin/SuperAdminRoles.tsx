@@ -1,17 +1,12 @@
 
 import React, { useState } from 'react';
-import { Users, Plus, Edit, Trash2, Shield, Eye, Settings, UserPlus } from 'lucide-react';
+import { Users, Shield, Eye, Settings, UserPlus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
+import { AdminUserTable } from './roles/AdminUserTable';
+import { RoleManager } from './roles/RoleManager';
+import { AddUserModal } from './roles/AddUserModal';
+import { PermissionsModal } from './roles/PermissionsModal';
 import { ConfirmActionModal } from './ConfirmActionModal';
 
 interface AdminUser {
@@ -104,7 +99,18 @@ export const SuperAdminRoles: React.FC = () => {
   };
 
   const handleDeleteUser = (userId: string) => {
-    setUsers(users.filter(user => user.id !== userId));
+    const user = users.find(u => u.id === userId);
+    if (user) {
+      setConfirmAction({
+        isOpen: true,
+        action: () => {
+          setUsers(users.filter(u => u.id !== userId));
+          setConfirmAction(null);
+        },
+        title: 'Delete Team Member',
+        message: `Are you sure you want to delete ${user.name}? This action cannot be undone.`
+      });
+    }
   };
 
   const handleManagePermissions = (role: Role) => {
@@ -127,15 +133,6 @@ export const SuperAdminRoles: React.FC = () => {
     ));
   };
 
-  const getRoleColor = (role: string) => {
-    switch (role) {
-      case 'Super Admin': return 'bg-red-100 text-red-800';
-      case 'Support Staff': return 'bg-blue-100 text-blue-800';
-      case 'Billing': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -145,81 +142,14 @@ export const SuperAdminRoles: React.FC = () => {
           <p className="text-gray-600 mt-1">Manage internal team access and permissions</p>
         </div>
         
-        <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#27AE60] hover:bg-[#1e8449] mt-4 sm:mt-0">
-              <Plus className="w-4 h-4 mr-2" />
-              Add New Admin
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>Add New Team Member</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input
-                    id="firstName"
-                    value={newUser.firstName}
-                    onChange={(e) => setNewUser({...newUser, firstName: e.target.value})}
-                    placeholder="John"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input
-                    id="lastName"
-                    value={newUser.lastName}
-                    onChange={(e) => setNewUser({...newUser, lastName: e.target.value})}
-                    placeholder="Smith"
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={newUser.email}
-                  onChange={(e) => setNewUser({...newUser, email: e.target.value})}
-                  placeholder="john@novafarm.com"
-                />
-              </div>
-              <div>
-                <Label htmlFor="role">Role</Label>
-                <Select value={newUser.role} onValueChange={(value) => setNewUser({...newUser, role: value})}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {roles.map(role => (
-                      <SelectItem key={role.id} value={role.name}>{role.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={newUser.password}
-                  onChange={(e) => setNewUser({...newUser, password: e.target.value})}
-                  placeholder="Enter temporary password"
-                />
-              </div>
-              <Button 
-                onClick={handleAddUser}
-                className="w-full bg-[#27AE60] hover:bg-[#1e8449]"
-                disabled={!newUser.firstName || !newUser.lastName || !newUser.email || !newUser.role}
-              >
-                Send Access Invitation
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <AddUserModal
+          isOpen={isAddUserOpen}
+          onOpenChange={setIsAddUserOpen}
+          newUser={newUser}
+          setNewUser={setNewUser}
+          roles={roles}
+          onAddUser={handleAddUser}
+        />
       </div>
 
       <Tabs defaultValue="users" className="space-y-6">
@@ -237,142 +167,31 @@ export const SuperAdminRoles: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead className="hidden sm:table-cell">Email</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead className="hidden md:table-cell">Last Login</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {users.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell className="font-medium">
-                          <div>
-                            <div>{user.name}</div>
-                            <div className="text-sm text-gray-500 sm:hidden">{user.email}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell className="hidden sm:table-cell">{user.email}</TableCell>
-                        <TableCell>
-                          <Badge className={getRoleColor(user.role)}>
-                            {user.role}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell text-sm text-gray-600">
-                          {user.lastLogin}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center space-x-2">
-                            <Switch
-                              checked={user.status === 'Active'}
-                              onCheckedChange={() => handleSuspendUser(user.id)}
-                            />
-                            <span className="text-sm">
-                              {user.status}
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center space-x-2">
-                            <Button variant="ghost" size="sm">
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => setConfirmAction({
-                                isOpen: true,
-                                action: () => handleDeleteUser(user.id),
-                                title: 'Delete Team Member',
-                                message: `Are you sure you want to delete ${user.name}? This action cannot be undone.`
-                              })}
-                            >
-                              <Trash2 className="w-4 h-4 text-red-600" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+              <AdminUserTable
+                users={users}
+                onSuspendUser={handleSuspendUser}
+                onDeleteUser={handleDeleteUser}
+              />
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="roles">
-          <div className="grid gap-6">
-            {roles.map((role) => (
-              <Card key={role.id}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{role.name}</CardTitle>
-                      <p className="text-sm text-gray-600">{role.description}</p>
-                    </div>
-                    <Button 
-                      variant="outline"
-                      onClick={() => handleManagePermissions(role)}
-                    >
-                      <Settings className="w-4 h-4 mr-2" />
-                      Manage Permissions
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {role.permissions.map((permission) => {
-                      const perm = allPermissions.find(p => p.id === permission);
-                      return perm ? (
-                        <Badge key={permission} variant="secondary" className="bg-[#27AE60]/10 text-[#27AE60]">
-                          <perm.icon className="w-3 h-3 mr-1" />
-                          {perm.label}
-                        </Badge>
-                      ) : null;
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <RoleManager
+            roles={roles}
+            allPermissions={allPermissions}
+            onManagePermissions={handleManagePermissions}
+          />
         </TabsContent>
       </Tabs>
 
-      {/* Manage Permissions Modal */}
-      <Dialog open={isManagePermissionsOpen} onOpenChange={setIsManagePermissionsOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Manage Permissions - {selectedRole?.name}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            {allPermissions.map((permission) => (
-              <div key={permission.id} className="flex items-center space-x-3">
-                <Checkbox
-                  id={permission.id}
-                  checked={selectedRole?.permissions.includes(permission.id)}
-                  onCheckedChange={() => handlePermissionToggle(permission.id)}
-                />
-                <div className="flex items-center space-x-2">
-                  <permission.icon className="w-4 h-4 text-gray-600" />
-                  <Label htmlFor={permission.id}>{permission.label}</Label>
-                </div>
-              </div>
-            ))}
-            <Button 
-              onClick={() => setIsManagePermissionsOpen(false)}
-              className="w-full bg-[#27AE60] hover:bg-[#1e8449]"
-            >
-              Save Changes
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <PermissionsModal
+        isOpen={isManagePermissionsOpen}
+        onOpenChange={setIsManagePermissionsOpen}
+        selectedRole={selectedRole}
+        allPermissions={allPermissions}
+        onPermissionToggle={handlePermissionToggle}
+      />
 
       {/* Confirmation Modal */}
       {confirmAction && (
@@ -380,10 +199,7 @@ export const SuperAdminRoles: React.FC = () => {
           isOpen={confirmAction.isOpen}
           title={confirmAction.title}
           message={confirmAction.message}
-          onConfirm={() => {
-            confirmAction.action();
-            setConfirmAction(null);
-          }}
+          onConfirm={confirmAction.action}
           onCancel={() => setConfirmAction(null)}
           isDestructive={true}
           confirmButtonText="Delete"
