@@ -10,7 +10,6 @@ import { SuperAdminActivityLogs } from '@/components/superadmin/SuperAdminActivi
 import { SuperAdminSupport } from '@/components/superadmin/SuperAdminSupport';
 import { SuperAdminSettings } from '@/components/superadmin/SuperAdminSettings';
 import { SuperAdminRoles } from '@/components/superadmin/SuperAdminRoles';
-import { SuperAdminSystemSettings } from '@/components/superadmin/SuperAdminSystemSettings';
 
 export type SuperAdminSection = 
   | 'dashboard' 
@@ -21,8 +20,7 @@ export type SuperAdminSection =
   | 'activity' 
   | 'support' 
   | 'settings'
-  | 'roles'
-  | 'system';
+  | 'roles';
 
 const SuperAdmin: React.FC = () => {
   const [activeSection, setActiveSection] = useState<SuperAdminSection>('dashboard');
@@ -47,8 +45,6 @@ const SuperAdmin: React.FC = () => {
         return <SuperAdminSettings />;
       case 'roles':
         return <SuperAdminRoles />;
-      case 'system':
-        return <SuperAdminSystemSettings />;
       default:
         return <SuperAdminOverview onSectionChange={setActiveSection} />;
     }
