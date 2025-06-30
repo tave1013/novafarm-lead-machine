@@ -19,12 +19,14 @@ interface AdminUserTableProps {
   users: AdminUser[];
   onSuspendUser: (userId: string) => void;
   onDeleteUser: (userId: string) => void;
+  onEditUser?: (userId: string) => void;
 }
 
 export const AdminUserTable: React.FC<AdminUserTableProps> = ({
   users,
   onSuspendUser,
-  onDeleteUser
+  onDeleteUser,
+  onEditUser
 }) => {
   const getRoleColor = (role: string) => {
     switch (role) {
@@ -79,7 +81,11 @@ export const AdminUserTable: React.FC<AdminUserTableProps> = ({
               </TableCell>
               <TableCell>
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => onEditUser?.(user.id)}
+                  >
                     <Edit className="w-4 h-4" />
                   </Button>
                   <Button 
