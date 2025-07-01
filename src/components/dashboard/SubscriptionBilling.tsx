@@ -1,10 +1,11 @@
-
 import React, { useState } from 'react';
 import { CreditCard, Calendar, ArrowUpRight, ArrowDownRight, X } from 'lucide-react';
+import { AddPaymentMethodModal } from './AddPaymentMethodModal';
 
 export const SubscriptionBilling: React.FC = () => {
   const [isAnnual, setIsAnnual] = useState(true);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showAddPaymentModal, setShowAddPaymentModal] = useState(false);
 
   const currentPlan = {
     name: 'Premium',
@@ -194,7 +195,10 @@ export const SubscriptionBilling: React.FC = () => {
           </button>
         </div>
         
-        <button className="mt-4 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+        <button 
+          onClick={() => setShowAddPaymentModal(true)}
+          className="mt-4 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+        >
           Add New Payment Method
         </button>
       </div>
@@ -231,6 +235,12 @@ export const SubscriptionBilling: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Add Payment Method Modal */}
+      <AddPaymentMethodModal 
+        isOpen={showAddPaymentModal}
+        onClose={() => setShowAddPaymentModal(false)}
+      />
     </div>
   );
 };
