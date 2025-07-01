@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   Mail, 
@@ -269,39 +270,41 @@ export const SuperAdminEmail: React.FC = () => {
                 <div><strong>Type:</strong> {template.type}</div>
                 <div><strong>Last Modified:</strong> {template.lastModified}</div>
               </div>
-              <div className="flex items-center gap-2 mt-4">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleEditTemplate(template)}
-                >
-                  <Edit3 className="w-3 h-3 mr-1" />
-                  Edit
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    setSelectedTemplate(template);
-                    setView('preview');
-                  }}
-                >
-                  <Eye className="w-3 h-3 mr-1" />
-                  Preview
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleDuplicateTemplate(template)}
-                >
-                  <Copy className="w-3 h-3 mr-1" />
-                  Duplicate
-                </Button>
+              <div className="flex items-center justify-between gap-2 mt-4">
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleEditTemplate(template)}
+                  >
+                    <Edit3 className="w-3 h-3 mr-1" />
+                    Edit
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setSelectedTemplate(template);
+                      setView('preview');
+                    }}
+                  >
+                    <Eye className="w-3 h-3 mr-1" />
+                    Preview
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleDuplicateTemplate(template)}
+                  >
+                    <Copy className="w-3 h-3 mr-1" />
+                    Duplicate
+                  </Button>
+                </div>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => handleDeleteTemplate(template.id)}
-                  className="text-red-600 hover:text-red-700"
+                  className="text-red-600 hover:text-red-700 hover:border-red-300 flex-shrink-0"
                 >
                   <Trash2 className="w-3 h-3" />
                 </Button>
@@ -473,7 +476,7 @@ export const SuperAdminEmail: React.FC = () => {
             <CardHeader>
               <CardTitle>Email Content</CardTitle>
               <p className="text-sm text-gray-600">
-                Use variables like {{client_name}}, {{invoice_total}}, {{invoice_number}}
+                Use variables like {`{{client_name}}`}, {`{{invoice_total}}`}, {`{{invoice_number}}`}
               </p>
             </CardHeader>
             <CardContent>
@@ -486,7 +489,7 @@ export const SuperAdminEmail: React.FC = () => {
               <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                 <h4 className="font-medium text-blue-900 mb-2">Available Variables:</h4>
                 <div className="flex flex-wrap gap-2 text-sm">
-                  {['{{client_name}}', '{{invoice_total}}', '{{invoice_number}}', '{{company_name}}', '{{date}}'].map(variable => (
+                  {['{{\u200Bclient_name}}', '{{\u200Binvoice_total}}', '{{\u200Binvoice_number}}', '{{\u200Bcompany_name}}', '{{\u200Bdate}}'].map(variable => (
                     <span
                       key={variable}
                       className="bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200"
