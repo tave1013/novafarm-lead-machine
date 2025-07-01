@@ -7,7 +7,6 @@ import { SuperAdminPayments } from '@/components/superadmin/SuperAdminPayments';
 import { SuperAdminAccounts } from '@/components/superadmin/SuperAdminAccounts';
 import { SuperAdminInvoices } from '@/components/superadmin/SuperAdminInvoices';
 import { SuperAdminActivityLogs } from '@/components/superadmin/SuperAdminActivityLogs';
-import { SuperAdminSupport } from '@/components/superadmin/SuperAdminSupport';
 import { SuperAdminSettings } from '@/components/superadmin/SuperAdminSettings';
 import { SuperAdminRoles } from '@/components/superadmin/SuperAdminRoles';
 
@@ -18,7 +17,6 @@ export type SuperAdminSection =
   | 'accounts' 
   | 'invoices' 
   | 'activity' 
-  | 'support' 
   | 'settings'
   | 'roles';
 
@@ -39,8 +37,6 @@ const SuperAdmin: React.FC = () => {
         return <SuperAdminInvoices />;
       case 'activity':
         return <SuperAdminActivityLogs />;
-      case 'support':
-        return <SuperAdminSupport />;
       case 'settings':
         return <SuperAdminSettings />;
       case 'roles':
