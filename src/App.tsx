@@ -19,6 +19,7 @@ import TwoFactorVerification from "./pages/TwoFactorVerification";
 import SuperAdmin from "./pages/SuperAdmin";
 import SuperAdminLogin from "./pages/SuperAdminLogin";
 import Payment from "./pages/Payment";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const AppContent = () => {
         <Route path="/" element={<Index />} />
         <Route path="/features" element={<Features />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/book-demo" element={<BookDemo />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />} />
