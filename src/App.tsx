@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import TwoFactorVerification from "./pages/TwoFactorVerification";
 import SuperAdmin from "./pages/SuperAdmin";
+import SuperAdminLogin from "./pages/SuperAdminLogin";
 import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const AppContent = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/super-admin" element={<SuperAdmin />} />
+        <Route path="/super-admin-login" element={<SuperAdminLogin />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
