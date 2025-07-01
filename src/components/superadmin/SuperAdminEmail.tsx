@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Mail, 
@@ -17,7 +16,9 @@ import {
   AlertCircle,
   Smartphone,
   Monitor,
-  ArrowLeft
+  ArrowLeft,
+  Image,
+  Upload
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -39,6 +40,7 @@ interface EmailTemplate {
   language: string;
   trigger: string;
   body: string;
+  footer: string;
 }
 
 export const SuperAdminEmail: React.FC = () => {
@@ -52,6 +54,10 @@ export const SuperAdminEmail: React.FC = () => {
   const [testEmail, setTestEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [autoSaved, setAutoSaved] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageAlt, setImageAlt] = useState('');
+  const [imageAlignment, setImageAlignment] = useState<'left' | 'center' | 'right'>('center');
 
   const [templates, setTemplates] = useState<EmailTemplate[]>([
     {
@@ -61,13 +67,14 @@ export const SuperAdminEmail: React.FC = () => {
       type: 'New Subscription',
       status: 'Active',
       lastModified: '2024-01-15 14:30',
-      subject: 'Welcome to NovaFarm!',
+      subject: 'Welcome to NovaFarm, {{client_name}}!',
       fromName: 'NovaFarm Team',
       fromEmail: 'welcome@novafarm.com',
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'on_registration',
-      body: '<h1>Welcome {{client_name}}!</h1><p>Thank you for joining NovaFarm. We are excited to have you on board.</p>'
+      body: '<h1>Welcome {{client_name}}!</h1><p>Thank you for joining NovaFarm with your {{subscription_type}} plan. We are excited to have you on board.</p>',
+      footer: '<p>This email was sent by NovaFarm. If you have any questions, please contact our support team.</p><p>© 2024 NovaFarm. All rights reserved.</p>'
     },
     {
       id: '2',
@@ -76,13 +83,14 @@ export const SuperAdminEmail: React.FC = () => {
       type: 'Payment Failed',
       status: 'Active',
       lastModified: '2024-01-10 09:15',
-      subject: 'Payment Issue - Action Required',
+      subject: 'Payment Issue - Action Required for {{company_name}}',
       fromName: 'NovaFarm Billing',
       fromEmail: 'billing@novafarm.com',
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'on_payment_failed',
-      body: '<h1>Payment Issue</h1><p>Hi {{client_name}}, we encountered an issue processing your payment of {{invoice_total}}.</p>'
+      body: '<h1>Payment Issue</h1><p>Hi {{client_name}}, we encountered an issue processing your payment of {{invoice_total}} for {{company_name}}. Your next renewal date is {{next_renewal_date}}.</p>',
+      footer: '<p>Need help? Contact us at support@novafarm.com</p><p>© 2024 NovaFarm. All rights reserved.</p>'
     },
     {
       id: '3',
@@ -91,15 +99,29 @@ export const SuperAdminEmail: React.FC = () => {
       type: 'Invoice',
       status: 'Inactive',
       lastModified: '2023-12-28 16:45',
-      subject: 'New Invoice #{{invoice_number}}',
+      subject: 'New Invoice #{{invoice_number}} - {{invoice_total}}',
       fromName: 'NovaFarm Billing',
       fromEmail: 'billing@novafarm.com',
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'on_invoice_generated',
-      body: '<h1>New Invoice</h1><p>Your invoice #{{invoice_number}} for {{invoice_total}} is ready.</p>'
+      body: '<h1>New Invoice</h1><p>Dear {{client_name}}, your invoice #{{invoice_number}} for {{invoice_total}} is ready for {{company_name}}.</p>',
+      footer: '<p>Questions about billing? Email us at billing@novafarm.com</p><p>© 2024 NovaFarm. All rights reserved.</p>'
     }
   ]);
+
+  // Enhanced trigger variables
+  const triggerVariables = [
+    { tag: '{{client_name}}', description: 'Full name of the recipient' },
+    { tag: '{{subscription_type}}', description: 'Plan selected by the user (e.g. Standard / Premium)' },
+    { tag: '{{invoice_total}}', description: 'Amount billed' },
+    { tag: '{{next_renewal_date}}', description: 'Next billing date' },
+    { tag: '{{email}}', description: "User's email address" },
+    { tag: '{{company_name}}', description: 'Business name of the client' },
+    { tag: '{{invoice_number}}', description: 'Invoice reference number' },
+    { tag: '{{date}}', description: 'Current date' },
+    { tag: '{{cta_button}}', description: 'A styled button with link (configurable)' }
+  ];
 
   const filteredTemplates = templates.filter(template => {
     const matchesSearch = template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -128,7 +150,8 @@ export const SuperAdminEmail: React.FC = () => {
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'manual',
-      body: '<p>Start writing your email content here...</p>'
+      body: '<p>Start writing your email content here...</p>',
+      footer: '<p>This email was sent by NovaFarm. If you have any questions, please contact our support team.</p><p>© 2024 NovaFarm. All rights reserved.</p>'
     };
     setSelectedTemplate(newTemplate);
     setView('editor');
@@ -202,6 +225,44 @@ export const SuperAdminEmail: React.FC = () => {
       title: "Template Duplicated",
       description: "Template has been duplicated successfully.",
     });
+  };
+
+  const insertVariable = (variable: string, field: 'subject' | 'body' | 'footer') => {
+    if (!selectedTemplate) return;
+    
+    if (field === 'subject') {
+      setSelectedTemplate({
+        ...selectedTemplate,
+        subject: selectedTemplate.subject + variable
+      });
+    } else if (field === 'body') {
+      setSelectedTemplate({
+        ...selectedTemplate,
+        body: selectedTemplate.body + variable
+      });
+    } else if (field === 'footer') {
+      setSelectedTemplate({
+        ...selectedTemplate,
+        footer: selectedTemplate.footer + variable
+      });
+    }
+  };
+
+  const insertImage = () => {
+    if (!selectedTemplate || !imageUrl) return;
+    
+    const alignClass = imageAlignment === 'center' ? 'text-center' : imageAlignment === 'right' ? 'text-right' : 'text-left';
+    const imageHtml = `<div class="${alignClass}"><img src="${imageUrl}" alt="${imageAlt}" style="max-width: 100%; height: auto;" /></div>`;
+    
+    setSelectedTemplate({
+      ...selectedTemplate,
+      body: selectedTemplate.body + imageHtml
+    });
+    
+    setShowImageModal(false);
+    setImageUrl('');
+    setImageAlt('');
+    setImageAlignment('center');
   };
 
   const renderTemplateList = () => (
@@ -434,7 +495,23 @@ export const SuperAdminEmail: React.FC = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Subject Line</label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium">Subject Line</label>
+                  <div className="relative">
+                    <select
+                      onChange={(e) => insertVariable(e.target.value, 'subject')}
+                      className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1C9B7A]"
+                      value=""
+                    >
+                      <option value="">+ Insert Variable</option>
+                      {triggerVariables.map(variable => (
+                        <option key={variable.tag} value={variable.tag}>
+                          {variable.tag} - {variable.description}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 <Input
                   value={selectedTemplate?.subject || ''}
                   onChange={(e) => setSelectedTemplate(prev => prev ? {...prev, subject: e.target.value} : null)}
@@ -474,39 +551,93 @@ export const SuperAdminEmail: React.FC = () => {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Email Content</CardTitle>
-              <p className="text-sm text-gray-600">
-                Use variables like {`{{client_name}}`}, {`{{invoice_total}}`}, {`{{invoice_number}}`}
-              </p>
+              <div className="flex items-center justify-between">
+                <CardTitle>Email Content</CardTitle>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setShowImageModal(true)}
+                  >
+                    <Image className="w-3 h-3 mr-1" />
+                    Insert Image
+                  </Button>
+                  <div className="relative">
+                    <select
+                      onChange={(e) => insertVariable(e.target.value, 'body')}
+                      className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1C9B7A]"
+                      value=""
+                    >
+                      <option value="">+ Insert Variable</option>
+                      {triggerVariables.map(variable => (
+                        <option key={variable.tag} value={variable.tag}>
+                          {variable.tag} - {variable.description}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <Textarea
                 value={selectedTemplate?.body || ''}
                 onChange={(e) => setSelectedTemplate(prev => prev ? {...prev, body: e.target.value} : null)}
                 placeholder="Write your email content here..."
-                className="min-h-[400px] font-mono text-sm"
+                className="min-h-[300px] font-mono text-sm"
               />
-              <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                <h4 className="font-medium text-blue-900 mb-2">Available Variables:</h4>
-                <div className="flex flex-wrap gap-2 text-sm">
-                  {['{{\u200Bclient_name}}', '{{\u200Binvoice_total}}', '{{\u200Binvoice_number}}', '{{\u200Bcompany_name}}', '{{\u200Bdate}}'].map(variable => (
-                    <span
-                      key={variable}
-                      className="bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200"
-                      onClick={() => {
-                        const textarea = document.querySelector('textarea');
-                        if (textarea && selectedTemplate) {
-                          const start = textarea.selectionStart;
-                          const end = textarea.selectionEnd;
-                          const newBody = selectedTemplate.body.substring(0, start) + variable + selectedTemplate.body.substring(end);
-                          setSelectedTemplate({...selectedTemplate, body: newBody});
-                        }
-                      }}
-                    >
-                      {variable}
-                    </span>
-                  ))}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle>Email Footer</CardTitle>
+                <div className="relative">
+                  <select
+                    onChange={(e) => insertVariable(e.target.value, 'footer')}
+                    className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1C9B7A]"
+                    value=""
+                  >
+                    <option value="">+ Insert Variable</option>
+                    {triggerVariables.map(variable => (
+                      <option key={variable.tag} value={variable.tag}>
+                        {variable.tag} - {variable.description}
+                      </option>
+                    ))}
+                  </select>
                 </div>
+              </div>
+              <p className="text-sm text-gray-600">
+                Add legal disclaimers, unsubscribe links, or contact information
+              </p>
+            </CardHeader>
+            <CardContent>
+              <Textarea
+                value={selectedTemplate?.footer || ''}
+                onChange={(e) => setSelectedTemplate(prev => prev ? {...prev, footer: e.target.value} : null)}
+                placeholder="Add footer content like disclaimers, contact info, unsubscribe links..."
+                className="min-h-[100px] font-mono text-sm"
+              />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Available Variables</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 gap-2 text-sm">
+                {triggerVariables.map(variable => (
+                  <div
+                    key={variable.tag}
+                    className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer"
+                    onClick={() => insertVariable(variable.tag, 'body')}
+                  >
+                    <span className="font-mono text-blue-600">{variable.tag}</span>
+                    <span className="text-gray-600 text-xs">{variable.description}</span>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -522,9 +653,41 @@ export const SuperAdminEmail: React.FC = () => {
       
       return selectedTemplate.body
         .replace(/\{\{client_name\}\}/g, 'John Doe')
+        .replace(/\{\{subscription_type\}\}/g, 'Premium')
         .replace(/\{\{invoice_total\}\}/g, '$99.00')
+        .replace(/\{\{next_renewal_date\}\}/g, 'March 15, 2024')
+        .replace(/\{\{email\}\}/g, 'john.doe@example.com')
+        .replace(/\{\{company_name\}\}/g, 'Acme Corporation')
         .replace(/\{\{invoice_number\}\}/g, 'INV-2024-001')
-        .replace(/\{\{company_name\}\}/g, 'NovaFarm')
+        .replace(/\{\{date\}\}/g, new Date().toLocaleDateString())
+        .replace(/\{\{cta_button\}\}/g, '<a href="#" style="background-color: #27AE60; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Get Started</a>');
+    };
+
+    const getPreviewFooter = () => {
+      if (!selectedTemplate?.footer) return '';
+      
+      return selectedTemplate.footer
+        .replace(/\{\{client_name\}\}/g, 'John Doe')
+        .replace(/\{\{subscription_type\}\}/g, 'Premium')
+        .replace(/\{\{invoice_total\}\}/g, '$99.00')
+        .replace(/\{\{next_renewal_date\}\}/g, 'March 15, 2024')
+        .replace(/\{\{email\}\}/g, 'john.doe@example.com')
+        .replace(/\{\{company_name\}\}/g, 'Acme Corporation')
+        .replace(/\{\{invoice_number\}\}/g, 'INV-2024-001')
+        .replace(/\{\{date\}\}/g, new Date().toLocaleDateString());
+    };
+
+    const getPreviewSubject = () => {
+      if (!selectedTemplate?.subject) return '';
+      
+      return selectedTemplate.subject
+        .replace(/\{\{client_name\}\}/g, 'John Doe')
+        .replace(/\{\{subscription_type\}\}/g, 'Premium')
+        .replace(/\{\{invoice_total\}\}/g, '$99.00')
+        .replace(/\{\{next_renewal_date\}\}/g, 'March 15, 2024')
+        .replace(/\{\{email\}\}/g, 'john.doe@example.com')
+        .replace(/\{\{company_name\}\}/g, 'Acme Corporation')
+        .replace(/\{\{invoice_number\}\}/g, 'INV-2024-001')
         .replace(/\{\{date\}\}/g, new Date().toLocaleDateString());
     };
 
@@ -568,7 +731,7 @@ export const SuperAdminEmail: React.FC = () => {
             <div className="border-b border-gray-200 p-4 bg-gray-50">
               <div className="text-sm text-gray-600 space-y-1">
                 <div><strong>From:</strong> {selectedTemplate?.fromName} &lt;{selectedTemplate?.fromEmail}&gt;</div>
-                <div><strong>Subject:</strong> {selectedTemplate?.subject}</div>
+                <div><strong>Subject:</strong> {getPreviewSubject()}</div>
                 <div><strong>Reply-To:</strong> {selectedTemplate?.replyTo}</div>
               </div>
             </div>
@@ -581,10 +744,13 @@ export const SuperAdminEmail: React.FC = () => {
               />
               
               {/* Footer */}
-              <div className="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-500">
-                <p>This email was sent by NovaFarm. If you have any questions, please contact our support team.</p>
-                <p className="mt-2">© 2024 NovaFarm. All rights reserved.</p>
-              </div>
+              {selectedTemplate?.footer && (
+                <div className="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-500">
+                  <div 
+                    dangerouslySetInnerHTML={{ __html: getPreviewFooter() }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -635,6 +801,77 @@ export const SuperAdminEmail: React.FC = () => {
                 <Button
                   variant="outline"
                   onClick={() => setShowTestModal(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Insert Image Modal */}
+      {showImageModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Insert Image</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowImageModal(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Image URL</label>
+                <Input
+                  type="url"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Use placeholder: https://images.unsplash.com/photo-1649972904349-6e44c42644a7
+                </p>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2">Alt Text</label>
+                <Input
+                  value={imageAlt}
+                  onChange={(e) => setImageAlt(e.target.value)}
+                  placeholder="Description of the image"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2">Alignment</label>
+                <select
+                  value={imageAlignment}
+                  onChange={(e) => setImageAlignment(e.target.value as 'left' | 'center' | 'right')}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1C9B7A]"
+                >
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
+              
+              <div className="flex gap-2">
+                <Button
+                  onClick={insertImage}
+                  disabled={!imageUrl}
+                  className="flex-1 bg-[#27AE60] hover:bg-[#219A52]"
+                >
+                  Insert Image
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowImageModal(false)}
                 >
                   Cancel
                 </Button>
