@@ -285,7 +285,12 @@ export const AddPaymentMethodModal: React.FC<AddPaymentMethodModalProps> = ({
             <div className="space-y-2">
               <div className="flex items-center space-x-1">
                 <Label htmlFor="cvv">CVV *</Label>
-                <HelpCircle className="w-4 h-4 text-gray-400" title="3-digit code on back of card (4 digits for Amex)" />
+                <div className="relative group">
+                  <HelpCircle className="w-4 h-4 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    3-digit code on back of card (4 digits for Amex)
+                  </div>
+                </div>
               </div>
               <Input
                 id="cvv"
@@ -347,4 +352,3 @@ export const AddPaymentMethodModal: React.FC<AddPaymentMethodModalProps> = ({
     </Dialog>
   );
 };
-
