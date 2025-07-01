@@ -513,75 +513,82 @@ export const SuperAdminEmail: React.FC = () => {
     </div>
   );
 
-  const renderPreview = () => (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" onClick={() => setView(selectedTemplate?.id === Date.now().toString() ? 'editor' : 'list')}>
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
-          <h1 className="text-2xl font-bold text-gray-900">Preview: {selectedTemplate?.name}</h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant={previewMode === 'desktop' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setPreviewMode('desktop')}
-          >
-            <Monitor className="w-4 h-4 mr-2" />
-            Desktop
-          </Button>
-          <Button
-            variant={previewMode === 'mobile' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setPreviewMode('mobile')}
-          >
-            <Smartphone className="w-4 h-4 mr-2" />
-            Mobile
-          </Button>
-        </div>
-      </div>
+  const renderPreview = () => {
+    // Create preview content by replacing template variables with sample data
+    const getPreviewContent = () => {
+      if (!selectedTemplate?.body) return '';
+      
+      return selectedTemplate.body
+        .replace(/\{\{client_name\}\}/g, 'John Doe')
+        .replace(/\{\{invoice_total\}\}/g, '$99.00')
+        .replace(/\{\{invoice_number\}\}/g, 'INV-2024-001')
+        .replace(/\{\{company_name\}\}/g, 'NovaFarm')
+        .replace(/\{\{date\}\}/g, new Date().toLocaleDateString());
+    };
 
-      {/* Preview */}
-      <div className="flex justify-center">
-        <div className={`bg-white border border-gray-300 rounded-lg shadow-lg ${
-          previewMode === 'mobile' ? 'max-w-sm' : 'max-w-2xl w-full'
-        }`}>
-          {/* Email Header */}
-          <div className="border-b border-gray-200 p-4 bg-gray-50">
-            <div className="text-sm text-gray-600 space-y-1">
-              <div><strong>From:</strong> {selectedTemplate?.fromName} &lt;{selectedTemplate?.fromEmail}&gt;</div>
-              <div><strong>Subject:</strong> {selectedTemplate?.subject}</div>
-              <div><strong>Reply-To:</strong> {selectedTemplate?.replyTo}</div>
-            </div>
+    return (
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => setView(selectedTemplate?.id === Date.now().toString() ? 'editor' : 'list')}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
+            <h1 className="text-2xl font-bold text-gray-900">Preview: {selectedTemplate?.name}</h1>
           </div>
-          
-          {/* Email Body */}
-          <div className="p-6">
-            <div 
-              dangerouslySetInnerHTML={{ 
-                __html: selectedTemplate?.body
-                  ?.replace(/{{client_name}}/g, 'John Doe')
-                  ?.replace(/{{invoice_total}}/g, '$99.00')
-                  ?.replace(/{{invoice_number}}/g, 'INV-2024-001')
-                  ?.replace(/{{company_name}}/g, 'NovaFarm')
-                  ?.replace(/{{date}}/g, new Date().toLocaleDateString()) || ''
-              }}
-              className="prose prose-sm max-w-none"
-            />
+          <div className="flex items-center gap-2">
+            <Button
+              variant={previewMode === 'desktop' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setPreviewMode('desktop')}
+            >
+              <Monitor className="w-4 h-4 mr-2" />
+              Desktop
+            </Button>
+            <Button
+              variant={previewMode === 'mobile' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setPreviewMode('mobile')}
+            >
+              <Smartphone className="w-4 h-4 mr-2" />
+              Mobile
+            </Button>
+          </div>
+        </div>
+
+        {/* Preview */}
+        <div className="flex justify-center">
+          <div className={`bg-white border border-gray-300 rounded-lg shadow-lg ${
+            previewMode === 'mobile' ? 'max-w-sm' : 'max-w-2xl w-full'
+          }`}>
+            {/* Email Header */}
+            <div className="border-b border-gray-200 p-4 bg-gray-50">
+              <div className="text-sm text-gray-600 space-y-1">
+                <div><strong>From:</strong> {selectedTemplate?.fromName} &lt;{selectedTemplate?.fromEmail}&gt;</div>
+                <div><strong>Subject:</strong> {selectedTemplate?.subject}</div>
+                <div><strong>Reply-To:</strong> {selectedTemplate?.replyTo}</div>
+              </div>
+            </div>
             
-            {/* Footer */}
-            <div className="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-500">
-              <p>This email was sent by NovaFarm. If you have any questions, please contact our support team.</p>
-              <p className="mt-2">© 2024 NovaFarm. All rights reserved.</p>
+            {/* Email Body */}
+            <div className="p-6">
+              <div 
+                dangerouslySetInnerHTML={{ __html: getPreviewContent() }}
+                className="prose prose-sm max-w-none"
+              />
+              
+              {/* Footer */}
+              <div className="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-500">
+                <p>This email was sent by NovaFarm. If you have any questions, please contact our support team.</p>
+                <p className="mt-2">© 2024 NovaFarm. All rights reserved.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
