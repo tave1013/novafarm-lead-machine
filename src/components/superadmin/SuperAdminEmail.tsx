@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Mail, 
@@ -39,6 +38,7 @@ interface EmailTemplate {
   language: string;
   trigger: string;
   body: string;
+  footer?: string;
 }
 
 export const SuperAdminEmail: React.FC = () => {
@@ -67,7 +67,8 @@ export const SuperAdminEmail: React.FC = () => {
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'on_registration',
-      body: '<h1>Welcome {{client_name}}!</h1><p>Thank you for joining NovaFarm. We are excited to have you on board.</p>'
+      body: '<h1>Welcome {{client_name}}!</h1><p>Thank you for joining NovaFarm. We are excited to have you on board.</p>',
+      footer: '<p>© 2024 NovaFarm. All rights reserved.</p><p>If you have any questions, please contact our support team at support@novafarm.com</p>'
     },
     {
       id: '2',
@@ -82,7 +83,8 @@ export const SuperAdminEmail: React.FC = () => {
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'on_payment_failed',
-      body: '<h1>Payment Issue</h1><p>Hi {{client_name}}, we encountered an issue processing your payment of {{invoice_total}}.</p>'
+      body: '<h1>Payment Issue</h1><p>Hi {{client_name}}, we encountered an issue processing your payment of {{invoice_total}}.</p>',
+      footer: '<p>For billing questions, contact us at billing@novafarm.com</p><p>© 2024 NovaFarm. All rights reserved.</p>'
     },
     {
       id: '3',
@@ -97,7 +99,8 @@ export const SuperAdminEmail: React.FC = () => {
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'on_invoice_generated',
-      body: '<h1>New Invoice</h1><p>Your invoice #{{invoice_number}} for {{invoice_total}} is ready.</p>'
+      body: '<h1>New Invoice</h1><p>Your invoice #{{invoice_number}} for {{invoice_total}} is ready.</p>',
+      footer: '<p>Thank you for choosing NovaFarm!</p><p>© 2024 NovaFarm. All rights reserved.</p>'
     }
   ]);
 
@@ -128,7 +131,8 @@ export const SuperAdminEmail: React.FC = () => {
       replyTo: 'support@novafarm.com',
       language: 'English',
       trigger: 'manual',
-      body: '<p>Start writing your email content here...</p>'
+      body: '<p>Start writing your email content here...</p>',
+      footer: '<p>© 2024 NovaFarm. All rights reserved.</p><p>If you have any questions, please contact our support team.</p>'
     };
     setSelectedTemplate(newTemplate);
     setView('editor');
@@ -270,8 +274,8 @@ export const SuperAdminEmail: React.FC = () => {
                 <div><strong>Type:</strong> {template.type}</div>
                 <div><strong>Last Modified:</strong> {template.lastModified}</div>
               </div>
-              <div className="flex items-center justify-between gap-2 mt-4">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mt-4">
+                <div className="flex items-center gap-2 flex-1">
                   <Button
                     size="sm"
                     variant="outline"
@@ -304,7 +308,7 @@ export const SuperAdminEmail: React.FC = () => {
                   size="sm"
                   variant="outline"
                   onClick={() => handleDeleteTemplate(template.id)}
-                  className="text-red-600 hover:text-red-700 hover:border-red-300 flex-shrink-0"
+                  className="text-red-600 hover:text-red-700 hover:border-red-300"
                 >
                   <Trash2 className="w-3 h-3" />
                 </Button>
@@ -484,7 +488,7 @@ export const SuperAdminEmail: React.FC = () => {
                 value={selectedTemplate?.body || ''}
                 onChange={(e) => setSelectedTemplate(prev => prev ? {...prev, body: e.target.value} : null)}
                 placeholder="Write your email content here..."
-                className="min-h-[400px] font-mono text-sm"
+                className="min-h-[300px] font-mono text-sm"
               />
               <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                 <h4 className="font-medium text-blue-900 mb-2">Available Variables:</h4>
@@ -510,6 +514,26 @@ export const SuperAdminEmail: React.FC = () => {
               </div>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Email Footer</CardTitle>
+              <p className="text-sm text-gray-600">
+                Add legal disclaimers, contact info, or unsubscribe instructions
+              </p>
+            </CardHeader>
+            <CardContent>
+              <Textarea
+                value={selectedTemplate?.footer || ''}
+                onChange={(e) => setSelectedTemplate(prev => prev ? {...prev, footer: e.target.value} : null)}
+                placeholder="© 2024 NovaFarm. All rights reserved.&#10;If you have any questions, please contact our support team."
+                className="min-h-[120px] font-mono text-sm"
+              />
+              <p className="text-xs text-gray-500 mt-2">
+                Footer is optional and will appear at the bottom of your email
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
@@ -517,10 +541,10 @@ export const SuperAdminEmail: React.FC = () => {
 
   const renderPreview = () => {
     // Create preview content by replacing template variables with sample data
-    const getPreviewContent = () => {
-      if (!selectedTemplate?.body) return '';
+    const getPreviewContent = (content: string) => {
+      if (!content) return '';
       
-      return selectedTemplate.body
+      return content
         .replace(/\{\{client_name\}\}/g, 'John Doe')
         .replace(/\{\{invoice_total\}\}/g, '$99.00')
         .replace(/\{\{invoice_number\}\}/g, 'INV-2024-001')
@@ -568,7 +592,7 @@ export const SuperAdminEmail: React.FC = () => {
             <div className="border-b border-gray-200 p-4 bg-gray-50">
               <div className="text-sm text-gray-600 space-y-1">
                 <div><strong>From:</strong> {selectedTemplate?.fromName} &lt;{selectedTemplate?.fromEmail}&gt;</div>
-                <div><strong>Subject:</strong> {selectedTemplate?.subject}</div>
+                <div><strong>Subject:</strong> {getPreviewContent(selectedTemplate?.subject || '')}</div>
                 <div><strong>Reply-To:</strong> {selectedTemplate?.replyTo}</div>
               </div>
             </div>
@@ -576,15 +600,19 @@ export const SuperAdminEmail: React.FC = () => {
             {/* Email Body */}
             <div className="p-6">
               <div 
-                dangerouslySetInnerHTML={{ __html: getPreviewContent() }}
+                dangerouslySetInnerHTML={{ __html: getPreviewContent(selectedTemplate?.body || '') }}
                 className="prose prose-sm max-w-none"
               />
               
               {/* Footer */}
-              <div className="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-500">
-                <p>This email was sent by NovaFarm. If you have any questions, please contact our support team.</p>
-                <p className="mt-2">© 2024 NovaFarm. All rights reserved.</p>
-              </div>
+              {selectedTemplate?.footer && (
+                <div className="mt-8 pt-4 border-t border-gray-200">
+                  <div 
+                    dangerouslySetInnerHTML={{ __html: getPreviewContent(selectedTemplate.footer) }}
+                    className="text-xs text-gray-500"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
