@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check, ChevronDown, Calendar, Clock, MessageSquare, CreditCard, Shield, Globe, Star, QrCode, BarChart3, Headphones } from 'lucide-react';
+import { Check, ChevronDown, Calendar, Clock, MessageSquare, CreditCard, Shield, Globe, Star, QrCode, BarChart3, Headphones, Users, CalendarDays } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PricingSection from '@/components/PricingSection';
@@ -68,6 +67,16 @@ const Pricing = () => {
       icon: <Headphones className="w-8 h-8 text-[#078147]" />,
       title: "Dedicated Support",
       description: "Real human help 7 days a week"
+    },
+    {
+      icon: <Users className="w-8 h-8 text-[#078147]" />,
+      title: "CRM Integration",
+      description: "Easily manage customer data, history, and communication"
+    },
+    {
+      icon: <CalendarDays className="w-8 h-8 text-[#078147]" />,
+      title: "Social Media Calendar",
+      description: "Plan and schedule posts to keep your pharmacy visible online"
     }
   ];
 
