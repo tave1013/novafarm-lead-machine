@@ -20,6 +20,7 @@ import SuperAdmin from "./pages/SuperAdmin";
 import SuperAdminLogin from "./pages/SuperAdminLogin";
 import Payment from "./pages/Payment";
 import Pricing from "./pages/Pricing";
+import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const AppContent = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-2fa" element={<TwoFactorVerification />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/landing" element={<Landing />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
