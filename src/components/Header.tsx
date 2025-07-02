@@ -72,9 +72,6 @@ const Header = () => {
             <button onClick={handleServicesClick} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Services
             </button>
-            <button onClick={() => scrollToSection('pricing')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
-              Pricing
-            </button>
             <button onClick={() => scrollToSection('testimonials')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Testimonials
             </button>
@@ -124,9 +121,6 @@ const Header = () => {
               </button>
               <button onClick={handleServicesClick} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Services
-              </button>
-              <button onClick={() => scrollToSection('pricing')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
-                Pricing
               </button>
               <button onClick={() => scrollToSection('testimonials')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Testimonials
