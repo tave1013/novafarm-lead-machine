@@ -43,11 +43,6 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  const handleLogin = () => {
-    navigate('/login');
-    setIsMenuOpen(false);
-  };
-
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,16 +75,8 @@ const Header = () => {
             </button>
           </nav>
           
-          {/* Desktop Right Section with Login and CTA */}
-          <div className="hidden lg:flex items-center space-x-4">
-            {/* Login Button */}
-            <button 
-              onClick={handleLogin}
-              className="px-3 py-2 text-sm xl:text-base font-medium text-gray-700 hover:text-[#078147] hover:bg-gray-50 rounded-md transition-colors"
-            >
-              Login
-            </button>
-
+          {/* Desktop Right Section with CTA */}
+          <div className="hidden lg:flex items-center">
             {/* CTA Button */}
             <button 
               onClick={handleBookDemo}
@@ -128,19 +115,9 @@ const Header = () => {
               <button onClick={() => scrollToSection('contact')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Contact
               </button>
-              
-              {/* Mobile Login Button */}
-              <div className="pt-2 border-t border-gray-200">
-                <button 
-                  onClick={handleLogin}
-                  className="w-full text-left px-2 py-2 text-base font-medium text-gray-700 hover:text-[#078147] hover:bg-gray-50 rounded-md transition-colors"
-                >
-                  Login
-                </button>
-              </div>
 
               {/* Mobile CTA Button */}
-              <div className="pt-2">
+              <div className="pt-2 border-t border-gray-200">
                 <button 
                   onClick={handleBookDemo}
                   className="w-full bg-[#078147] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#066139] transition-colors text-center animate-pulse-slow"
