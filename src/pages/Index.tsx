@@ -7,7 +7,6 @@ import OmnichannelSection from '../components/OmnichannelSection';
 import WhyChooseSection from '../components/WhyChooseSection';
 import TargetAudienceSection from '../components/TargetAudienceSection';
 import ReliabilitySection from '../components/ReliabilitySection';
-import PricingSection from '../components/PricingSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import FinalCTASection from '../components/FinalCTASection';
@@ -24,7 +23,6 @@ const Index = () => {
       <WhyChooseSection />
       <TargetAudienceSection />
       <ReliabilitySection />
-      <PricingSection />
       <GuaranteeSection />
       <TestimonialsSection />
       <FinalCTASection />
