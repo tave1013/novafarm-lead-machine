@@ -1,12 +1,13 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, Calendar, Clock, MessageSquare, CreditCard, Shield, Globe, Star, QrCode, BarChart3, Headphones } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PricingSection from '@/components/PricingSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FinalCTASection from '@/components/FinalCTASection';
+import WhyChooseSection from '@/components/WhyChooseSection';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 const Pricing = () => {
@@ -19,34 +20,54 @@ const Pricing = () => {
 
   const includedFeatures = [
     {
-      icon: "📅",
-      title: "Unlimited Appointment Bookings",
-      description: "No limits on patient appointments"
+      icon: <Calendar className="w-8 h-8 text-[#078147]" />,
+      title: "Online Booking Calendar",
+      description: "Let patients schedule appointments online"
     },
     {
-      icon: "🌐",
+      icon: <Clock className="w-8 h-8 text-[#078147]" />,
+      title: "Smart Automations",
+      description: "Reminders, follow-ups, and client flows on autopilot"
+    },
+    {
+      icon: <MessageSquare className="w-8 h-8 text-[#078147]" />,
+      title: "Unified Inbox",
+      description: "All messages in one place: WhatsApp, SMS, email"
+    },
+    {
+      icon: <CreditCard className="w-8 h-8 text-[#078147]" />,
+      title: "Digital Payments",
+      description: "Let customers pay online in a few clicks"
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-[#078147]" />,
+      title: "Secure Dashboard",
+      description: "GDPR-compliant, 2FA protected"
+    },
+    {
+      icon: <Globe className="w-8 h-8 text-[#078147]" />,
       title: "Custom Pharmacy Web Page",
       description: "Professional online presence"
     },
     {
-      icon: "🔔",
-      title: "Patient Reminder System",
-      description: "Automated SMS and email reminders"
+      icon: <Star className="w-8 h-8 text-[#078147]" />,
+      title: "Automatic Review Requests",
+      description: "Collect more 5-star reviews, hands-free"
     },
     {
-      icon: "💳",
-      title: "Integrated Online Payments",
-      description: "Secure payment processing"
+      icon: <QrCode className="w-8 h-8 text-[#078147]" />,
+      title: "QR Marketing Tools",
+      description: "Engage walk-in customers with printed QR codes"
     },
     {
-      icon: "🎧",
-      title: "Live Support 7/7",
-      description: "Always available when you need us"
+      icon: <BarChart3 className="w-8 h-8 text-[#078147]" />,
+      title: "Advanced Analytics",
+      description: "Track appointments, revenue, feedback and more"
     },
     {
-      icon: "🔒",
-      title: "Secure Dashboard & 2FA",
-      description: "Enterprise-grade security"
+      icon: <Headphones className="w-8 h-8 text-[#078147]" />,
+      title: "Dedicated Support",
+      description: "Real human help 7 days a week"
     }
   ];
 
@@ -101,7 +122,7 @@ const Pricing = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-3 sm:mb-4">
-              Everything You Need to Succeed
+              What's Included in Every Plan
             </h2>
             <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
               All plans include these powerful features to transform your pharmacy operations
@@ -115,7 +136,9 @@ const Pricing = () => {
                 className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="text-3xl mb-4">{feature.icon}</div>
+                <div className="w-16 h-16 bg-[#078147]/10 rounded-lg flex items-center justify-center mb-4">
+                  {feature.icon}
+                </div>
                 <h3 className="text-lg font-semibold text-black mb-2">{feature.title}</h3>
                 <p className="text-gray-600 text-sm">{feature.description}</p>
               </div>
@@ -123,6 +146,9 @@ const Pricing = () => {
           </div>
         </div>
       </section>
+
+      {/* Why Choose NovaFarm - Reusing existing component */}
+      <WhyChooseSection />
 
       {/* Testimonials - Reusing existing component */}
       <TestimonialsSection />
