@@ -1,4 +1,3 @@
-
 import { Check } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,9 +15,10 @@ const PricingSection = () => {
       name: "Starter",
       originalPrice: "€147",
       monthlyPrice: "€97",
-      period: "/month + VAT",
+      annualMonthlyPrice: "€80",
+      period: isAnnual ? "+ VAT / month" : "/month + VAT",
       setupFee: "€500",
-      setupFeeWaived: isAnnual,
+      yearlyDiscount: "Save 17%",
       features: [
         "Smart appointment calendar",
         "Automated follow-ups",
@@ -33,9 +33,10 @@ const PricingSection = () => {
       name: "Pro",
       originalPrice: "€297",
       monthlyPrice: "€197",
-      period: "/month + VAT",
+      annualMonthlyPrice: "€164",
+      period: isAnnual ? "+ VAT / month" : "/month + VAT",
       setupFee: "€1,000",
-      setupFeeWaived: isAnnual,
+      yearlyDiscount: "Save 17%",
       badge: "Best Value",
       popular: true,
       features: [
@@ -82,7 +83,7 @@ const PricingSection = () => {
               Annual
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-gray-500">💡 No setup fee with annual billing</p>
+          <p className="text-xs sm:text-sm text-gray-500">💡 Save 17% with annual billing</p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
@@ -99,7 +100,7 @@ const PricingSection = () => {
               {isAnnual && (
                 <div className="absolute -top-3 sm:-top-4 right-3 sm:right-4">
                   <span className="bg-green-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-semibold">
-                    ✅ No Setup Fee
+                    {plan.yearlyDiscount}
                   </span>
                 </div>
               )}
@@ -108,28 +109,24 @@ const PricingSection = () => {
                 <h3 className="text-xl sm:text-2xl font-bold mb-2">{plan.name}</h3>
                 <div className="mb-3">
                   <div className="flex items-center justify-center space-x-2 mb-1">
-                    <span className={`text-base sm:text-lg line-through ${plan.popular ? 'text-gray-300' : 'text-gray-400'}`}>
-                      {plan.originalPrice}
-                    </span>
+                    {!isAnnual && (
+                      <span className={`text-base sm:text-lg line-through ${plan.popular ? 'text-gray-300' : 'text-gray-400'}`}>
+                        {plan.originalPrice}
+                      </span>
+                    )}
                     <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
                       PROMO
                     </span>
                   </div>
                   <div className="flex items-baseline justify-center">
                     <span className="text-3xl sm:text-4xl font-bold">
-                      {plan.monthlyPrice}
+                      {isAnnual ? plan.annualMonthlyPrice : plan.monthlyPrice}
                     </span>
                     <span className={`ml-1 text-sm sm:text-base ${plan.popular ? 'text-gray-200' : 'text-gray-600'}`}>{plan.period}</span>
                   </div>
                 </div>
                 <div className={`text-xs sm:text-sm ${plan.popular ? 'text-gray-200' : 'text-gray-500'}`}>
-                  {plan.setupFeeWaived ? (
-                    <span className="text-green-500 font-semibold">
-                      Setup fee: Included with Annual ✅
-                    </span>
-                  ) : (
-                    `Setup fee: ${plan.setupFee} (one-time)`
-                  )}
+                  Setup fee: {plan.setupFee} (one-time)
                 </div>
               </div>
               
