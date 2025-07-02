@@ -1,33 +1,13 @@
 
 import { useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('en');
   const navigate = useNavigate();
 
-  const languages = [
-    { code: 'en', label: 'English', flag: '🇬🇧' },
-    { code: 'it', label: 'Italiano', flag: '🇮🇹' }
-  ];
-
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const handleLanguageChange = (languageCode: string) => {
-    setCurrentLanguage(languageCode);
-    // TODO: Implement actual language switching logic when content is available
-    console.log(`Language switched to: ${languageCode}`);
-  };
-
-  const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0];
 
   const scrollToSection = (sectionId: string) => {
     // If not on homepage, navigate to homepage first
@@ -60,6 +40,11 @@ const Header = () => {
 
   const handleBookDemo = () => {
     navigate('/book-demo');
+    setIsMenuOpen(false);
+  };
+
+  const handleLogin = () => {
+    navigate('/login');
     setIsMenuOpen(false);
   };
 
@@ -98,31 +83,15 @@ const Header = () => {
             </button>
           </nav>
           
-          {/* Desktop Right Section with Language Switcher and CTA */}
+          {/* Desktop Right Section with Login and CTA */}
           <div className="hidden lg:flex items-center space-x-4">
-            {/* Language Switcher */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#078147] hover:bg-gray-50 rounded-md transition-colors">
-                  <span className="text-base">{currentLang.flag}</span>
-                  <span className="hidden xl:block">{currentLang.label}</span>
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200 shadow-lg">
-                {languages.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang.code}
-                    onClick={() => handleLanguageChange(lang.code)}
-                    className={`flex items-center space-x-3 px-3 py-2 cursor-pointer hover:bg-gray-50 ${
-                      currentLanguage === lang.code ? 'bg-[#078147]/10 text-[#078147]' : 'text-gray-700'
-                    }`}
-                  >
-                    <span className="text-base">{lang.flag}</span>
-                    <span className="text-sm font-medium">{lang.label}</span>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Login Button */}
+            <button 
+              onClick={handleLogin}
+              className="px-3 py-2 text-sm xl:text-base font-medium text-gray-700 hover:text-[#078147] hover:bg-gray-50 rounded-md transition-colors"
+            >
+              Login
+            </button>
 
             {/* CTA Button */}
             <button 
@@ -166,27 +135,14 @@ const Header = () => {
                 Contact
               </button>
               
-              {/* Mobile Language Switcher */}
+              {/* Mobile Login Button */}
               <div className="pt-2 border-t border-gray-200">
-                <div className="px-2 py-2">
-                  <div className="text-sm font-medium text-gray-600 mb-2">Language</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => handleLanguageChange(lang.code)}
-                        className={`flex items-center space-x-2 px-3 py-2 rounded-md text-left transition-colors ${
-                          currentLanguage === lang.code 
-                            ? 'bg-[#078147] text-white' 
-                            : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        <span className="text-base">{lang.flag}</span>
-                        <span className="text-sm font-medium">{lang.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <button 
+                  onClick={handleLogin}
+                  className="w-full text-left px-2 py-2 text-base font-medium text-gray-700 hover:text-[#078147] hover:bg-gray-50 rounded-md transition-colors"
+                >
+                  Login
+                </button>
               </div>
 
               {/* Mobile CTA Button */}
