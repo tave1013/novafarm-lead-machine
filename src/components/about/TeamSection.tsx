@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, Users } from 'lucide-react';
 
 const TeamSection = () => {
   return (
