@@ -62,15 +62,15 @@ const WhatWeDoSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-[#f8f9f6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
             What NovaFarm can do for your pharmacy
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A smart, simple system that saves you time, improves service quality 
-            and helps you grow — without extra effort.
+            Not just software — a smart solution that saves time, reduces stress, 
+            and helps you grow.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ const WhatWeDoSection = () => {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <div className="w-16 h-16 bg-[#078147]/10 rounded-lg flex items-center justify-center mb-4">
                 {feature.icon}
