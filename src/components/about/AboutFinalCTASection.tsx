@@ -10,13 +10,13 @@ const AboutFinalCTASection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-white to-gray-50">
+    <section className="py-20 bg-gradient-to-br from-[#f8f9f6] to-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-black mb-6 animate-fade-in">
-          Want to see it in action?
+          Let's bring your pharmacy online — the smart way.
         </h2>
         <p className="text-xl md:text-2xl mb-10 text-gray-600 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          Book a quick demo and discover how NovaFarm can help your pharmacy work smarter — and grow faster.
+          Book a personalized demo and see how NovaFarm can simplify your work and help you grow.
         </p>
         
         <button 

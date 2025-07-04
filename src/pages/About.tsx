@@ -3,11 +3,11 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AboutHeroSection from '../components/about/AboutHeroSection';
-import MissionSection from '../components/about/MissionSection';
-import WhyNovaFarmSection from '../components/about/WhyNovaFarmSection';
+import SmarterWaySection from '../components/about/SmarterWaySection';
+import TeamSupportSection from '../components/about/TeamSupportSection';
 import WhatWeDoSection from '../components/about/WhatWeDoSection';
 import WhyChooseUsSection from '../components/about/WhyChooseUsSection';
-import TeamSection from '../components/about/TeamSection';
+import ApproachSection from '../components/about/ApproachSection';
 import AboutFinalCTASection from '../components/about/AboutFinalCTASection';
 
 const About = () => {
@@ -15,11 +15,11 @@ const About = () => {
     <div className="min-h-screen">
       <Header />
       <AboutHeroSection />
-      <MissionSection />
-      <WhyNovaFarmSection />
+      <SmarterWaySection />
+      <TeamSupportSection />
       <WhatWeDoSection />
       <WhyChooseUsSection />
-      <TeamSection />
+      <ApproachSection />
       <AboutFinalCTASection />
       <Footer />
     </div>

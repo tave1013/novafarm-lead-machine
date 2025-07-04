@@ -8,8 +8,8 @@ import {
   MessageCircle, 
   BarChart3, 
   Clock, 
-  Inbox, 
-  Headphones 
+  Shield, 
+  Users 
 } from 'lucide-react';
 
 const WhatWeDoSection = () => {
@@ -21,56 +21,55 @@ const WhatWeDoSection = () => {
     },
     {
       icon: <MessageSquare className="w-8 h-8 text-[#078147]" />,
-      title: "Automated SMS & Email Reminders",
-      description: "Reduce no-shows and keep patients informed automatically."
+      title: "Automated Reminders",
+      description: "Reduce no-shows with SMS and email alerts."
     },
     {
       icon: <Globe className="w-8 h-8 text-[#078147]" />,
       title: "Custom Pharmacy Web Page",
-      description: "Show your services online with a clean and professional design."
+      description: "Show your services online with a modern, SEO-ready design."
     },
     {
       icon: <Star className="w-8 h-8 text-[#078147]" />,
-      title: "Review Request System",
-      description: "Collect more reviews and build trust with your patients."
+      title: "Review Management",
+      description: "Request and manage patient reviews to grow your reputation."
     },
     {
       icon: <MessageCircle className="w-8 h-8 text-[#078147]" />,
-      title: "WhatsApp + QR Integration",
-      description: "Receive bookings and questions directly via WhatsApp or QR."
+      title: "WhatsApp & QR Integration",
+      description: "Enable bookings via WhatsApp or printed QR codes."
     },
     {
       icon: <BarChart3 className="w-8 h-8 text-[#078147]" />,
-      title: "Real-Time Reporting & Stats",
-      description: "Monitor bookings, trends and service performance in one place."
+      title: "Reports & Analytics",
+      description: "Track services, bookings and performance in real time."
     },
     {
       icon: <Clock className="w-8 h-8 text-[#078147]" />,
-      title: "Saves Time & Reduces Phone Calls",
-      description: "Eliminate manual scheduling and constant phone interruptions."
+      title: "Time-Saving Tools",
+      description: "Reduce phone traffic and simplify appointment scheduling."
     },
     {
-      icon: <Inbox className="w-8 h-8 text-[#078147]" />,
-      title: "Centralized Customer Inbox",
-      description: "Manage all conversations (web, WhatsApp, email) from one place."
+      icon: <Shield className="w-8 h-8 text-[#078147]" />,
+      title: "GDPR-Compliant Data",
+      description: "Store customer data securely and in full compliance."
     },
     {
-      icon: <Headphones className="w-8 h-8 text-[#078147]" />,
-      title: "Ongoing Support & Human Guidance",
-      description: "We help you configure and optimize your system — you're never alone."
+      icon: <Users className="w-8 h-8 text-[#078147]" />,
+      title: "Team Collaboration",
+      description: "Delegate tasks, manage users, and streamline your workflow."
     }
   ];
 
   return (
-    <section className="py-16 bg-[#f8f9f6]">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-            What NovaFarm can do for your pharmacy
+            What NovaFarm Can Do for Your Pharmacy
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Not just software — a smart solution that saves time, reduces stress, 
-            and helps you grow.
+            Smart features that save you time, increase appointments, and improve your digital presence.
           </p>
         </div>
 
@@ -78,9 +77,9 @@ const WhatWeDoSection = () => {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="bg-[#f8f9f6] p-6 rounded-lg hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="w-16 h-16 bg-[#078147]/10 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mb-4 shadow-sm">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold text-black mb-3">
