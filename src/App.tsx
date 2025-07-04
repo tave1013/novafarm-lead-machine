@@ -21,6 +21,7 @@ import SuperAdminLogin from "./pages/SuperAdminLogin";
 import Payment from "./pages/Payment";
 import Pricing from "./pages/Pricing";
 import Landing from "./pages/Landing";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const AppContent = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/book-demo" element={<BookDemo />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/super-admin" element={<SuperAdmin />} />
         <Route path="/super-admin-login" element={<SuperAdminLogin />} />
