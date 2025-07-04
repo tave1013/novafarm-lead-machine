@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Heart } from 'lucide-react';
+import TeamExperienceMockup from './TeamExperienceMockup';
 
 const ApproachSection = () => {
   return (
@@ -23,15 +23,7 @@ const ApproachSection = () => {
           </div>
           
           <div className="relative">
-            <div className="bg-gradient-to-br from-[#078147]/10 to-[#078147]/5 rounded-2xl p-8 h-80 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-[#078147]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-10 h-10 text-[#078147]" />
-                </div>
-                <p className="text-gray-500 text-lg">Professional Experience</p>
-                <p className="text-gray-400 text-sm mt-2">Pharmacy & Tech Experts</p>
-              </div>
-            </div>
+            <TeamExperienceMockup />
           </div>
         </div>
       </div>
