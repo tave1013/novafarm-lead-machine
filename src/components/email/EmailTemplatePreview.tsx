@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Eye, Copy, Download } from 'lucide-react';
+import { Mail, Eye, Copy, Download, Edit3 } from 'lucide-react';
 import NovaFarmEmailTemplate from './NovaFarmEmailTemplate';
 
 const EmailTemplatePreview = () => {
