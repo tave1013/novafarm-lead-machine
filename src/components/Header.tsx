@@ -43,11 +43,6 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  const handleEmailTemplateClick = () => {
-    navigate('/email-template');
-    setIsMenuOpen(false);
-  };
-
   const handleBookDemo = () => {
     navigate('/book-demo');
     setIsMenuOpen(false);
@@ -79,9 +74,6 @@ const Header = () => {
             </button>
             <button onClick={handleAboutClick} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               About
-            </button>
-            <button onClick={handleEmailTemplateClick} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
-              Email Template
             </button>
             <button onClick={() => scrollToSection('testimonials')} className="text-sm xl:text-base text-black hover:text-[#078147] transition-colors font-medium">
               Testimonials
@@ -127,9 +119,6 @@ const Header = () => {
               </button>
               <button onClick={handleAboutClick} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 About
-              </button>
-              <button onClick={handleEmailTemplateClick} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
-                Email Template
               </button>
               <button onClick={() => scrollToSection('testimonials')} className="text-base text-black hover:text-[#078147] transition-colors text-left py-2 px-2 hover:bg-gray-50 rounded-md font-medium">
                 Testimonials
