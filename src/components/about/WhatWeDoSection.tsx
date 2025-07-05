@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Calendar, 
@@ -37,7 +36,7 @@ const WhatWeDoSection = () => {
     {
       icon: <MessageCircle className="w-8 h-8 text-[#078147]" />,
       title: "WhatsApp & QR Integration",
-      description: "Enable bookings via WhatsApp or printed QR codes."
+      description: "Connect services with WhatsApp links and generate QR codes for easy access to your booking page."
     },
     {
       icon: <BarChart3 className="w-8 h-8 text-[#078147]" />,
