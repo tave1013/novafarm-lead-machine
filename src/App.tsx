@@ -23,6 +23,7 @@ import Pricing from "./pages/Pricing";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import SupportCenter from "./pages/SupportCenter";
 
 const queryClient = new QueryClient();
 
