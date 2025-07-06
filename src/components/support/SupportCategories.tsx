@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Calendar, 
   Settings, 
@@ -9,20 +9,19 @@ import {
   Users, 
   CreditCard, 
   Cog,
-  ChevronDown,
-  ChevronUp,
   Video,
   FileText,
-  List
+  List,
+  ExternalLink
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 interface Tutorial {
   title: string;
   description: string;
   type: 'video' | 'pdf' | 'step-by-step';
   duration?: string;
+  link: string;
 }
 
 interface Category {
@@ -41,21 +40,30 @@ const categories: Category[] = [
     color: 'bg-blue-50 text-blue-600',
     tutorials: [
       {
-        title: 'Setting Up Your First Calendar',
-        description: 'Learn how to create and configure your appointment calendar',
+        title: 'How to set up your first calendar',
+        description: 'Create and configure your appointment calendar',
         type: 'video',
-        duration: '5 min'
+        duration: '5 min',
+        link: '/support/appointments/setup-calendar'
       },
       {
-        title: 'Managing Booking Settings',
-        description: 'Configure availability, buffer times, and booking rules',
-        type: 'step-by-step'
+        title: 'How to manage booking settings',
+        description: 'Configure availability and booking rules',
+        type: 'step-by-step',
+        link: '/support/appointments/booking-settings'
       },
       {
-        title: 'Automated Reminders Setup',
-        description: 'Set up SMS and email reminders for your clients',
+        title: 'How to set up automated reminders',
+        description: 'Configure SMS and email reminders',
         type: 'video',
-        duration: '3 min'
+        duration: '3 min',
+        link: '/support/appointments/reminders'
+      },
+      {
+        title: 'How to handle cancellations',
+        description: 'Manage appointment cancellations and rescheduling',
+        type: 'step-by-step',
+        link: '/support/appointments/cancellations'
       }
     ]
   },
@@ -66,20 +74,29 @@ const categories: Category[] = [
     color: 'bg-purple-50 text-purple-600',
     tutorials: [
       {
-        title: 'Creating Your First Automation',
-        description: 'Build simple workflows to automate repetitive tasks',
+        title: 'How to create your first automation',
+        description: 'Build simple workflows to automate tasks',
         type: 'video',
-        duration: '8 min'
+        duration: '8 min',
+        link: '/support/automations/first-automation'
       },
       {
-        title: 'Advanced Trigger Conditions',
-        description: 'Set up complex automation rules and conditions',
-        type: 'step-by-step'
+        title: 'How to set up trigger conditions',
+        description: 'Configure complex automation rules',
+        type: 'step-by-step',
+        link: '/support/automations/trigger-conditions'
       },
       {
-        title: 'Workflow Templates',
-        description: 'Use pre-built templates for common automation scenarios',
-        type: 'pdf'
+        title: 'How to use workflow templates',
+        description: 'Pre-built templates for common scenarios',
+        type: 'pdf',
+        link: '/support/automations/workflow-templates'
+      },
+      {
+        title: 'How to test your automations',
+        description: 'Debug and optimize your workflows',
+        type: 'step-by-step',
+        link: '/support/automations/testing'
       }
     ]
   },
@@ -90,21 +107,30 @@ const categories: Category[] = [
     color: 'bg-green-50 text-green-600',
     tutorials: [
       {
-        title: 'Connecting Social Media Accounts',
-        description: 'Link your Instagram, Facebook, and WhatsApp accounts',
+        title: 'How to connect social media accounts',
+        description: 'Link Instagram, Facebook, and WhatsApp',
         type: 'video',
-        duration: '6 min'
+        duration: '6 min',
+        link: '/support/chat/connect-accounts'
       },
       {
-        title: 'Managing Conversations',
-        description: 'Organize and respond to messages from all channels',
-        type: 'step-by-step'
+        title: 'How to manage conversations',
+        description: 'Organize and respond to messages',
+        type: 'step-by-step',
+        link: '/support/chat/manage-conversations'
       },
       {
-        title: 'Setting Up Auto-Replies',
-        description: 'Create automatic responses for common questions',
+        title: 'How to set up auto-replies',
+        description: 'Create automatic responses',
         type: 'video',
-        duration: '4 min'
+        duration: '4 min',
+        link: '/support/chat/auto-replies'
+      },
+      {
+        title: 'How to use chat templates',
+        description: 'Save time with message templates',
+        type: 'step-by-step',
+        link: '/support/chat/templates'
       }
     ]
   },
@@ -115,20 +141,29 @@ const categories: Category[] = [
     color: 'bg-orange-50 text-orange-600',
     tutorials: [
       {
-        title: 'Building Your First Landing Page',
-        description: 'Create a high-converting landing page from scratch',
+        title: 'How to create a landing page',
+        description: 'Build high-converting pages from scratch',
         type: 'video',
-        duration: '12 min'
+        duration: '12 min',
+        link: '/support/landing-pages/create-page'
       },
       {
-        title: 'Funnel Design Best Practices',
-        description: 'Optimize your funnels for maximum conversions',
-        type: 'pdf'
+        title: 'How to add a form',
+        description: 'Capture leads with custom forms',
+        type: 'step-by-step',
+        link: '/support/landing-pages/add-form'
       },
       {
-        title: 'A/B Testing Your Pages',
-        description: 'Test different versions to improve performance',
-        type: 'step-by-step'
+        title: 'How to connect thank-you pages',
+        description: 'Set up post-conversion experiences',
+        type: 'step-by-step',
+        link: '/support/landing-pages/thank-you-pages'
+      },
+      {
+        title: 'How to A/B test your pages',
+        description: 'Optimize for maximum conversions',
+        type: 'pdf',
+        link: '/support/landing-pages/ab-testing'
       }
     ]
   },
@@ -139,21 +174,30 @@ const categories: Category[] = [
     color: 'bg-red-50 text-red-600',
     tutorials: [
       {
-        title: 'Creating Email Campaigns',
-        description: 'Design and send professional email campaigns',
+        title: 'How to create an email campaign',
+        description: 'Design and send professional campaigns',
         type: 'video',
-        duration: '10 min'
+        duration: '10 min',
+        link: '/support/email/create-campaign'
       },
       {
-        title: 'List Management & Segmentation',
-        description: 'Organize your contacts and create targeted segments',
-        type: 'step-by-step'
+        title: 'How to schedule a newsletter',
+        description: 'Plan and schedule regular newsletters',
+        type: 'step-by-step',
+        link: '/support/email/schedule-newsletter'
       },
       {
-        title: 'Email Automation Sequences',
-        description: 'Set up drip campaigns and automated follow-ups',
+        title: 'How to view email stats',
+        description: 'Track opens, clicks, and conversions',
+        type: 'step-by-step',
+        link: '/support/email/view-stats'
+      },
+      {
+        title: 'How to set up email automation',
+        description: 'Create drip campaigns and follow-ups',
         type: 'video',
-        duration: '15 min'
+        duration: '15 min',
+        link: '/support/email/automation'
       }
     ]
   },
@@ -164,20 +208,29 @@ const categories: Category[] = [
     color: 'bg-indigo-50 text-indigo-600',
     tutorials: [
       {
-        title: 'Contact Organization System',
-        description: 'Set up tags, custom fields, and contact categories',
+        title: 'How to organize contacts',
+        description: 'Set up tags and custom fields',
         type: 'video',
-        duration: '7 min'
+        duration: '7 min',
+        link: '/support/crm/organize-contacts'
       },
       {
-        title: 'Sales Pipeline Management',
+        title: 'How to manage sales pipelines',
         description: 'Track leads through your sales process',
-        type: 'step-by-step'
+        type: 'step-by-step',
+        link: '/support/crm/sales-pipelines'
       },
       {
-        title: 'Contact Import & Export',
-        description: 'Bulk import contacts and export your data',
-        type: 'pdf'
+        title: 'How to import contacts',
+        description: 'Bulk import and export contact data',
+        type: 'pdf',
+        link: '/support/crm/import-contacts'
+      },
+      {
+        title: 'How to segment your audience',
+        description: 'Create targeted contact groups',
+        type: 'step-by-step',
+        link: '/support/crm/segment-audience'
       }
     ]
   },
@@ -188,21 +241,30 @@ const categories: Category[] = [
     color: 'bg-yellow-50 text-yellow-600',
     tutorials: [
       {
-        title: 'Payment Gateway Setup',
-        description: 'Connect Stripe, PayPal, and other payment providers',
+        title: 'How to set up payment gateways',
+        description: 'Connect Stripe, PayPal, and others',
         type: 'video',
-        duration: '8 min'
+        duration: '8 min',
+        link: '/support/payments/setup-gateways'
       },
       {
-        title: 'Creating Payment Links',
-        description: 'Generate secure payment links for your services',
-        type: 'step-by-step'
+        title: 'How to create payment links',
+        description: 'Generate secure payment links',
+        type: 'step-by-step',
+        link: '/support/payments/payment-links'
       },
       {
-        title: 'Invoice Management',
-        description: 'Send professional invoices and track payments',
+        title: 'How to send invoices',
+        description: 'Create and send professional invoices',
         type: 'video',
-        duration: '6 min'
+        duration: '6 min',
+        link: '/support/payments/send-invoices'
+      },
+      {
+        title: 'How to track payments',
+        description: 'Monitor payment status and history',
+        type: 'step-by-step',
+        link: '/support/payments/track-payments'
       }
     ]
   },
@@ -213,20 +275,29 @@ const categories: Category[] = [
     color: 'bg-gray-50 text-gray-600',
     tutorials: [
       {
-        title: 'Profile & Branding Setup',
-        description: 'Customize your account with logo and brand colors',
-        type: 'step-by-step'
+        title: 'How to customize your profile',
+        description: 'Set up logo and brand colors',
+        type: 'step-by-step',
+        link: '/support/settings/customize-profile'
       },
       {
-        title: 'Domain Configuration',
-        description: 'Connect your custom domain to NovaFarm',
+        title: 'How to connect your domain',
+        description: 'Use your custom domain with NovaFarm',
         type: 'video',
-        duration: '5 min'
+        duration: '5 min',
+        link: '/support/settings/connect-domain'
       },
       {
-        title: 'Notification Preferences',
-        description: 'Manage email and SMS notification settings',
-        type: 'pdf'
+        title: 'How to manage notifications',
+        description: 'Configure email and SMS settings',
+        type: 'pdf',
+        link: '/support/settings/notifications'
+      },
+      {
+        title: 'How to set up team access',
+        description: 'Add team members and set permissions',
+        type: 'step-by-step',
+        link: '/support/settings/team-access'
       }
     ]
   }
@@ -235,11 +306,11 @@ const categories: Category[] = [
 const getTypeIcon = (type: Tutorial['type']) => {
   switch (type) {
     case 'video':
-      return <Video className="w-4 h-4" />;
+      return <Video className="w-3 h-3" />;
     case 'pdf':
-      return <FileText className="w-4 h-4" />;
+      return <FileText className="w-3 h-3" />;
     case 'step-by-step':
-      return <List className="w-4 h-4" />;
+      return <List className="w-3 h-3" />;
   }
 };
 
@@ -256,21 +327,9 @@ const getTypeBadge = (type: Tutorial['type']) => {
 };
 
 export const SupportCategories: React.FC = () => {
-  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set());
-
-  const toggleCategory = (categoryTitle: string) => {
-    const newOpenCategories = new Set(openCategories);
-    if (newOpenCategories.has(categoryTitle)) {
-      newOpenCategories.delete(categoryTitle);
-    } else {
-      newOpenCategories.add(categoryTitle);
-    }
-    setOpenCategories(newOpenCategories);
-  };
-
   return (
     <div id="support-content" className="py-16 px-6 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-black mb-4">
             Help & Tutorials
@@ -280,70 +339,62 @@ export const SupportCategories: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {categories.map((category) => {
             const Icon = category.icon;
-            const isOpen = openCategories.has(category.title);
             
             return (
-              <Card key={category.title} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <Collapsible open={isOpen} onOpenChange={() => toggleCategory(category.title)}>
-                  <CollapsibleTrigger asChild>
-                    <CardHeader className="cursor-pointer">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.color}`}>
-                            <Icon className="w-6 h-6" />
+              <Card key={category.title} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-fit">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.color}`}>
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl font-semibold text-black">
+                        {category.title}
+                      </CardTitle>
+                    </div>
+                  </div>
+                  <CardDescription className="text-gray-600">
+                    {category.description}
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="pt-0">
+                  <div className="space-y-3">
+                    {category.tutorials.map((tutorial, index) => (
+                      <a
+                        key={index}
+                        href={tutorial.link}
+                        className="flex items-start justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group cursor-pointer"
+                      >
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-1">
+                            <h4 className="font-medium text-black text-sm group-hover:text-[#078147] transition-colors">
+                              {tutorial.title}
+                            </h4>
+                            <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-[#078147] transition-colors" />
                           </div>
-                          <div>
-                            <CardTitle className="text-lg font-semibold text-black">
-                              {category.title}
-                            </CardTitle>
-                          </div>
-                        </div>
-                        {isOpen ? (
-                          <ChevronUp className="w-5 h-5 text-gray-400" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
-                        )}
-                      </div>
-                      <CardDescription className="text-gray-600 mt-2">
-                        {category.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </CollapsibleTrigger>
-                  
-                  <CollapsibleContent>
-                    <CardContent className="pt-0">
-                      <div className="space-y-3">
-                        {category.tutorials.map((tutorial, index) => (
-                          <div
-                            key={index}
-                            className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
-                          >
-                            <div className="flex items-start justify-between mb-2">
-                              <h4 className="font-medium text-black text-sm">
-                                {tutorial.title}
-                              </h4>
-                              <div className={getTypeBadge(tutorial.type)}>
-                                {getTypeIcon(tutorial.type)}
-                                <span className="capitalize">{tutorial.type}</span>
-                              </div>
-                            </div>
-                            <p className="text-xs text-gray-600 mb-2">
-                              {tutorial.description}
-                            </p>
+                          <p className="text-xs text-gray-600 mb-2">
+                            {tutorial.description}
+                          </p>
+                          <div className="flex items-center justify-between">
                             {tutorial.duration && (
                               <p className="text-xs text-[#078147] font-medium">
                                 {tutorial.duration}
                               </p>
                             )}
+                            <div className={getTypeBadge(tutorial.type)}>
+                              {getTypeIcon(tutorial.type)}
+                              <span className="capitalize">{tutorial.type.replace('-', ' ')}</span>
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </CollapsibleContent>
-                </Collapsible>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </CardContent>
               </Card>
             );
           })}
