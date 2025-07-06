@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Shield } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
-import { PersonalInfoForm } from './PersonalInfoForm';
-import { CompanyInfoForm } from './CompanyInfoForm';
-import { BillingAddressForm } from './BillingAddressForm';
+import { ReferentInfoForm } from './ReferentInfoForm';
+import { CompanyTaxInfoForm } from './CompanyTaxInfoForm';
+import { RegisteredOfficeAddressForm } from './RegisteredOfficeAddressForm';
 import { TwoFactorModal } from './TwoFactorModal';
 import { PasswordStrength } from '@/components/ui/password-strength';
 
 export const AccountSettings: React.FC = () => {
-  const [personalData, setPersonalData] = useState({
+  const [referentData, setReferentData] = useState({
     firstName: 'John',
     lastName: 'Doe', 
     email: 'john.doe@example.com',
     phone: '+39 123 456 7890'
   });
 
-  const [companyData, setCompanyData] = useState({
+  const [companyTaxData, setCompanyTaxData] = useState({
     companyName: 'Example Pharmacy SRL',
-    vatNumber: 'IT12345678901'
+    vatNumber: '12345678901',
+    taxCode: '',
+    sdiCode: 'ABC1234',
+    pecEmail: ''
   });
 
-  const [billingData, setBillingData] = useState({
+  const [registeredOfficeData, setRegisteredOfficeData] = useState({
     streetAddress: 'Via Roma 123',
-    city: 'Milano',
-    province: 'Milano',
     zipCode: '20121',
+    city: 'Milano',
+    province: 'MI',
     country: 'Italy'
   });
 
@@ -54,41 +57,41 @@ export const AccountSettings: React.FC = () => {
     });
   };
 
-  const handleSavePersonalInfo = async (data: typeof personalData) => {
+  const handleSaveReferentInfo = async (data: typeof referentData) => {
     setIsLoading(true);
     setMessage(null);
     
     // Simulate API call
     setTimeout(() => {
-      setPersonalData(data);
+      setReferentData(data);
       setIsLoading(false);
-      setMessage({ type: 'success', text: 'Personal information updated successfully!' });
+      setMessage({ type: 'success', text: 'Referent information updated successfully!' });
       setTimeout(() => setMessage(null), 3000);
     }, 1000);
   };
 
-  const handleSaveCompanyInfo = async (data: typeof companyData) => {
+  const handleSaveCompanyTaxInfo = async (data: typeof companyTaxData) => {
     setIsLoading(true);
     setMessage(null);
     
     // Simulate API call
     setTimeout(() => {
-      setCompanyData(data);
+      setCompanyTaxData(data);
       setIsLoading(false);
-      setMessage({ type: 'success', text: 'Company information updated successfully!' });
+      setMessage({ type: 'success', text: 'Company tax information updated successfully!' });
       setTimeout(() => setMessage(null), 3000);
     }, 1000);
   };
 
-  const handleSaveBillingAddress = async (data: typeof billingData) => {
+  const handleSaveRegisteredOfficeAddress = async (data: typeof registeredOfficeData) => {
     setIsLoading(true);
     setMessage(null);
     
     // Simulate API call
     setTimeout(() => {
-      setBillingData(data);
+      setRegisteredOfficeData(data);
       setIsLoading(false);
-      setMessage({ type: 'success', text: 'Billing address updated successfully!' });
+      setMessage({ type: 'success', text: 'Registered office address updated successfully!' });
       setTimeout(() => setMessage(null), 3000);
     }, 1000);
   };
@@ -146,7 +149,7 @@ export const AccountSettings: React.FC = () => {
           Account Settings
         </h1>
         <p className="text-gray-600">
-          Manage your personal information and preferences
+          Manage your business information and preferences
         </p>
       </div>
 
@@ -158,24 +161,24 @@ export const AccountSettings: React.FC = () => {
         </div>
       )}
 
-      {/* Personal Information */}
-      <PersonalInfoForm 
-        data={personalData} 
-        onSave={handleSavePersonalInfo} 
+      {/* Referent Information */}
+      <ReferentInfoForm 
+        data={referentData} 
+        onSave={handleSaveReferentInfo} 
         isLoading={isLoading} 
       />
 
-      {/* Company Information */}
-      <CompanyInfoForm 
-        data={companyData} 
-        onSave={handleSaveCompanyInfo} 
+      {/* Company Tax Information */}
+      <CompanyTaxInfoForm 
+        data={companyTaxData} 
+        onSave={handleSaveCompanyTaxInfo} 
         isLoading={isLoading} 
       />
 
-      {/* Billing Address */}
-      <BillingAddressForm 
-        data={billingData} 
-        onSave={handleSaveBillingAddress} 
+      {/* Registered Office Address */}
+      <RegisteredOfficeAddressForm 
+        data={registeredOfficeData} 
+        onSave={handleSaveRegisteredOfficeAddress} 
         isLoading={isLoading} 
       />
 
