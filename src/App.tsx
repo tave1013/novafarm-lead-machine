@@ -39,6 +39,7 @@ const AppContent = () => {
         <Route path="/book-demo" element={<BookDemo />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+        <Route path="/support" element={<SupportCenter />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/super-admin" element={<SuperAdmin />} />
         <Route path="/super-admin-login" element={<SuperAdminLogin />} />
