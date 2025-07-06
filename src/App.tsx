@@ -24,6 +24,8 @@ import Landing from "./pages/Landing";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import SupportCenter from "./pages/SupportCenter";
+import { CategoryPage } from "./components/support/CategoryPage";
+import { TutorialPage } from "./components/support/TutorialPage";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,8 @@ const AppContent = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/support" element={<SupportCenter />} />
+        <Route path="/support/:categorySlug" element={<CategoryPage />} />
+        <Route path="/support/:categorySlug/:tutorialSlug" element={<TutorialPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/super-admin" element={<SuperAdmin />} />
         <Route path="/super-admin-login" element={<SuperAdminLogin />} />
