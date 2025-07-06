@@ -7,7 +7,6 @@ interface PersonalInfoData {
   lastName: string;
   email: string;
   phone: string;
-  language: string;
 }
 
 interface PersonalInfoFormProps {
@@ -23,7 +22,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
 }) => {
   const [formData, setFormData] = useState(data);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -89,21 +88,6 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
           />
-        </div>
-
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Language Preference
-          </label>
-          <select
-            name="language"
-            value={formData.language}
-            onChange={handleInputChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
-          >
-            <option value="EN">English</option>
-            <option value="IT">Italiano</option>
-          </select>
         </div>
       </div>
 

@@ -10,10 +10,9 @@ import { PasswordStrength } from '@/components/ui/password-strength';
 export const AccountSettings: React.FC = () => {
   const [personalData, setPersonalData] = useState({
     firstName: 'John',
-    lastName: 'Doe',
+    lastName: 'Doe', 
     email: 'john.doe@example.com',
-    phone: '+39 123 456 7890',
-    language: 'EN'
+    phone: '+39 123 456 7890'
   });
 
   const [companyData, setCompanyData] = useState({
