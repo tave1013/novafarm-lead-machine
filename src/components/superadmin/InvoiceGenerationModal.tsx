@@ -8,7 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { CalendarDays, Plus, Trash2, FileText, Send, Download } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { CalendarDays, Plus, Trash2, FileText, Send, Download, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface InvoiceGenerationModalProps {
@@ -26,31 +27,49 @@ interface LineItem {
 }
 
 interface ClientInfo {
+  // Referent Details
+  firstName: string;
+  lastName: string;
+  personalEmail: string;
+  phone: string;
+  
+  // Company Tax Information
   businessName: string;
   vatNumber: string;
-  billingEmail: string;
-  address: {
-    street: string;
-    city: string;
-    zipCode: string;
-    province: string;
-    country: string;
-  };
+  taxCode: string;
+  sdiCode: string;
+  pecEmail: string;
+  
+  // Registered Office Address
+  streetAddress: string;
+  zipCode: string;
+  city: string;
+  province: string;
+  country: string;
 }
 
 const InvoiceGenerationModal: React.FC<InvoiceGenerationModalProps> = ({ isOpen, onClose }) => {
   const { toast } = useToast();
   const [clientInfo, setClientInfo] = useState<ClientInfo>({
+    // Referent Details
+    firstName: '',
+    lastName: '',
+    personalEmail: '',
+    phone: '',
+    
+    // Company Tax Information
     businessName: '',
     vatNumber: '',
-    billingEmail: '',
-    address: {
-      street: '',
-      city: '',
-      zipCode: '',
-      province: '',
-      country: 'Italy'
-    }
+    taxCode: '',
+    sdiCode: '',
+    pecEmail: '',
+    
+    // Registered Office Address
+    streetAddress: '',
+    zipCode: '',
+    city: '',
+    province: '',
+    country: 'Italy'
   });
 
   const [invoiceDetails, setInvoiceDetails] = useState({
@@ -81,6 +100,127 @@ const InvoiceGenerationModal: React.FC<InvoiceGenerationModalProps> = ({ isOpen,
   });
 
   const [sendEmail, setSendEmail] = useState(false);
+
+  const italianProvinces = [
+    { code: 'AG', name: 'Agrigento' },
+    { code: 'AL', name: 'Alessandria' },
+    { code: 'AN', name: 'Ancona' },
+    { code: 'AO', name: 'Aosta' },
+    { code: 'AR', name: 'Arezzo' },
+    { code: 'AP', name: 'Ascoli Piceno' },
+    { code: 'AT', name: 'Asti' },
+    { code: 'AV', name: 'Avellino' },
+    { code: 'BA', name: 'Bari' },
+    { code: 'BT', name: 'Barletta-Andria-Trani' },
+    { code: 'BL', name: 'Belluno' },
+    { code: 'BN', name: 'Benevento' },
+    { code: 'BG', name: 'Bergamo' },
+    { code: 'BI', name: 'Biella' },
+    { code: 'BO', name: 'Bologna' },
+    { code: 'BZ', name: 'Bolzano' },
+    { code: 'BS', name: 'Brescia' },
+    { code: 'BR', name: 'Brindisi' },
+    { code: 'CA', name: 'Cagliari' },
+    { code: 'CL', name: 'Caltanissetta' },
+    { code: 'CB', name: 'Campobasso' },
+    { code: 'CS', name: 'Cosenza' },
+    { code: 'CT', name: 'Catania' },
+    { code: 'CZ', name: 'Catanzaro' },
+    { code: 'CH', name: 'Chieti' },
+    { code: 'CO', name: 'Como' },
+    { code: 'CR', name: 'Cremona' },
+    { code: 'KR', name: 'Crotone' },
+    { code: 'CN', name: 'Cuneo' },
+    { code: 'EN', name: 'Enna' },
+    { code: 'FM', name: 'Fermo' },
+    { code: 'FE', name: 'Ferrara' },
+    { code: 'FI', name: 'Firenze' },
+    { code: 'FG', name: 'Foggia' },
+    { code: 'FC', name: 'Forlì-Cesena' },
+    { code: 'FR', name: 'Frosinone' },
+    { code: 'GE', name: 'Genova' },
+    { code: 'GO', name: 'Gorizia' },
+    { code: 'GR', name: 'Grosseto' },
+    { code: 'IM', name: 'Imperia' },
+    { code: 'IS', name: 'Isernia' },
+    { code: 'AQ', name: 'L\'Aquila' },
+    { code: 'SP', name: 'La Spezia' },
+    { code: 'LT', name: 'Latina' },
+    { code: 'LE', name: 'Lecce' },
+    { code: 'LC', name: 'Lecco' },
+    { code: 'LI', name: 'Livorno' },
+    { code: 'LO', name: 'Lodi' },
+    { code: 'LU', name: 'Lucca' },
+    { code: 'MC', name: 'Macerata' },
+    { code: 'MN', name: 'Mantova' },
+    { code: 'MS', name: 'Massa-Carrara' },
+    { code: 'MT', name: 'Matera' },
+    { code: 'ME', name: 'Messina' },
+    { code: 'MI', name: 'Milano' },
+    { code: 'MO', name: 'Modena' },
+    { code: 'MB', name: 'Monza e Brianza' },
+    { code: 'NA', name: 'Napoli' },
+    { code: 'NO', name: 'Novara' },
+    { code: 'NU', name: 'Nuoro' },
+    { code: 'OR', name: 'Oristano' },
+    { code: 'PD', name: 'Padova' },
+    { code: 'PA', name: 'Palermo' },
+    { code: 'PR', name: 'Parma' },
+    { code: 'PV', name: 'Pavia' },
+    { code: 'PG', name: 'Perugia' },
+    { code: 'PU', name: 'Pesaro e Urbino' },
+    { code: 'PE', name: 'Pescara' },
+    { code: 'PC', name: 'Piacenza' },
+    { code: 'PI', name: 'Pisa' },
+    { code: 'PT', name: 'Pistoia' },
+    { code: 'PN', name: 'Pordenone' },
+    { code: 'PZ', name: 'Potenza' },
+    { code: 'PO', name: 'Prato' },
+    { code: 'RG', name: 'Ragusa' },
+    { code: 'RA', name: 'Ravenna' },
+    { code: 'RC', name: 'Reggio Calabria' },
+    { code: 'RE', name: 'Reggio Emilia' },
+    { code: 'RI', name: 'Rieti' },
+    { code: 'RN', name: 'Rimini' },
+    { code: 'RM', name: 'Roma' },
+    { code: 'RO', name: 'Rovigo' },
+    { code: 'SA', name: 'Salerno' },
+    { code: 'SS', name: 'Sassari' },
+    { code: 'SV', name: 'Savona' },
+    { code: 'SI', name: 'Siena' },
+    { code: 'SR', name: 'Siracusa' },
+    { code: 'SO', name: 'Sondrio' },
+    { code: 'SU', name: 'Sud Sardegna' },
+    { code: 'TA', name: 'Taranto' },
+    { code: 'TE', name: 'Teramo' },
+    { code: 'TR', name: 'Terni' },
+    { code: 'TO', name: 'Torino' },
+    { code: 'TP', name: 'Trapani' },
+    { code: 'TN', name: 'Trento' },
+    { code: 'TV', name: 'Treviso' },
+    { code: 'TS', name: 'Trieste' },
+    { code: 'UD', name: 'Udine' },
+    { code: 'VA', name: 'Varese' },
+    { code: 'VE', name: 'Venezia' },
+    { code: 'VB', name: 'Verbano-Cusio-Ossola' },
+    { code: 'VC', name: 'Vercelli' },
+    { code: 'VR', name: 'Verona' },
+    { code: 'VV', name: 'Vibo Valentia' },
+    { code: 'VI', name: 'Vicenza' },
+    { code: 'VT', name: 'Viterbo' }
+  ];
+
+  const validateVAT = (vat: string) => {
+    return /^\d{11}$/.test(vat);
+  };
+
+  const validatePEC = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validateSDI = (sdi: string) => {
+    return /^[A-Z0-9]{7}$/.test(sdi.toUpperCase());
+  };
 
   const addLineItem = () => {
     const newItem: LineItem = {
@@ -147,7 +287,7 @@ const InvoiceGenerationModal: React.FC<InvoiceGenerationModalProps> = ({ isOpen,
     if (sendEmail) {
       toast({
         title: "Email Sent",
-        description: `Invoice sent to ${clientInfo.billingEmail}`,
+        description: `Invoice sent to ${clientInfo.personalEmail || clientInfo.pecEmail}`,
       });
     }
     onClose();
@@ -158,105 +298,257 @@ const InvoiceGenerationModal: React.FC<InvoiceGenerationModalProps> = ({ isOpen,
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-gray-900">Generate Invoice</DialogTitle>
-        </DialogHeader>
+    <TooltipProvider>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-900">Generate Invoice</DialogTitle>
+          </DialogHeader>
 
-        <div className="space-y-6">
-          {/* Client Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-gray-800">Client Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="businessName">Business Name *</Label>
+          <div className="space-y-6">
+            {/* Referent Details */}
+            <Card className="bg-white border border-gray-200">
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold text-gray-900">
+                  Referent Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">First Name <span className="text-red-500">*</span></Label>
+                    <Input
+                      id="firstName"
+                      value={clientInfo.firstName}
+                      onChange={(e) => setClientInfo({...clientInfo, firstName: e.target.value})}
+                      placeholder="John"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Last Name <span className="text-red-500">*</span></Label>
+                    <Input
+                      id="lastName"
+                      value={clientInfo.lastName}
+                      onChange={(e) => setClientInfo({...clientInfo, lastName: e.target.value})}
+                      placeholder="Doe"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="personalEmail">Personal Email <span className="text-red-500">*</span></Label>
+                    <Input
+                      id="personalEmail"
+                      type="email"
+                      value={clientInfo.personalEmail}
+                      onChange={(e) => setClientInfo({...clientInfo, personalEmail: e.target.value})}
+                      placeholder="john.doe@example.com"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number <span className="text-red-500">*</span></Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={clientInfo.phone}
+                      onChange={(e) => setClientInfo({...clientInfo, phone: e.target.value})}
+                      placeholder="+39 123 456 7890"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Company Tax Information */}
+            <Card className="bg-white border border-gray-200">
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold text-gray-900">
+                  Company Tax Information
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="businessName">Legal Business Name (Ragione Sociale) <span className="text-red-500">*</span></Label>
                   <Input
                     id="businessName"
                     value={clientInfo.businessName}
                     onChange={(e) => setClientInfo({...clientInfo, businessName: e.target.value})}
-                    placeholder="Enter business name"
+                    placeholder="Example Pharmacy SRL"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
                   />
                 </div>
-                <div>
-                  <Label htmlFor="vatNumber">VAT Number / Tax Code</Label>
-                  <Input
-                    id="vatNumber"
-                    value={clientInfo.vatNumber}
-                    onChange={(e) => setClientInfo({...clientInfo, vatNumber: e.target.value})}
-                    placeholder="Enter VAT number"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="billingEmail">Billing Email *</Label>
-                  <Input
-                    id="billingEmail"
-                    type="email"
-                    value={clientInfo.billingEmail}
-                    onChange={(e) => setClientInfo({...clientInfo, billingEmail: e.target.value})}
-                    placeholder="Enter billing email"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <h4 className="font-medium text-gray-700">Legal Address</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="street">Street and Number</Label>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="vatNumber">VAT Number (Partita IVA) <span className="text-red-500">*</span></Label>
                     <Input
-                      id="street"
-                      value={clientInfo.address.street}
-                      onChange={(e) => setClientInfo({
-                        ...clientInfo,
-                        address: {...clientInfo.address, street: e.target.value}
-                      })}
-                      placeholder="Enter street address"
+                      id="vatNumber"
+                      value={clientInfo.vatNumber}
+                      onChange={(e) => setClientInfo({...clientInfo, vatNumber: e.target.value})}
+                      placeholder="IT12345678901"
+                      maxLength={11}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="city">City</Label>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="taxCode">Tax Code (Codice Fiscale) (optional)</Label>
                     <Input
-                      id="city"
-                      value={clientInfo.address.city}
-                      onChange={(e) => setClientInfo({
-                        ...clientInfo,
-                        address: {...clientInfo.address, city: e.target.value}
-                      })}
-                      placeholder="Enter city"
+                      id="taxCode"
+                      value={clientInfo.taxCode}
+                      onChange={(e) => setClientInfo({...clientInfo, taxCode: e.target.value})}
+                      placeholder="RSSMRA85M01H501Z"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="zipCode">ZIP / Postal Code</Label>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label className="flex items-center">
+                      SDI Code (Codice SDI) <span className="text-red-500">*</span>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info className="w-4 h-4 ml-1 text-gray-400" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="max-w-xs">At least one of SDI Code or PEC email is required for electronic invoicing in Italy.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </Label>
+                    <Input
+                      id="sdiCode"
+                      value={clientInfo.sdiCode}
+                      onChange={(e) => setClientInfo({...clientInfo, sdiCode: e.target.value.toUpperCase()})}
+                      placeholder="ABC1234"
+                      maxLength={7}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="flex items-center">
+                      PEC Email <span className="text-red-500">*</span>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info className="w-4 h-4 ml-1 text-gray-400" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="max-w-xs">At least one of SDI Code or PEC email is required for electronic invoicing in Italy.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </Label>
+                    <Input
+                      id="pecEmail"
+                      type="email"
+                      value={clientInfo.pecEmail}
+                      onChange={(e) => setClientInfo({...clientInfo, pecEmail: e.target.value})}
+                      placeholder="pec@example.pec.it"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Registered Office Address */}
+            <Card className="bg-white border border-gray-200">
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold text-gray-900">
+                  Registered Office Address
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="streetAddress">Street Address <span className="text-red-500">*</span></Label>
+                  <Input
+                    id="streetAddress"
+                    value={clientInfo.streetAddress}
+                    onChange={(e) => setClientInfo({...clientInfo, streetAddress: e.target.value})}
+                    placeholder="Via Roma 123"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="zipCode">Postal Code (CAP) <span className="text-red-500">*</span></Label>
                     <Input
                       id="zipCode"
-                      value={clientInfo.address.zipCode}
-                      onChange={(e) => setClientInfo({
-                        ...clientInfo,
-                        address: {...clientInfo.address, zipCode: e.target.value}
-                      })}
-                      placeholder="Enter ZIP code"
+                      value={clientInfo.zipCode}
+                      onChange={(e) => setClientInfo({...clientInfo, zipCode: e.target.value})}
+                      placeholder="20121"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="province">Province / Region</Label>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City <span className="text-red-500">*</span></Label>
                     <Input
-                      id="province"
-                      value={clientInfo.address.province}
-                      onChange={(e) => setClientInfo({
-                        ...clientInfo,
-                        address: {...clientInfo.address, province: e.target.value}
-                      })}
-                      placeholder="Enter province"
+                      id="city"
+                      value={clientInfo.city}
+                      onChange={(e) => setClientInfo({...clientInfo, city: e.target.value})}
+                      placeholder="Milano"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent"
                     />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="province">Province <span className="text-red-500">*</span></Label>
+                    <Select 
+                      value={clientInfo.province} 
+                      onValueChange={(value) => setClientInfo({...clientInfo, province: value})}
+                    >
+                      <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent">
+                        <SelectValue placeholder="Select province" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-60">
+                        {italianProvinces.map((province) => (
+                          <SelectItem key={province.code} value={province.code}>
+                            {province.code} - {province.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+
+                <div className="space-y-2">
+                  <Label htmlFor="country">Country <span className="text-red-500">*</span></Label>
+                  <Select 
+                    value={clientInfo.country} 
+                    onValueChange={(value) => setClientInfo({...clientInfo, country: value})}
+                  >
+                    <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#078147] focus:border-transparent">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Italy">Italy</SelectItem>
+                      <SelectItem value="France">France</SelectItem>
+                      <SelectItem value="Germany">Germany</SelectItem>
+                      <SelectItem value="Spain">Spain</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
 
           {/* Invoice Details */}
           <Card>
@@ -488,6 +780,7 @@ const InvoiceGenerationModal: React.FC<InvoiceGenerationModalProps> = ({ isOpen,
         </div>
       </DialogContent>
     </Dialog>
+    </TooltipProvider>
   );
 };
 
