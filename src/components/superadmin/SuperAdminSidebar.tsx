@@ -11,7 +11,8 @@ import {
   Menu,
   X,
   Shield,
-  Mail
+  Mail,
+  Package
 } from 'lucide-react';
 import { SuperAdminSection } from '@/pages/SuperAdmin';
 
@@ -31,6 +32,7 @@ export const SuperAdminSidebar: React.FC<SuperAdminSidebarProps> = ({
     { id: 'users' as SuperAdminSection, label: 'Users', icon: Users },
     { id: 'payments' as SuperAdminSection, label: 'Payments', icon: CreditCard },
     { id: 'accounts' as SuperAdminSection, label: 'Accounts', icon: UserPlus },
+    { id: 'subscription-plans' as SuperAdminSection, label: 'Subscription Plans', icon: Package },
     { id: 'invoices' as SuperAdminSection, label: 'Invoices', icon: FileText },
     { id: 'activity' as SuperAdminSection, label: 'Activity Logs', icon: Activity },
     { id: 'email' as SuperAdminSection, label: 'Email', icon: Mail },
