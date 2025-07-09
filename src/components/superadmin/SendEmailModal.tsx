@@ -31,7 +31,7 @@ export const SendEmailModal: React.FC<SendEmailModalProps> = ({ user, isOpen, on
   const { toast } = useToast();
 
   const emailTemplates = [
-    { value: '', label: 'Custom Message' },
+    { value: 'custom', label: 'Custom Message' },
     { value: 'welcome', label: 'Welcome Message' },
     { value: 'payment_reminder', label: 'Payment Reminder' },
     { value: 'account_update', label: 'Account Update' },
