@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
+import { ConfirmActionModal } from './ConfirmActionModal';
 
 interface SubscriptionPlan {
   id: number;
@@ -91,6 +92,16 @@ export const SuperAdminSubscriptionPlans: React.FC = () => {
   const [plans, setPlans] = useState<SubscriptionPlan[]>(mockPlans);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null);
+  const [deleteConfirmation, setDeleteConfirmation] = useState<{
+    isOpen: boolean;
+    planId: number | null;
+    planName: string;
+  }>({
+    isOpen: false,
+    planId: null,
+    planName: ''
+  });
+  const [isDeleting, setIsDeleting] = useState(false);
   const { toast } = useToast();
 
   // Form state
@@ -212,11 +223,41 @@ export const SuperAdminSubscriptionPlans: React.FC = () => {
     });
   };
 
-  const handleDeletePlan = (planId: number) => {
-    setPlans(plans.filter(p => p.id !== planId));
+  const handleDeleteClick = (plan: SubscriptionPlan) => {
+    setDeleteConfirmation({
+      isOpen: true,
+      planId: plan.id,
+      planName: plan.name
+    });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteConfirmation.planId) return;
+    
+    setIsDeleting(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setPlans(plans.filter(p => p.id !== deleteConfirmation.planId));
+    setDeleteConfirmation({
+      isOpen: false,
+      planId: null,
+      planName: ''
+    });
+    setIsDeleting(false);
+    
     toast({
       title: "Plan Deleted",
       description: "Subscription plan has been deleted successfully.",
+    });
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteConfirmation({
+      isOpen: false,
+      planId: null,
+      planName: ''
     });
   };
 
@@ -604,7 +645,7 @@ export const SuperAdminSubscriptionPlans: React.FC = () => {
                           {plan.status === 'active' ? 'Deactivate' : 'Activate'}
                         </DropdownMenuItem>
                         <DropdownMenuItem 
-                          onClick={() => handleDeletePlan(plan.id)}
+                          onClick={() => handleDeleteClick(plan)}
                           className="text-red-600"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
@@ -619,6 +660,17 @@ export const SuperAdminSubscriptionPlans: React.FC = () => {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmActionModal
+        isOpen={deleteConfirmation.isOpen}
+        title="Are you sure you want to delete this plan?"
+        message={`This action cannot be undone. Deleting the plan "${deleteConfirmation.planName}" will remove it permanently from the system.`}
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+        confirmButtonText="Delete Plan"
+        isDestructive={true}
+      />
     </div>
   );
 };
