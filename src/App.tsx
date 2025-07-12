@@ -24,6 +24,7 @@ import Landing from "./pages/Landing";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import SupportCenter from "./pages/SupportCenter";
+import PharmacyDemo from "./pages/PharmacyDemo";
 import { CategoryPage } from "./components/support/CategoryPage";
 import { TutorialPage } from "./components/support/TutorialPage";
 
@@ -54,6 +55,7 @@ const AppContent = () => {
         <Route path="/verify-2fa" element={<TwoFactorVerification />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/landing" element={<Landing />} />
+        <Route path="/pharmacy-demo" element={<PharmacyDemo />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
