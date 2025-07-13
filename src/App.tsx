@@ -24,6 +24,7 @@ import Landing from "./pages/Landing";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import SupportCenter from "./pages/SupportCenter";
+import PharmacyContact from "./pages/PharmacyContact";
 import { CategoryPage } from "./components/support/CategoryPage";
 import { TutorialPage } from "./components/support/TutorialPage";
 
@@ -45,6 +46,7 @@ const AppContent = () => {
         <Route path="/support" element={<SupportCenter />} />
         <Route path="/support/:categorySlug" element={<CategoryPage />} />
         <Route path="/support/:categorySlug/:tutorialSlug" element={<TutorialPage />} />
+        <Route path="/pharmacy-contact" element={<PharmacyContact />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/super-admin" element={<SuperAdmin />} />
         <Route path="/super-admin-login" element={<SuperAdminLogin />} />
