@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ConfirmActionModal } from './ConfirmActionModal';
+import { EditUserModal } from './EditUserModal';
 
 interface AdminUser {
   id: string;
@@ -72,6 +73,8 @@ export const SuperAdminRoles: React.FC = () => {
   const [isManagePermissionsOpen, setIsManagePermissionsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [confirmAction, setConfirmAction] = useState<{ isOpen: boolean; action: () => void; title: string; message: string } | null>(null);
+  const [isEditUserOpen, setIsEditUserOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   
   const [newUser, setNewUser] = useState({
     firstName: '',
@@ -105,6 +108,17 @@ export const SuperAdminRoles: React.FC = () => {
 
   const handleDeleteUser = (userId: string) => {
     setUsers(users.filter(user => user.id !== userId));
+  };
+
+  const handleEditUser = (user: AdminUser) => {
+    setSelectedUser(user);
+    setIsEditUserOpen(true);
+  };
+
+  const handleSaveUser = (updatedUser: AdminUser) => {
+    setUsers(users.map(user => 
+      user.id === updatedUser.id ? updatedUser : user
+    ));
   };
 
   const handleManagePermissions = (role: Role) => {
@@ -280,7 +294,11 @@ export const SuperAdminRoles: React.FC = () => {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
-                            <Button variant="ghost" size="sm">
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => handleEditUser(user)}
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
                             <Button 
@@ -373,6 +391,14 @@ export const SuperAdminRoles: React.FC = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Edit User Modal */}
+      <EditUserModal
+        isOpen={isEditUserOpen}
+        onClose={() => setIsEditUserOpen(false)}
+        user={selectedUser}
+        onSave={handleSaveUser}
+      />
 
       {/* Confirmation Modal */}
       {confirmAction && (
