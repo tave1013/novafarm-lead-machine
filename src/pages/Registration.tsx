@@ -546,35 +546,79 @@ const Registration = () => {
       <div className="max-w-4xl mx-auto">
         {/* Progress Steps */}
         <div className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              const isActive = currentStep === step.number;
-              const isCompleted = currentStep > step.number;
-              
-              return (
-                <div key={step.number} className="flex items-center">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                    isCompleted ? 'bg-[#078147] border-[#078147] text-white' :
-                    isActive ? 'border-[#078147] text-[#078147]' : 'border-gray-300 text-gray-300'
-                  }`}>
-                    {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
+          {/* Desktop version */}
+          <div className="hidden md:block">
+            <div className="flex justify-between items-center mb-4">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
+                const isActive = currentStep === step.number;
+                const isCompleted = currentStep > step.number;
+                
+                return (
+                  <div key={step.number} className="flex items-center">
+                    <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+                      isCompleted ? 'bg-[#078147] border-[#078147] text-white' :
+                      isActive ? 'border-[#078147] text-[#078147]' : 'border-gray-300 text-gray-300'
+                    }`}>
+                      {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
+                    </div>
+                    {index < steps.length - 1 && (
+                      <div className={`h-1 w-20 mx-4 ${isCompleted ? 'bg-[#078147]' : 'bg-gray-300'}`} />
+                    )}
                   </div>
-                  {index < steps.length - 1 && (
-                    <div className={`h-1 w-20 mx-4 ${isCompleted ? 'bg-[#078147]' : 'bg-gray-300'}`} />
-                  )}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            <div className="flex justify-between">
+              {steps.map((step) => (
+                <span key={step.number} className={`text-sm font-medium ${
+                  currentStep === step.number ? 'text-[#078147]' : 'text-gray-500'
+                }`}>
+                  {step.title}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="flex justify-between">
-            {steps.map((step) => (
-              <span key={step.number} className={`text-sm font-medium ${
-                currentStep === step.number ? 'text-[#078147]' : 'text-gray-500'
-              }`}>
-                {step.title}
+
+          {/* Mobile version */}
+          <div className="md:hidden">
+            <div className="text-center mb-4">
+              <span className="text-sm text-gray-600">
+                Step {currentStep} of {steps.length}
               </span>
-            ))}
+            </div>
+            <div className="flex items-center justify-center mb-4">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
+                const isActive = currentStep === step.number;
+                const isCompleted = currentStep > step.number;
+                
+                if (isActive) {
+                  return (
+                    <div key={step.number} className="flex flex-col items-center">
+                      <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-[#078147] text-[#078147] bg-white">
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <span className="mt-2 text-sm font-medium text-[#078147] text-center max-w-[80px]">
+                        {step.title}
+                      </span>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={step.number} className={`w-2 h-2 rounded-full mx-1 ${
+                      isCompleted ? 'bg-[#078147]' : 'bg-gray-300'
+                    }`} />
+                  );
+                }
+              })}
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-1">
+              <div 
+                className="bg-[#078147] h-1 rounded-full transition-all duration-300"
+                style={{ width: `${(currentStep / steps.length) * 100}%` }}
+              />
+            </div>
           </div>
         </div>
 
